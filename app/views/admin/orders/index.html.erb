@@ -25,6 +25,7 @@
         <th class="text-left font-medium px-5 py-3">Amount</th>
         <th class="text-left font-medium px-5 py-3">Location</th>
         <th class="text-left font-medium px-5 py-3">Status</th>
+        <th class="text-left font-medium px-5 py-3">Email</th>
         <th class="text-left font-medium px-5 py-3">Date</th>
       </tr>
     </thead>
@@ -46,12 +47,22 @@
               <%= order.status %>
             </span>
           </td>
+          <td class="px-5 py-3">
+            <% if order.status != "paid" %>
+              <span class="text-gray-400">—</span>
+            <% elsif order.download_email_sent_at %>
+              <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                    title="Sent <%= order.download_email_sent_at.strftime('%d %b %Y, %H:%M') %>">Sent</span>
+            <% else %>
+              <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Not sent</span>
+            <% end %>
+          </td>
           <td class="px-5 py-3 text-gray-500"><%= order.created_at.strftime("%d %b %Y, %H:%M") %></td>
         </tr>
       <% end %>
 
       <% if @orders.empty? %>
-        <tr><td colspan="6" class="px-5 py-6 text-center text-gray-400">No orders match.</td></tr>
+        <tr><td colspan="7" class="px-5 py-6 text-center text-gray-400">No orders match.</td></tr>
       <% end %>
     </tbody>
   </table>

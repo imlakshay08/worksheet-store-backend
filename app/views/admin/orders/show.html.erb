@@ -12,6 +12,13 @@
   <% end %>
 </div>
 
+<% if @order.status == "paid" && @order.download_email_sent_at.nil? %>
+  <div class="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800 max-w-4xl">
+    ⚠ This order is <strong>paid</strong> but the download email has <strong>not been sent</strong> yet.
+    Use “Resend download email” above to deliver it to the customer.
+  </div>
+<% end %>
+
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl">
   <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
     <div class="px-5 py-3 text-sm font-semibold text-gray-900">Customer</div>

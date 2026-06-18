@@ -47,6 +47,7 @@ class Order < ApplicationRecord
       {
         from: "French Worksheet Hub <worksheets@frenchworksheethub.com>",
         to: email,
+        reply_to: "nidhityagi2291@gmail.com",
         subject: "Your worksheet is ready: #{product.title}",
         html: download_email_html,
         text: download_email_text
@@ -80,6 +81,10 @@ class Order < ApplicationRecord
 
       Download it here (link valid for 30 days):
       #{download_url}
+
+      Need help? Didn't get everything, or having trouble opening the PDF?
+      Message us on WhatsApp: https://wa.me/918851137555
+      or just reply to this email and we'll sort it out.
 
       Merci,
       Nidhi Tyagi — French Worksheet Hub
@@ -169,6 +174,21 @@ class Order < ApplicationRecord
                     <p style="margin:0 0 6px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#5b6478;">Button not working? Copy and paste this link into your browser:</p>
                     <p style="margin:0 0 16px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; word-break:break-all;"><a href="#{url}" style="color:#c1432e;">#{url}</a></p>
                     <p style="margin:0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#5b6478;">🔒 This link is valid for 30 days and can be used a few times — please save your PDF after downloading.</p>
+                  </td>
+                </tr>
+
+                <!-- support -->
+                <tr>
+                  <td style="padding:0 36px 26px 36px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #ece4d3;">
+                      <tr>
+                        <td style="padding-top:16px; font-family:Arial,Helvetica,sans-serif; font-size:13px; line-height:1.6; color:#5b6478;">
+                          <strong style="color:#1f2a3c;">Need help?</strong> Didn't get everything, or having trouble opening the PDF?
+                          <a href="https://wa.me/918851137555" style="color:#c1432e;">Message us on WhatsApp</a>
+                          or just reply to this email — we'll sort it out quickly.
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
 

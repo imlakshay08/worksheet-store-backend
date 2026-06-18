@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "minitest/mock"
 
 module ActiveSupport
   class TestCase
@@ -11,5 +12,15 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+  end
+end
+
+class ActionDispatch::IntegrationTest
+  # Logs in as the admin using the password stored in credentials.
+  def sign_in_admin
+    post admin_login_path, params: {
+      username: "nidhi",
+      password: Rails.application.credentials.dig(:admin, :password)
+    }
   end
 end

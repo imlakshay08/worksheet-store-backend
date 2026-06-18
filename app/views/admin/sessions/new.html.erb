@@ -1,0 +1,27 @@
+<div class="w-full max-w-sm bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+  <h1 class="text-xl font-semibold text-gray-900">Worksheet Hub</h1>
+  <p class="text-sm text-gray-500 mt-1 mb-6">Sign in to the admin panel</p>
+
+  <% if alert %>
+    <div class="mb-4 rounded-md bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-800">
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <%= form_with url: admin_login_path, method: :post do |f| %>
+    <div class="mb-4">
+      <%= f.label :username, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :username, autofocus: true, autocomplete: "username",
+            class: "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :password, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.password_field :password, autocomplete: "current-password",
+            class: "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+    </div>
+
+    <%= f.submit "Sign in",
+          class: "w-full bg-gray-900 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
+  <% end %>
+</div>

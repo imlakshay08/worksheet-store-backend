@@ -1,34 +1,45 @@
-<h1>Worksheets</h1>
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-semibold text-gray-900">Worksheets</h1>
+  <%= link_to "+ Add worksheet", admin_new_product_path,
+        class: "bg-gray-900 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-800" %>
+</div>
 
-<% if notice %>
-  <p style="color: green;"><%= notice %></p>
-<% end %>
-
-<%= link_to "Add new worksheet", admin_new_product_path %>
-
-<table border="1" cellpadding="8">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Price</th>
-      <th>Active?</th>
-      <th>PDF attached?</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @products.each do |product| %>
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-gray-50 text-gray-500">
       <tr>
-        <td><%= product.title %></td>
-        <td>₹<%= product.price_in_paise / 100.0 %></td>
-        <td><%= product.active? ? "Yes" : "No" %></td>
-        <td><%= product.worksheet_pdf.attached? ? "Yes" : "No" %></td>
-        <td>
-          <%= link_to "Edit", admin_edit_product_path(product) %>
-          |
-          <%= button_to "Delete", admin_product_path(product), method: :delete %>
-        </td>
+        <th class="text-left font-medium px-5 py-3">Title</th>
+        <th class="text-left font-medium px-5 py-3">Price</th>
+        <th class="text-left font-medium px-5 py-3">Active</th>
+        <th class="text-left font-medium px-5 py-3">PDF</th>
+        <th class="px-5 py-3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody class="divide-y divide-gray-100">
+      <% @products.each do |product| %>
+        <tr class="hover:bg-gray-50">
+          <td class="px-5 py-3 font-medium text-gray-900"><%= product.title %></td>
+          <td class="px-5 py-3"><%= number_to_currency(product.price_in_paise.to_i / 100.0, unit: "₹", precision: 0) %></td>
+          <td class="px-5 py-3">
+            <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium
+              <%= product.active? ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600" %>">
+              <%= product.active? ? "Active" : "Inactive" %>
+            </span>
+          </td>
+          <td class="px-5 py-3"><%= product.worksheet_pdf.attached? ? "✓" : "—" %></td>
+          <td class="px-5 py-3 text-right whitespace-nowrap">
+            <%= link_to "Edit", admin_edit_product_path(product),
+                  class: "text-indigo-600 hover:text-indigo-800 mr-3" %>
+            <%= button_to "Delete", admin_product_path(product), method: :delete,
+                  form: { class: "inline", data: { turbo_confirm: "Delete this worksheet?" } },
+                  class: "text-red-600 hover:text-red-800" %>
+          </td>
+        </tr>
+      <% end %>
+
+      <% if @products.empty? %>
+        <tr><td colspan="5" class="px-5 py-6 text-center text-gray-400">No worksheets yet.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

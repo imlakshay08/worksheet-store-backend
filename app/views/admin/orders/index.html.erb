@@ -1,0 +1,58 @@
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-semibold text-gray-900">Orders</h1>
+</div>
+
+<%= form_with url: admin_orders_path, method: :get do |f| %>
+  <div class="flex flex-wrap gap-3 mb-6">
+    <%= f.text_field :email, value: params[:email], placeholder: "Search by email or name",
+          class: "rounded-md border border-gray-300 px-3 py-2 text-sm w-64 focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+    <%= f.select :status,
+          options_for_select([["All statuses", ""], ["Paid", "paid"], ["Pending", "pending"]], params[:status]),
+          {},
+          class: "rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+    <%= f.submit "Filter",
+          class: "bg-gray-900 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
+    <%= link_to "Reset", admin_orders_path, class: "px-4 py-2 text-sm text-gray-600 hover:text-gray-900" %>
+  </div>
+<% end %>
+
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  <table class="w-full text-sm">
+    <thead class="bg-gray-50 text-gray-500">
+      <tr>
+        <th class="text-left font-medium px-5 py-3">Customer</th>
+        <th class="text-left font-medium px-5 py-3">Product</th>
+        <th class="text-left font-medium px-5 py-3">Amount</th>
+        <th class="text-left font-medium px-5 py-3">Location</th>
+        <th class="text-left font-medium px-5 py-3">Status</th>
+        <th class="text-left font-medium px-5 py-3">Date</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100">
+      <% @orders.each do |order| %>
+        <tr class="hover:bg-gray-50">
+          <td class="px-5 py-3">
+            <%= link_to admin_order_path(order), class: "text-indigo-600 hover:text-indigo-800 font-medium" do %>
+              <%= order.name.presence || order.email.presence || "—" %>
+            <% end %>
+            <div class="text-xs text-gray-400"><%= order.email %></div>
+          </td>
+          <td class="px-5 py-3"><%= order.product&.title %></td>
+          <td class="px-5 py-3"><%= number_to_currency(order.amount_in_rupees, unit: "₹", precision: 0) %></td>
+          <td class="px-5 py-3 text-gray-500"><%= [order.city, order.country].compact_blank.join(", ").presence || "—" %></td>
+          <td class="px-5 py-3">
+            <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium
+              <%= order.status == "paid" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800" %>">
+              <%= order.status %>
+            </span>
+          </td>
+          <td class="px-5 py-3 text-gray-500"><%= order.created_at.strftime("%d %b %Y, %H:%M") %></td>
+        </tr>
+      <% end %>
+
+      <% if @orders.empty? %>
+        <tr><td colspan="6" class="px-5 py-6 text-center text-gray-400">No orders match.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

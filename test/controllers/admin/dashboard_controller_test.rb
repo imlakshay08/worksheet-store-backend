@@ -1,14 +1,14 @@
 require "test_helper"
 
-class Admin::ProductsControllerTest < ActionDispatch::IntegrationTest
+class Admin::DashboardControllerTest < ActionDispatch::IntegrationTest
   test "redirects to login when signed out" do
-    get admin_products_path
+    get admin_root_path
     assert_redirected_to admin_login_path
   end
 
-  test "lists products when signed in" do
+  test "renders the dashboard when signed in" do
     sign_in_admin
-    get admin_products_path
+    get admin_root_path
     assert_response :success
   end
 end

@@ -1,0 +1,70 @@
+<h1 class="text-2xl font-semibold text-gray-900 mb-6">Dashboard</h1>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+  <div class="bg-white rounded-xl border border-gray-200 p-5">
+    <p class="text-sm text-gray-500">Total revenue (paid)</p>
+    <p class="text-2xl font-semibold text-gray-900 mt-1">
+      <%= number_to_currency(@total_revenue_paise.to_i / 100.0, unit: "₹", precision: 0) %>
+    </p>
+  </div>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5">
+    <p class="text-sm text-gray-500">Orders today</p>
+    <p class="text-2xl font-semibold text-gray-900 mt-1"><%= @orders_today %></p>
+    <p class="text-xs text-gray-400 mt-1"><%= @orders_this_week %> this week</p>
+  </div>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5">
+    <p class="text-sm text-gray-500">Products</p>
+    <p class="text-2xl font-semibold text-gray-900 mt-1"><%= @total_products %></p>
+    <p class="text-xs text-gray-400 mt-1"><%= @active_products %> active</p>
+  </div>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col justify-between">
+    <p class="text-sm text-gray-500">Quick actions</p>
+    <%= link_to "+ Add worksheet", admin_new_product_path,
+          class: "mt-2 inline-block text-sm font-medium text-indigo-600 hover:text-indigo-800" %>
+  </div>
+</div>
+
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  <div class="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
+    <h2 class="text-sm font-semibold text-gray-900">Recent orders</h2>
+    <%= link_to "View all", admin_orders_path, class: "text-sm text-indigo-600 hover:text-indigo-800" %>
+  </div>
+
+  <table class="w-full text-sm">
+    <thead class="bg-gray-50 text-gray-500">
+      <tr>
+        <th class="text-left font-medium px-5 py-3">Customer</th>
+        <th class="text-left font-medium px-5 py-3">Product</th>
+        <th class="text-left font-medium px-5 py-3">Amount</th>
+        <th class="text-left font-medium px-5 py-3">Status</th>
+        <th class="text-left font-medium px-5 py-3">Date</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100">
+      <% @recent_orders.each do |order| %>
+        <tr class="hover:bg-gray-50">
+          <td class="px-5 py-3">
+            <%= link_to (order.name.presence || order.email.presence || "—"), admin_order_path(order),
+                  class: "text-indigo-600 hover:text-indigo-800" %>
+          </td>
+          <td class="px-5 py-3"><%= order.product&.title %></td>
+          <td class="px-5 py-3"><%= number_to_currency(order.amount_in_rupees, unit: "₹", precision: 0) %></td>
+          <td class="px-5 py-3">
+            <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium
+              <%= order.status == "paid" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800" %>">
+              <%= order.status %>
+            </span>
+          </td>
+          <td class="px-5 py-3 text-gray-500"><%= order.created_at.strftime("%d %b %Y, %H:%M") %></td>
+        </tr>
+      <% end %>
+
+      <% if @recent_orders.empty? %>
+        <tr><td colspan="5" class="px-5 py-6 text-center text-gray-400">No orders yet.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

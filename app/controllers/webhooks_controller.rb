@@ -12,7 +12,7 @@ class WebhooksController < ApplicationController
         signature,
         webhook_secret
       )
-    rescue Razorpay::SignatureVerificationError
+    rescue SecurityError
       render json: { error: "Invalid signature" }, status: :bad_request
       return
     end
@@ -20,27 +20,28 @@ class WebhooksController < ApplicationController
     event = JSON.parse(payload_body)
 
     if event["event"] == "payment.captured"
-      payment_entity = event["payload"]["payment"]["entity"]
-      razorpay_order_id = payment_entity["order_id"]
-      razorpay_payment_id = payment_entity["id"]
+      payment_entity = event.dig("payload", "payment", "entity") || {}
+      order = Order.find_by(razorpay_order_id: payment_entity["order_id"])
 
-      order = Order.find_by(razorpay_order_id: razorpay_order_id)
-
-      if order && order.status != "paid"
-        order.update!(
-          status: "paid",
-          razorpay_payment_id: razorpay_payment_id,
-          download_token: SecureRandom.urlsafe_base64(32)
-        )
-
-          Resend::Emails.send(
-            {
-              from: "French Worksheet Hub <worksheets@frenchworksheethub.com>",
-              to: order.email,
-              subject: "Your worksheet: #{order.product.title}",
-              html: "<p>Thanks for your purchase! Download your worksheet here:</p><p><a href=\"#{order.download_url}\">#{order.download_url}</a></p>"
-            }
+      if order
+        # Defense-in-depth: Razorpay binds the amount to the order, but flag any
+        # mismatch loudly in case of a future bug or tampering attempt.
+        if payment_entity["amount"].to_i != order.amount_in_paise
+          Rails.logger.warn(
+            "Razorpay amount mismatch for order #{order.id}: " \
+            "captured #{payment_entity['amount']} expected #{order.amount_in_paise}"
           )
+        end
+
+        # 1. Record the payment first so it's never lost, even if email fails.
+        if order.status != "paid"
+          order.update!(status: "paid", razorpay_payment_id: payment_entity["id"])
+        end
+
+        # 2. Deliver the download email exactly once. If this raises, the whole
+        #    action returns 500 and Razorpay retries the webhook later; the
+        #    payment is already recorded, so only the email step re-runs.
+        order.deliver_download_email! unless order.download_email_sent_at
       end
     end
 

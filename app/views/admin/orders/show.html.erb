@@ -1,0 +1,55 @@
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <%= link_to "← Back to orders", admin_orders_path, class: "text-sm text-indigo-600 hover:text-indigo-800" %>
+    <h1 class="text-2xl font-semibold text-gray-900 mt-2">Order #<%= @order.id %></h1>
+  </div>
+
+  <% if @order.status == "paid" %>
+    <%= button_to "Resend download email", admin_resend_email_order_path(@order),
+          method: :post,
+          form: { data: { turbo_confirm: "Re-send the worksheet download email to #{@order.email}?" } },
+          class: "bg-gray-900 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
+  <% end %>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl">
+  <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+    <div class="px-5 py-3 text-sm font-semibold text-gray-900">Customer</div>
+    <% [
+         ["Name",        @order.name],
+         ["Email",       @order.email],
+         ["Phone",       @order.phone],
+         ["Address",     @order.address_line],
+         ["City",        @order.city],
+         ["State",       @order.state],
+         ["Postal code", @order.postal_code],
+         ["Country",     @order.country]
+       ].each do |label, value| %>
+      <div class="flex px-5 py-3 text-sm">
+        <div class="w-36 text-gray-500"><%= label %></div>
+        <div class="flex-1 text-gray-900 break-words"><%= value.presence || "—" %></div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+    <div class="px-5 py-3 text-sm font-semibold text-gray-900">Order</div>
+    <% [
+         ["Product",             @order.product&.title],
+         ["Amount",              number_to_currency(@order.amount_in_rupees, unit: "₹", precision: 0)],
+         ["Status",              @order.status],
+         ["Razorpay order ID",   @order.razorpay_order_id],
+         ["Razorpay payment ID", @order.razorpay_payment_id],
+         ["Download email sent", @order.download_email_sent_at&.strftime("%d %b %Y, %H:%M")],
+         ["Download count",      "#{@order.download_count} of #{Order::DOWNLOAD_LIMIT}"],
+         ["Link expires",        @order.download_token_expires_at&.strftime("%d %b %Y, %H:%M")],
+         ["Created",             @order.created_at.strftime("%d %b %Y, %H:%M")],
+         ["Updated",             @order.updated_at.strftime("%d %b %Y, %H:%M")]
+       ].each do |label, value| %>
+      <div class="flex px-5 py-3 text-sm">
+        <div class="w-44 text-gray-500"><%= label %></div>
+        <div class="flex-1 text-gray-900 break-all"><%= value.presence || "—" %></div>
+      </div>
+    <% end %>
+  </div>
+</div>

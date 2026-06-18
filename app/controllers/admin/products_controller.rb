@@ -1,6 +1,4 @@
-class Admin::ProductsController < ActionController::Base
-  http_basic_authenticate_with name: "nidhi", password: Rails.application.credentials.dig(:admin, :password)
-  layout "admin"
+class Admin::ProductsController < Admin::BaseController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -36,8 +34,11 @@ class Admin::ProductsController < ActionController::Base
   end
 
   def destroy
-    @product.destroy
-    redirect_to admin_products_path, notice: "Worksheet deleted."
+    if @product.destroy
+      redirect_to admin_products_path, notice: "Worksheet deleted."
+    else
+      redirect_to admin_products_path, alert: @product.errors.full_messages.to_sentence
+    end
   end
 
   private

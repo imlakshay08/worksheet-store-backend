@@ -1,51 +1,104 @@
-<div class="w-full max-w-sm bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-  <h1 class="text-xl font-semibold text-gray-900">Worksheet Hub</h1>
-  <p class="text-sm text-gray-500 mt-1 mb-6">Sign in to the admin panel</p>
+<style>
+  .font-display { font-family: 'Fraunces', serif; }
+  .font-ui { font-family: 'IBM Plex Sans', sans-serif; }
 
-  <% if alert %>
-    <div class="mb-4 rounded-md bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-800">
-      <%= alert %>
+  @media (prefers-reduced-motion: no-preference) {
+    .cahier-card {
+      animation: cahier-in .5s cubic-bezier(.16,1,.3,1) both;
+    }
+    @keyframes cahier-in {
+      from { opacity: 0; transform: translateY(10px) rotate(-1deg); }
+      to   { opacity: 1; transform: translateY(0) rotate(-1deg); }
+    }
+  }
+</style>
+
+<div class="min-h-screen flex items-center justify-center px-4"
+     style="background-color:#3A1418; background-image: radial-gradient(circle at 25% 15%, rgba(255,255,255,.05), transparent 45%), radial-gradient(circle at 85% 95%, rgba(0,0,0,.3), transparent 55%);">
+
+  <div class="relative w-full max-w-sm">
+
+    <!-- binder punch holes -->
+    <div class="hidden sm:flex absolute -left-10 top-12 flex-col gap-7">
+      <% 3.times do %>
+        <span class="block w-3 h-3 rounded-full bg-[#2A0E10]"
+              style="box-shadow: inset 0 1px 3px rgba(0,0,0,.7), 0 1px 0 rgba(255,255,255,.04);"></span>
+      <% end %>
     </div>
-  <% end %>
 
-  <%= form_with url: admin_login_path, method: :post do |f| %>
-    <div class="mb-4">
-      <%= f.label :username, class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.text_field :username, autofocus: true, autocomplete: "username",
-            class: "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
-    </div>
+    <!-- the label / login card -->
+    <div class="cahier-card -rotate-1 bg-[#F6EFDD] border border-[#e2d6b8] rounded-sm px-8 py-9"
+         style="box-shadow: 0 25px 50px -12px rgba(0,0,0,.5), 0 2px 0 rgba(0,0,0,.06);">
 
-    <div class="mb-6">
-      <%= f.label :password, class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <div class="relative">
-        <%= f.password_field :password, autocomplete: "current-password", id: "admin-password",
-              class: "w-full rounded-md border border-gray-300 px-3 py-2 pr-10 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
-        <button type="button" id="toggle-password" aria-label="Show password"
-                class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600">
-          <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      <div class="h-[3px] bg-[#A8362B] mb-1"></div>
+      <div class="h-px bg-[#A8362B] opacity-60 mb-5"></div>
+
+      <p class="font-ui text-[11px] tracking-[0.2em] font-semibold uppercase text-[#A8362B] mb-1">
+        Admin Access
+      </p>
+      <h1 class="font-display text-3xl font-semibold text-[#211A14] mb-1">
+        Worksheet Hub
+      </h1>
+      <p class="font-ui text-sm text-[#5b5147] mb-7">
+        Manage your worksheets, orders &amp; customers.
+      </p>
+
+      <% if alert %>
+        <div class="flex items-start gap-2 px-3 py-2 mb-5 rounded-sm bg-[#FBF0EC] border border-[#A8362B]">
+          <svg class="w-4 h-4 mt-0.5 shrink-0 text-[#A8362B]" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 10-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 10-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd"/>
           </svg>
-          <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.892 7.892L21 21m-3.65-3.65a3 3 0 01-4.243-4.243m4.242 4.242L9.88 9.88" />
-          </svg>
-        </button>
-      </div>
-    </div>
+          <span class="font-ui text-sm text-[#7a1f17]"><%= alert %></span>
+        </div>
+      <% end %>
 
-    <%= f.submit "Sign in",
-          class: "w-full bg-gray-900 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
-  <% end %>
+      <%= form_with url: admin_login_path, method: :post do |f| %>
+        <div class="mb-4">
+          <%= f.label :username, "Username",
+                class: "font-ui block text-[11px] tracking-[0.15em] font-semibold uppercase text-[#8a7d63] mb-1.5" %>
+          <%= f.text_field :username, autofocus: true, autocomplete: "username",
+                class: "font-ui w-full bg-white/60 rounded-sm border border-[#d8c9a3] px-3 py-2.5 text-sm text-[#211A14]
+                        focus:outline-none focus:border-[#A8362B] focus:ring-2 focus:ring-[#A8362B]/20 transition-colors" %>
+        </div>
+
+        <div class="mb-7">
+          <%= f.label :password, "Password",
+                class: "font-ui block text-[11px] tracking-[0.15em] font-semibold uppercase text-[#8a7d63] mb-1.5" %>
+          <div class="relative">
+            <%= f.password_field :password, autocomplete: "current-password", id: "admin-password",
+                  class: "font-ui w-full bg-white/60 rounded-sm border border-[#d8c9a3] px-3 py-2.5 pr-10 text-sm text-[#211A14]
+                          focus:outline-none focus:border-[#A8362B] focus:ring-2 focus:ring-[#A8362B]/20 transition-colors" %>
+            <button type="button" id="toggle-password" aria-label="Show password"
+                    class="absolute inset-y-0 right-0 flex items-center px-3 text-[#a89a78] hover:text-[#A8362B]
+                           focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#A8362B] rounded-sm transition-colors">
+              <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.892 7.892L21 21m-3.65-3.65a3 3 0 01-4.243-4.243m4.242 4.242L9.88 9.88" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <%= f.submit "Sign in",
+              class: "font-ui w-full rounded-sm px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.1em] cursor-pointer
+                      bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22]
+                      motion-safe:transition-transform motion-safe:active:scale-[0.98]
+                      focus-visible:ring-2 focus-visible:ring-[#F6EFDD] focus-visible:ring-offset-2 focus-visible:ring-offset-[#A8362B]" %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <script>
   (function () {
-    var btn      = document.getElementById("toggle-password");
-    var input    = document.getElementById("admin-password");
-    var eyeOpen  = document.getElementById("eye-open");
+    var btn = document.getElementById("toggle-password");
+    var input = document.getElementById("admin-password");
+    var eyeOpen = document.getElementById("eye-open");
     var eyeClosed = document.getElementById("eye-closed");
     if (!btn || !input) return;
-
     btn.addEventListener("click", function () {
       var reveal = input.type === "password";
       input.type = reveal ? "text" : "password";

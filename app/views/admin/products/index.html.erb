@@ -1,12 +1,13 @@
-<div class="flex items-center justify-between mb-6">
-  <h1 class="text-2xl font-semibold text-gray-900">Worksheets</h1>
+<div class="flex items-center justify-between mb-1">
+  <h1 class="font-display text-2xl font-semibold text-[#211A14]">Worksheets</h1>
   <%= link_to "+ Add worksheet", admin_new_product_path,
-        class: "bg-gray-900 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-800" %>
+        class: "inline-flex items-center bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-4 py-2 text-sm font-medium transition-colors" %>
 </div>
+<div class="h-0.5 w-10 bg-[#A8362B] mb-6"></div>
 
-<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+<div class="bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden">
   <table class="w-full text-sm">
-    <thead class="bg-gray-50 text-gray-500">
+    <thead class="text-[#9C8C72] border-b border-[#EFE7D2]">
       <tr>
         <th class="text-left font-medium px-5 py-3">Title</th>
         <th class="text-left font-medium px-5 py-3">Price</th>
@@ -15,30 +16,30 @@
         <th class="px-5 py-3"></th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-100">
+    <tbody class="divide-y divide-[#EFE7D2]">
       <% @products.each do |product| %>
-        <tr class="hover:bg-gray-50">
-          <td class="px-5 py-3 font-medium text-gray-900"><%= product.title %></td>
+        <tr class="hover:bg-[#FAF6EC]">
+          <td class="px-5 py-3 font-medium text-[#211A14]"><%= product.title %></td>
           <td class="px-5 py-3"><%= number_to_currency(product.price_in_paise.to_i / 100.0, unit: "₹", precision: 0) %></td>
           <td class="px-5 py-3">
-            <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium
-              <%= product.active? ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600" %>">
+            <span class="inline-flex px-2 py-0.5 rounded-md text-xs font-medium border
+              <%= product.active? ? "bg-[#E5EEE0] text-[#2F5233] border-[#2F5233]/25" : "bg-[#EFE7D2] text-[#6b5f4f] border-[#9C8C72]/25" %>">
               <%= product.active? ? "Active" : "Inactive" %>
             </span>
           </td>
-          <td class="px-5 py-3"><%= product.worksheet_pdf.attached? ? "✓" : "—" %></td>
+          <td class="px-5 py-3 text-[#6b5f4f]"><%= product.worksheet_pdf.attached? ? "✓" : "—" %></td>
           <td class="px-5 py-3 text-right whitespace-nowrap">
             <%= link_to "Edit", admin_edit_product_path(product),
-                  class: "text-indigo-600 hover:text-indigo-800 mr-3" %>
+                  class: "text-[#A8362B] hover:text-[#8f2c22] mr-3" %>
             <%= button_to "Delete", admin_product_path(product), method: :delete,
                   form: { class: "inline", data: { turbo_confirm: "Delete this worksheet?" } },
-                  class: "text-red-600 hover:text-red-800" %>
+                  class: "text-[#A8362B] hover:text-[#8f2c22] bg-transparent border-0 p-0 cursor-pointer" %>
           </td>
         </tr>
       <% end %>
 
       <% if @products.empty? %>
-        <tr><td colspan="5" class="px-5 py-6 text-center text-gray-400">No worksheets yet.</td></tr>
+        <tr><td colspan="5" class="px-5 py-6 text-center text-[#9C8C72]">No worksheets yet.</td></tr>
       <% end %>
     </tbody>
   </table>

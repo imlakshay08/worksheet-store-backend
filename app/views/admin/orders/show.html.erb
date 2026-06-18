@@ -1,62 +1,67 @@
-<div class="flex items-center justify-between mb-6">
+<div class="flex items-end justify-between mb-1">
   <div>
-    <%= link_to "← Back to orders", admin_orders_path, class: "text-sm text-indigo-600 hover:text-indigo-800" %>
-    <h1 class="text-2xl font-semibold text-gray-900 mt-2">Order #<%= @order.id %></h1>
+    <%= link_to "← Back to orders", admin_orders_path, class: "text-sm text-[#A8362B] hover:text-[#8f2c22]" %>
+    <h1 class="font-display text-2xl font-semibold text-[#211A14] mt-2">Order #<%= @order.id %></h1>
   </div>
 
   <% if @order.status == "paid" %>
     <%= button_to "Resend download email", admin_resend_email_order_path(@order),
           method: :post,
           form: { data: { turbo_confirm: "Re-send the worksheet download email to #{@order.email}?" } },
-          class: "bg-gray-900 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
+          class: "bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-4 py-2 text-sm font-medium cursor-pointer transition-colors" %>
   <% end %>
 </div>
+<div class="h-0.5 w-10 bg-[#A8362B] mb-6"></div>
 
 <% if @order.status == "paid" && @order.download_email_sent_at.nil? %>
-  <div class="mb-6 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800 max-w-4xl">
+  <div class="mb-6 rounded-md bg-[#FBF0EC] border border-[#A8362B] px-4 py-3 text-sm text-[#7a1f17] max-w-4xl">
     ⚠ This order is <strong>paid</strong> but the download email has <strong>not been sent</strong> yet.
     Use “Resend download email” above to deliver it to the customer.
   </div>
 <% end %>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl">
-  <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
-    <div class="px-5 py-3 text-sm font-semibold text-gray-900">Customer</div>
-    <% [
-         ["Name",        @order.name],
-         ["Email",       @order.email],
-         ["Phone",       @order.phone],
-         ["Address",     @order.address_line],
-         ["City",        @order.city],
-         ["State",       @order.state],
-         ["Postal code", @order.postal_code],
-         ["Country",     @order.country]
-       ].each do |label, value| %>
-      <div class="flex px-5 py-3 text-sm">
-        <div class="w-36 text-gray-500"><%= label %></div>
-        <div class="flex-1 text-gray-900 break-words"><%= value.presence || "—" %></div>
-      </div>
-    <% end %>
+  <div class="bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden">
+    <div class="px-5 py-3 border-b border-[#A8362B] text-sm font-medium text-[#211A14]">Customer</div>
+    <div class="divide-y divide-[#EFE7D2]">
+      <% [
+           ["Name",        @order.name],
+           ["Email",       @order.email],
+           ["Phone",       @order.phone],
+           ["Address",     @order.address_line],
+           ["City",        @order.city],
+           ["State",       @order.state],
+           ["Postal code", @order.postal_code],
+           ["Country",     @order.country]
+         ].each do |label, value| %>
+        <div class="flex px-5 py-3 text-sm">
+          <div class="w-36 text-[#9C8C72]"><%= label %></div>
+          <div class="flex-1 text-[#211A14] break-words"><%= value.presence || "—" %></div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div class="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
-    <div class="px-5 py-3 text-sm font-semibold text-gray-900">Order</div>
-    <% [
-         ["Product",             @order.product&.title],
-         ["Amount",              number_to_currency(@order.amount_in_rupees, unit: "₹", precision: 0)],
-         ["Status",              @order.status],
-         ["Razorpay order ID",   @order.razorpay_order_id],
-         ["Razorpay payment ID", @order.razorpay_payment_id],
-         ["Download email sent", @order.download_email_sent_at&.strftime("%d %b %Y, %H:%M")],
-         ["Download count",      "#{@order.download_count} of #{Order::DOWNLOAD_LIMIT}"],
-         ["Link expires",        @order.download_token_expires_at&.strftime("%d %b %Y, %H:%M")],
-         ["Created",             @order.created_at.strftime("%d %b %Y, %H:%M")],
-         ["Updated",             @order.updated_at.strftime("%d %b %Y, %H:%M")]
-       ].each do |label, value| %>
-      <div class="flex px-5 py-3 text-sm">
-        <div class="w-44 text-gray-500"><%= label %></div>
-        <div class="flex-1 text-gray-900 break-all"><%= value.presence || "—" %></div>
-      </div>
-    <% end %>
+  <div class="bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden">
+    <div class="px-5 py-3 border-b border-[#A8362B] text-sm font-medium text-[#211A14]">Order</div>
+    <div class="divide-y divide-[#EFE7D2]">
+      <% [
+           ["Product",             @order.product&.title],
+           ["Amount",              number_to_currency(@order.amount_in_rupees, unit: "₹", precision: 0)],
+           ["Status",              @order.status],
+           ["Razorpay order ID",   @order.razorpay_order_id],
+           ["Razorpay payment ID", @order.razorpay_payment_id],
+           ["Download email sent", @order.download_email_sent_at&.strftime("%d %b %Y, %H:%M")],
+           ["Download count",      "#{@order.download_count} of #{Order::DOWNLOAD_LIMIT}"],
+           ["Link expires",        @order.download_token_expires_at&.strftime("%d %b %Y, %H:%M")],
+           ["Created",             @order.created_at.strftime("%d %b %Y, %H:%M")],
+           ["Updated",             @order.updated_at.strftime("%d %b %Y, %H:%M")]
+         ].each do |label, value| %>
+        <div class="flex px-5 py-3 text-sm">
+          <div class="w-44 text-[#9C8C72]"><%= label %></div>
+          <div class="flex-1 text-[#211A14] break-all"><%= value.presence || "—" %></div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

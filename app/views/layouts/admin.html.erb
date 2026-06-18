@@ -2,43 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Worksheet Admin</title>
+  <title>Worksheet Hub Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .font-display { font-family: 'Fraunces', serif; }
+    .font-ui { font-family: 'IBM Plex Sans', sans-serif; }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="font-ui bg-[#FAF6EC] text-[#211A14]">
   <div class="min-h-screen flex">
-    <aside class="w-60 shrink-0 bg-gray-900 text-gray-100 flex flex-col">
-      <div class="px-6 py-5 text-lg font-semibold border-b border-gray-800">
-        Worksheet Hub
-      </div>
+    <aside class="w-44 shrink-0 bg-[#3A1418] text-[#C9B89E] flex flex-col px-4 py-5">
+      <div class="font-display text-lg font-semibold text-[#F6EFDD] mb-1">Worksheet Hub</div>
+      <div class="h-0.5 w-7 bg-[#A8362B] mb-5"></div>
 
-      <nav class="flex-1 px-3 py-4 space-y-1">
-        <%= link_to "Dashboard", admin_root_path,    class: nav_link_class(controller_name == "dashboard") %>
-        <%= link_to "Products",  admin_products_path, class: nav_link_class(controller_name == "products") %>
-        <%= link_to "Orders",    admin_orders_path,   class: nav_link_class(controller_name == "orders") %>
+      <nav class="flex-1 space-y-1">
+        <% [
+             ["Dashboard", admin_root_path,     "dashboard"],
+             ["Products",  admin_products_path, "products"],
+             ["Orders",    admin_orders_path,   "orders"]
+           ].each do |label, path, key| %>
+          <% active = controller_name == key %>
+          <%= link_to path,
+                class: "relative flex items-center gap-2 pl-3 pr-2 py-2 rounded-md text-sm transition-colors
+                        #{active ? 'bg-white/5 text-[#F6EFDD]' : 'text-[#C9B89E] hover:text-[#F6EFDD] hover:bg-white/5'}" do %>
+            <% if active %>
+              <span class="absolute left-0 top-0.5 bottom-0.5 w-[3px] bg-[#A8362B] rounded-r-sm"></span>
+            <% end %>
+            <%= label %>
+          <% end %>
+        <% end %>
       </nav>
 
-      <div class="px-3 py-4 border-t border-gray-800">
-        <p class="px-3 pb-2 text-xs text-gray-400 truncate">Signed in as nidhi</p>
+      <div class="border-t border-white/10 pt-3 mt-3">
+        <p class="text-[11px] text-[#9C8C72] mb-2 truncate">Signed in as nidhi</p>
         <%= button_to "Logout", admin_logout_path, method: :delete,
-              class: "w-full text-left px-3 py-2 rounded-md text-sm text-gray-300 hover:bg-gray-800" %>
+              class: "w-full text-left text-sm text-[#C9B89E] hover:text-[#F6EFDD] bg-transparent border-0 px-0 py-1 cursor-pointer" %>
       </div>
     </aside>
 
     <main class="flex-1 p-8 max-w-6xl">
       <% if notice %>
-        <div class="mb-4 rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-800">
+        <div class="mb-4 rounded-md bg-[#E5EEE0] border border-[#2F5233]/25 px-4 py-3 text-sm text-[#2F5233]">
           <%= notice %>
         </div>
       <% end %>
       <% if alert %>
-        <div class="mb-4 rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800">
+        <div class="mb-4 rounded-md bg-[#FBF0EC] border border-[#A8362B] px-4 py-3 text-sm text-[#7a1f17]">
           <%= alert %>
         </div>
       <% end %>
-
       <%= yield %>
     </main>
   </div>

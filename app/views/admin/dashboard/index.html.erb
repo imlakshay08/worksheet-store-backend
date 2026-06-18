@@ -1,40 +1,44 @@
-<h1 class="text-2xl font-semibold text-gray-900 mb-6">Dashboard</h1>
+<h1 class="font-display text-2xl font-semibold text-[#211A14] mb-1">Dashboard</h1>
+<div class="h-0.5 w-10 bg-[#A8362B] mb-6"></div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-  <div class="bg-white rounded-xl border border-gray-200 p-5">
-    <p class="text-sm text-gray-500">Total revenue (paid)</p>
-    <p class="text-2xl font-semibold text-gray-900 mt-1">
+  <div class="relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-4 pl-5">
+    <span class="absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]"></span>
+    <p class="text-xs text-[#6b5f4f]">Total revenue (paid)</p>
+    <p class="font-display text-2xl font-semibold text-[#211A14] mt-1">
       <%= number_to_currency(@total_revenue_paise.to_i / 100.0, unit: "₹", precision: 0) %>
     </p>
   </div>
 
-  <div class="bg-white rounded-xl border border-gray-200 p-5">
-    <p class="text-sm text-gray-500">Orders today</p>
-    <p class="text-2xl font-semibold text-gray-900 mt-1"><%= @orders_today %></p>
-    <p class="text-xs text-gray-400 mt-1"><%= @orders_this_week %> this week</p>
+  <div class="relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-4 pl-5">
+    <span class="absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]"></span>
+    <p class="text-xs text-[#6b5f4f]">Orders today</p>
+    <p class="font-display text-2xl font-semibold text-[#211A14] mt-1"><%= @orders_today %></p>
+    <p class="text-[11px] text-[#9C8C72] mt-1"><%= @orders_this_week %> this week</p>
   </div>
 
-  <div class="bg-white rounded-xl border border-gray-200 p-5">
-    <p class="text-sm text-gray-500">Products</p>
-    <p class="text-2xl font-semibold text-gray-900 mt-1"><%= @total_products %></p>
-    <p class="text-xs text-gray-400 mt-1"><%= @active_products %> active</p>
+  <div class="relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-4 pl-5">
+    <span class="absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]"></span>
+    <p class="text-xs text-[#6b5f4f]">Products</p>
+    <p class="font-display text-2xl font-semibold text-[#211A14] mt-1"><%= @total_products %></p>
+    <p class="text-[11px] text-[#9C8C72] mt-1"><%= @active_products %> active</p>
   </div>
 
-  <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col justify-between">
-    <p class="text-sm text-gray-500">Quick actions</p>
+  <div class="relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-4 pl-5 flex flex-col justify-between">
+    <span class="absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]"></span>
+    <p class="text-xs text-[#6b5f4f]">Quick actions</p>
     <%= link_to "+ Add worksheet", admin_new_product_path,
-          class: "mt-2 inline-block text-sm font-medium text-indigo-600 hover:text-indigo-800" %>
+          class: "mt-2 inline-flex self-start items-center bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-3 py-1.5 text-xs font-medium transition-colors" %>
   </div>
 </div>
 
-<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-  <div class="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
-    <h2 class="text-sm font-semibold text-gray-900">Recent orders</h2>
-    <%= link_to "View all", admin_orders_path, class: "text-sm text-indigo-600 hover:text-indigo-800" %>
+<div class="bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden">
+  <div class="px-5 py-4 border-b border-[#A8362B] flex items-center justify-between">
+    <h2 class="text-sm font-medium text-[#211A14]">Recent orders</h2>
+    <%= link_to "View all", admin_orders_path, class: "text-sm text-[#A8362B] hover:text-[#8f2c22]" %>
   </div>
-
   <table class="w-full text-sm">
-    <thead class="bg-gray-50 text-gray-500">
+    <thead class="text-[#9C8C72]">
       <tr>
         <th class="text-left font-medium px-5 py-3">Customer</th>
         <th class="text-left font-medium px-5 py-3">Product</th>
@@ -43,27 +47,26 @@
         <th class="text-left font-medium px-5 py-3">Date</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-100">
+    <tbody class="divide-y divide-[#EFE7D2]">
       <% @recent_orders.each do |order| %>
-        <tr class="hover:bg-gray-50">
+        <tr class="hover:bg-[#FAF6EC]">
           <td class="px-5 py-3">
             <%= link_to (order.name.presence || order.email.presence || "—"), admin_order_path(order),
-                  class: "text-indigo-600 hover:text-indigo-800" %>
+                  class: "text-[#A8362B] hover:text-[#8f2c22]" %>
           </td>
           <td class="px-5 py-3"><%= order.product&.title %></td>
           <td class="px-5 py-3"><%= number_to_currency(order.amount_in_rupees, unit: "₹", precision: 0) %></td>
           <td class="px-5 py-3">
-            <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium
-              <%= order.status == "paid" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800" %>">
+            <span class="inline-flex px-2 py-0.5 rounded-md text-xs font-medium border
+              <%= order.status == "paid" ? "bg-[#E5EEE0] text-[#2F5233] border-[#2F5233]/25" : "bg-[#F5E9D0] text-[#8a6d1f] border-[#8a6d1f]/25" %>">
               <%= order.status %>
             </span>
           </td>
-          <td class="px-5 py-3 text-gray-500"><%= order.created_at.strftime("%d %b %Y, %H:%M") %></td>
+          <td class="px-5 py-3 text-[#6b5f4f]"><%= order.created_at.strftime("%d %b %Y, %H:%M") %></td>
         </tr>
       <% end %>
-
       <% if @recent_orders.empty? %>
-        <tr><td colspan="5" class="px-5 py-6 text-center text-gray-400">No orders yet.</td></tr>
+        <tr><td colspan="5" class="px-5 py-6 text-center text-[#9C8C72]">No orders yet.</td></tr>
       <% end %>
     </tbody>
   </table>

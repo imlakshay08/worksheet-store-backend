@@ -1,8 +1,12 @@
+<% label_class = "block text-[11px] tracking-[0.15em] font-semibold uppercase text-[#8a7d63] mb-1.5" %>
+<% input_class = "w-full bg-white/60 rounded-sm border border-[#d8c9a3] px-3 py-2.5 text-sm text-[#211A14] focus:outline-none focus:border-[#A8362B] focus:ring-2 focus:ring-[#A8362B]/20 transition-colors" %>
+
 <%= form_with model: [:admin, product], local: true,
-      html: { class: "bg-white rounded-xl border border-gray-200 p-6 max-w-2xl space-y-5" } do |form| %>
+      html: { class: "relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-6 pl-7 max-w-2xl space-y-5" } do |form| %>
+  <span class="absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]"></span>
 
   <% if product.errors.any? %>
-    <div class="rounded-md bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800">
+    <div class="rounded-sm bg-[#FBF0EC] border border-[#A8362B] px-4 py-3 text-sm text-[#7a1f17]">
       <ul class="list-disc list-inside">
         <% product.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -12,46 +16,40 @@
   <% end %>
 
   <div>
-    <%= form.label :title, class: "block text-sm font-medium text-gray-700 mb-1" %>
-    <%= form.text_field :title,
-          class: "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+    <%= form.label :title, class: label_class %>
+    <%= form.text_field :title, class: input_class %>
   </div>
 
   <div>
-    <%= form.label :description, class: "block text-sm font-medium text-gray-700 mb-1" %>
-    <%= form.text_area :description, rows: 4,
-          class: "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+    <%= form.label :description, class: label_class %>
+    <%= form.text_area :description, rows: 4, class: input_class %>
   </div>
 
   <div>
-    <%= form.label :slug, "Slug (used in the buy link, e.g. french-articles-worksheet)",
-          class: "block text-sm font-medium text-gray-700 mb-1" %>
-    <%= form.text_field :slug,
-          class: "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+    <%= form.label :slug, "Slug (used in the buy link, e.g. french-articles-worksheet)", class: label_class %>
+    <%= form.text_field :slug, class: input_class %>
   </div>
 
   <div>
-    <%= form.label :price_in_rupees, "Price in ₹ (just type the rupee amount, e.g. 79)",
-          class: "block text-sm font-medium text-gray-700 mb-1" %>
-    <%= form.number_field :price_in_rupees, step: 0.01, min: 0,
-          class: "w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-gray-500 focus:ring-1 focus:ring-gray-500" %>
+    <%= form.label :price_in_rupees, "Price in ₹ (just type the rupee amount, e.g. 79)", class: label_class %>
+    <%= form.number_field :price_in_rupees, step: 0.01, min: 0, class: input_class %>
   </div>
 
   <div class="flex items-center gap-2">
-    <%= form.check_box :active, class: "rounded border-gray-300" %>
-    <%= form.label :active, "Active (visible for sale)?", class: "text-sm font-medium text-gray-700" %>
+    <%= form.check_box :active, class: "rounded border-[#d8c9a3] text-[#A8362B] focus:ring-[#A8362B]/30" %>
+    <%= form.label :active, "Active (visible for sale)?", class: "text-sm font-medium text-[#211A14]" %>
   </div>
 
   <div>
-    <%= form.label :worksheet_pdf, "Worksheet PDF", class: "block text-sm font-medium text-gray-700 mb-1" %>
-    <%= form.file_field :worksheet_pdf, accept: "application/pdf", class: "block text-sm" %>
+    <%= form.label :worksheet_pdf, "Worksheet PDF", class: label_class %>
+    <%= form.file_field :worksheet_pdf, accept: "application/pdf", class: "block text-sm text-[#6b5f4f]" %>
     <% if product.worksheet_pdf.attached? %>
-      <p class="text-xs text-gray-500 mt-1">Current file: <%= product.worksheet_pdf.filename %></p>
+      <p class="text-xs text-[#9C8C72] mt-1">Current file: <%= product.worksheet_pdf.filename %></p>
     <% end %>
   </div>
 
   <div>
     <%= form.submit "Save",
-          class: "bg-gray-900 text-white rounded-md px-5 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer" %>
+          class: "bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.1em] cursor-pointer transition-colors" %>
   </div>
 <% end %>

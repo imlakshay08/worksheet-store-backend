@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  product: one
+  status: MyString
+  download_token: MyString
+  razorpay_order_id: MyString
+  razorpay_payment_id: MyString
+
+two:
+  email: MyString
+  product: two
+  status: MyString
+  download_token: MyString
+  razorpay_order_id: MyString
+  razorpay_payment_id: MyString

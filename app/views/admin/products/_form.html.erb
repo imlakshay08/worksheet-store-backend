@@ -1,0 +1,48 @@
+<%= form_with model: [:admin, product], local: true do |form| %>
+  <% if product.errors.any? %>
+    <div style="color: red;">
+      <ul>
+        <% product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title, size: 60 %>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description, rows: 4, cols: 60 %>
+  </p>
+
+  <p>
+    <%= form.label :slug, "Slug (used in the buy link, e.g. french-articles-worksheet)" %><br>
+    <%= form.text_field :slug, size: 60 %>
+  </p>
+
+  <p>
+    <%= form.label :price_in_paise, "Price in paise (e.g. 7900 for ₹79)" %><br>
+    <%= form.number_field :price_in_paise %>
+  </p>
+
+  <p>
+    <%= form.label :active, "Active (visible for sale)?" %>
+    <%= form.check_box :active %>
+  </p>
+
+  <p>
+    <%= form.label :worksheet_pdf, "Worksheet PDF" %><br>
+    <%= form.file_field :worksheet_pdf, accept: "application/pdf" %>
+    <% if product.worksheet_pdf.attached? %>
+      <br>Current file: <%= product.worksheet_pdf.filename %>
+    <% end %>
+  </p>
+
+  <p>
+    <%= form.submit "Save" %>
+  </p>
+<% end %>

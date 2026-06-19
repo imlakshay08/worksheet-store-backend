@@ -4,8 +4,9 @@ class Order < ApplicationRecord
   DOWNLOAD_LIMIT     = 5
   DOWNLOAD_VALID_FOR = 30.days
 
-  scope :paid,    -> { where(status: "paid") }
-  scope :pending, -> { where(status: "pending") }
+  scope :paid,     -> { where(status: "paid") }
+  scope :pending,  -> { where(status: "pending") }
+  scope :refunded, -> { where(status: "refunded") }
 
   def amount_in_paise
     product&.price_in_paise.to_i
@@ -25,6 +26,12 @@ class Order < ApplicationRecord
       download_token.present? &&
       (download_token_expires_at.nil? || download_token_expires_at.future?) &&
       download_count.to_i < DOWNLOAD_LIMIT
+  end
+
+  # Mark a paid order as refunded. Because download_available? requires
+  # status == "paid", this immediately revokes the customer's download link.
+  def mark_refunded!
+    update!(status: "refunded")
   end
 
   # Generate a fresh, expiring download token if one isn't already present.

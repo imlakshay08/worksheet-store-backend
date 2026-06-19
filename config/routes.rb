@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get  "/orders",              to: "orders#index",        as: :orders
     get  "/orders/:id",          to: "orders#show",         as: :order
     post "/orders/:id/resend",   to: "orders#resend_email", as: :resend_email_order
+    post "/orders/:id/fulfill",  to: "orders#fulfill",      as: :fulfill_order
 
     get    "/products",          to: "products#index",   as: :products
     get    "/products/new",      to: "products#new",     as: :new_product

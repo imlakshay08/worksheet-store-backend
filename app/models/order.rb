@@ -16,6 +16,15 @@ class Order < ApplicationRecord
     amount_in_paise / 100.0
   end
 
+  # Expected international amount, in USD cents — used to flag PayPal mismatches.
+  def amount_in_cents
+    product&.price_in_cents.to_i
+  end
+
+  def paypal?
+    payment_provider == "paypal"
+  end
+
   def full_address
     [address_line, city, state, postal_code, country].compact_blank.join(", ")
   end

@@ -7,9 +7,9 @@ class Rack::Attack
   # A per-process in-memory counter is sufficient for a single app instance.
   Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 
-  # Never throttle the Razorpay webhook — it retries and is signature-verified.
-  safelist("allow razorpay webhook") do |req|
-    req.path == "/webhooks/razorpay"
+  # Never throttle payment webhooks — they retry and are signature-verified.
+  safelist("allow payment webhooks") do |req|
+    req.path == "/webhooks/razorpay" || req.path == "/webhooks/paypal"
   end
 
   # Throttle order creation. A real buyer needs only a handful of attempts;

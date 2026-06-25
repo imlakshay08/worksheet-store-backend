@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_18_120100) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_25_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_18_120100) do
     t.datetime "download_email_sent_at"
     t.datetime "download_token_expires_at"
     t.integer "download_count", default: 0, null: false
+    t.string "payment_provider", default: "razorpay", null: false
+    t.string "paypal_order_id"
+    t.string "paypal_capture_id"
+    t.index ["paypal_order_id"], name: "index_orders_on_paypal_order_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
   end
 
@@ -72,6 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_18_120100) do
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price_in_cents"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

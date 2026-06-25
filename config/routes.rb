@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   # Once signed in, the login action redirects on to the dashboard.
   root to: "admin/sessions#new"
 
-  resources :orders, only: [:create, :show]
+  resources :orders, only: [:create, :show] do
+    member { post :paypal_capture }
+  end
   post "/webhooks/razorpay", to: "webhooks#razorpay"
+  post "/webhooks/paypal",   to: "webhooks#paypal"
   get "/download/:id", to: "downloads#show", as: :download_order
 
   namespace :admin do

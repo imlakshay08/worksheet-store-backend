@@ -35,6 +35,11 @@
     <%= form.number_field :price_in_rupees, step: 0.01, min: 0, class: input_class %>
   </div>
 
+  <div>
+    <%= form.label :price_in_usd, "International price in $ (for PayPal, e.g. 4.99 — leave blank to hide PayPal for this worksheet)", class: label_class %>
+    <%= form.number_field :price_in_usd, step: 0.01, min: 0, class: input_class %>
+  </div>
+
   <div class="flex items-center gap-2">
     <%= form.check_box :active, class: "rounded border-[#d8c9a3] text-[#A8362B] focus:ring-[#A8362B]/30" %>
     <%= form.label :active, "Active (visible for sale)?", class: "text-sm font-medium text-[#211A14]" %>

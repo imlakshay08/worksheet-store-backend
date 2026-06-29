@@ -50,12 +50,9 @@
   <div class="bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden">
     <div class="px-5 py-3 border-b border-[#A8362B] text-sm font-medium text-[#211A14]">Order</div>
     <div class="divide-y divide-[#EFE7D2]">
-      <% amount = @order.paypal? ?
-           number_to_currency(@order.amount_in_cents / 100.0, unit: "$", precision: 2) :
-           number_to_currency(@order.amount_in_rupees, unit: "₹", precision: 0) %>
       <% [
            ["Product",             @order.product&.title],
-           ["Amount",              amount],
+           ["Amount",              @order.display_amount],
            ["Status",              @order.status],
            ["Payment method",      @order.payment_provider&.capitalize],
            ["Razorpay order ID",   @order.razorpay_order_id],

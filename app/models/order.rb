@@ -25,6 +25,17 @@ class Order < ApplicationRecord
     payment_provider == "paypal"
   end
 
+  # Formatted amount in the currency the customer actually paid in.
+  # PayPal orders are in USD; everything else (Razorpay) is in INR.
+  def display_amount
+    if paypal?
+      format("$%.2f", amount_in_cents / 100.0)
+    else
+      rupees = amount_in_rupees
+      "₹" + (rupees == rupees.to_i ? rupees.to_i.to_s : format("%.2f", rupees))
+    end
+  end
+
   def full_address
     [address_line, city, state, postal_code, country].compact_blank.join(", ")
   end

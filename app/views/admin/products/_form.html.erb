@@ -26,6 +26,11 @@
   </div>
 
   <div>
+    <%= form.label :level, "Level badge (optional, e.g. A2–B1 — shown on the worksheet card)", class: label_class %>
+    <%= form.text_field :level, placeholder: "A2–B1", class: input_class %>
+  </div>
+
+  <div>
     <%= form.label :slug, "Slug (used in the buy link, e.g. french-articles-worksheet)", class: label_class %>
     <%= form.text_field :slug, class: input_class %>
   </div>

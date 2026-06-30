@@ -19,7 +19,12 @@ class OrdersController < ApplicationController
     end
 
     provider = params[:provider] == "paypal" ? "paypal" : "razorpay"
-    order = Order.create!(details.merge(product: product, status: "pending", payment_provider: provider))
+    order = Order.new(details.merge(product: product, status: "pending", payment_provider: provider))
+
+    unless order.save
+      render json: { error: order.errors.full_messages.to_sentence }, status: :unprocessable_entity
+      return
+    end
 
     if provider == "paypal"
       start_paypal_order(order, product)

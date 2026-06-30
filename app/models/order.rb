@@ -8,6 +8,27 @@ class Order < ApplicationRecord
   scope :pending,  -> { where(status: "pending") }
   scope :refunded, -> { where(status: "refunded") }
 
+  # Customer-input validation. Presence of name/email/phone is enforced at the
+  # checkout controller (so internal/webhook creates aren't affected); these
+  # add format + length caps so no oversized or malformed data is ever stored,
+  # emailed, or logged. allow_blank keeps optional fields optional.
+  PHONE_FORMAT = /\A[0-9+\-()\s]+\z/
+
+  # Validate customer input only at creation (checkout). Internal status updates
+  # (e.g. the webhook marking an order paid) must never be blocked by these, so
+  # an existing order with slightly-off legacy data can still be fulfilled.
+  with_options on: :create, allow_blank: true do
+    validates :email, length: { maximum: 150 }, format: { with: URI::MailTo::EMAIL_REGEXP }
+    validates :name,         length: { maximum: 100 }
+    validates :phone,        length: { maximum: 30 },
+                             format: { with: PHONE_FORMAT, message: "is not a valid phone number" }
+    validates :address_line, length: { maximum: 200 }
+    validates :city,         length: { maximum: 100 }
+    validates :state,        length: { maximum: 100 }
+    validates :postal_code,  length: { maximum: 20 }
+    validates :country,      length: { maximum: 60 }
+  end
+
   def amount_in_paise
     product&.price_in_paise.to_i
   end

@@ -12,6 +12,13 @@ class Rack::Attack
     req.path == "/webhooks/razorpay" || req.path == "/webhooks/paypal"
   end
 
+  # Reject oversized request bodies on the public order endpoints before Rails
+  # spends any effort parsing them. A real checkout payload is ~1–2 KB; 16 KB is
+  # a generous ceiling that stops someone tying up the server with a huge body.
+  blocklist("oversized order body") do |req|
+    req.post? && req.path.start_with?("/orders") && req.content_length.to_i > 16_000
+  end
+
   # Throttle order creation. A real buyer needs only a handful of attempts;
   # this stops scripted spam that would create junk orders + Razorpay orders.
   throttle("orders/ip", limit: 15, period: 10.minutes) do |req|

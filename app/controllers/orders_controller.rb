@@ -19,7 +19,19 @@ class OrdersController < ApplicationController
     end
 
     provider = params[:provider] == "paypal" ? "paypal" : "razorpay"
-    order = Order.new(details.merge(product: product, status: "pending", payment_provider: provider))
+
+    # Snapshot the exact amount charged NOW, so editing the product's price
+    # later never rewrites this order's amount.
+    if provider == "paypal"
+      currency = "USD"; amount_cents = product.price_in_cents
+    else
+      currency = "INR"; amount_cents = product.price_in_paise
+    end
+
+    order = Order.new(details.merge(
+      product: product, status: "pending", payment_provider: provider,
+      currency: currency, amount_cents: amount_cents
+    ))
 
     unless order.save
       render json: { error: order.errors.full_messages.to_sentence }, status: :unprocessable_entity
@@ -78,7 +90,7 @@ class OrdersController < ApplicationController
 
   def start_razorpay_order(order, product)
     razorpay_order = Razorpay::Order.create(
-      "amount"   => product.price_in_paise,
+      "amount"   => order.amount_cents,
       "currency" => "INR",
       "receipt"  => "order_#{order.id}",
       "notes"    => {
@@ -96,13 +108,13 @@ class OrdersController < ApplicationController
       order_id:          order.id,
       razorpay_order_id: razorpay_order.id,
       razorpay_key_id:   Rails.application.credentials.dig(:razorpay, :key_id),
-      amount:            product.price_in_paise,
+      amount:            order.amount_cents,
       product_title:     product.title
     }, status: :created
   end
 
   def start_paypal_order(order, product)
-    if product.price_in_cents.blank?
+    if order.amount_cents.blank?
       render json: { error: "International checkout isn't available for this worksheet yet." },
              status: :unprocessable_entity
       return
@@ -111,7 +123,7 @@ class OrdersController < ApplicationController
     paypal_order = PaypalClient.create_order(
       reference:   "order_#{order.id}",
       custom_id:   order.id.to_s,
-      amount:      product.usd_amount_string,
+      amount:      order.expected_amount_decimal_string,
       currency:    "USD",
       description: product.title
     )
@@ -131,7 +143,7 @@ class OrdersController < ApplicationController
   # Shared fulfilment for a completed PayPal capture. Idempotent: safe to call
   # from both this controller and the webhook.
   def fulfill_paypal!(order, capture)
-    expected = order.product.usd_amount_string
+    expected = order.expected_amount_decimal_string
     if expected.present? && capture.dig("amount", "value") != expected
       Rails.logger.warn(
         "PayPal amount mismatch for order #{order.id}: " \

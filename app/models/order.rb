@@ -29,32 +29,33 @@ class Order < ApplicationRecord
     validates :country,      length: { maximum: 60 }
   end
 
-  def amount_in_paise
-    product&.price_in_paise.to_i
-  end
-
-  def amount_in_rupees
-    amount_in_paise / 100.0
-  end
-
-  # Expected international amount, in USD cents — used to flag PayPal mismatches.
-  def amount_in_cents
-    product&.price_in_cents.to_i
-  end
-
   def paypal?
     payment_provider == "paypal"
   end
 
+  # ---- Money -------------------------------------------------------------
+  # `amount_cents` + `currency` are SNAPSHOTTED at checkout: the exact amount
+  # the customer actually paid, frozen forever. Never recompute from the
+  # product's current price (which can change later). Minor units = paise for
+  # INR, cents for USD.
+
   # Formatted amount in the currency the customer actually paid in.
-  # PayPal orders are in USD; everything else (Razorpay) is in INR.
   def display_amount
-    if paypal?
-      format("$%.2f", amount_in_cents / 100.0)
+    major = amount_cents.to_i / 100.0
+    if currency == "USD"
+      format("$%.2f", major)
     else
-      rupees = amount_in_rupees
-      "₹" + (rupees == rupees.to_i ? rupees.to_i.to_s : format("%.2f", rupees))
+      "₹" + (major == major.to_i ? major.to_i.to_s : format("%.2f", major))
     end
+  end
+
+  # Expected captured amount, for payment-verification (defence in depth).
+  def expected_amount_minor          # Razorpay reports paise as an integer
+    amount_cents.to_i
+  end
+
+  def expected_amount_decimal_string # PayPal reports e.g. "1.00"
+    format("%.2f", amount_cents.to_i / 100.0)
   end
 
   def full_address

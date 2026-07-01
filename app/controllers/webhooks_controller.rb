@@ -70,10 +70,10 @@ class WebhooksController < ApplicationController
 
     # Defense-in-depth: Razorpay binds the amount to the order, but flag any
     # mismatch loudly in case of a future bug or tampering attempt.
-    if entity["amount"].to_i != order.amount_in_paise
+    if entity["amount"].to_i != order.expected_amount_minor
       Rails.logger.warn(
         "Razorpay amount mismatch for order #{order.id}: " \
-        "captured #{entity['amount']} expected #{order.amount_in_paise}"
+        "captured #{entity['amount']} expected #{order.expected_amount_minor}"
       )
     end
 
@@ -111,7 +111,7 @@ class WebhooksController < ApplicationController
     order   = find_paypal_order(capture)
     return unless order
 
-    expected = order.product&.usd_amount_string
+    expected = order.expected_amount_decimal_string
     if expected.present? && capture.dig("amount", "value") != expected
       Rails.logger.warn(
         "PayPal amount mismatch for order #{order.id}: " \

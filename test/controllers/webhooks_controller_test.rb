@@ -6,7 +6,8 @@ class WebhooksControllerTest < ActionDispatch::IntegrationTest
     @product = Product.create!(title: "Test", price_in_paise: 7900,
                                slug: "test-#{SecureRandom.hex(4)}", active: true)
     @order = Order.create!(email: "buyer@example.com", product: @product,
-                           status: "pending", razorpay_order_id: "order_TEST123")
+                           status: "pending", razorpay_order_id: "order_TEST123",
+                           payment_provider: "razorpay", currency: "INR", amount_cents: 7900)
   end
 
   def signed_post(payload)

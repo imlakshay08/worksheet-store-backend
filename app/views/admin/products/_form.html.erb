@@ -54,8 +54,21 @@
     <%= form.label :worksheet_pdf, "Worksheet PDF", class: label_class %>
     <%= form.file_field :worksheet_pdf, accept: "application/pdf", class: "block text-sm text-[#6b5f4f]" %>
     <% if product.worksheet_pdf.attached? %>
-      <p class="text-xs text-[#9C8C72] mt-1">Current file: <%= product.worksheet_pdf.filename %></p>
+      <p class="text-xs text-[#9C8C72] mt-1">
+        Current file: <%= product.worksheet_pdf.filename %><%= " · #{product.page_count} pages detected" if product.page_count.present? %>
+      </p>
     <% end %>
+  </div>
+
+  <div>
+    <%= form.label :preview_image, "Preview image (page 1 — shown to buyers as “What’s inside”)", class: label_class %>
+    <%= form.file_field :preview_image, accept: "image/*", class: "block text-sm text-[#6b5f4f]" %>
+    <% if product.preview_image.attached? %>
+      <div class="mt-2">
+        <%= image_tag url_for(product.preview_image), class: "h-28 rounded border border-[#E7DFC9]" %>
+      </div>
+    <% end %>
+    <p class="text-xs text-[#9C8C72] mt-1">A JPG/PNG of the first page. This is public — buyers see it before paying, so pick a page you're happy to show.</p>
   </div>
 
   <div>

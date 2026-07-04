@@ -33,4 +33,5 @@ Rails.application.routes.draw do
   end
 
   get "/products", to: "products#index"
+  get "/products/:slug/preview", to: "products#preview", as: :product_preview
 end

@@ -20,6 +20,8 @@ gem "razorpay"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 gem "resend"
+# Pure-Ruby PDF reader — used to count worksheet pages (no system deps)
+gem "pdf-reader"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 

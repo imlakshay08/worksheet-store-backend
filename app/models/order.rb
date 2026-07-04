@@ -132,8 +132,7 @@ class Order < ApplicationRecord
       #{download_url}
 
       Need help? Didn't get everything, or having trouble opening the PDF?
-      Message us on WhatsApp: https://wa.me/918851137555
-      or just reply to this email and we'll sort it out.
+      Just reply to this email and we'll sort it out.
 
       Merci,
       Nidhi Tyagi — French Worksheet Hub
@@ -233,8 +232,7 @@ class Order < ApplicationRecord
                       <tr>
                         <td style="padding-top:16px; font-family:Arial,Helvetica,sans-serif; font-size:13px; line-height:1.6; color:#5b6478;">
                           <strong style="color:#1f2a3c;">Need help?</strong> Didn't get everything, or having trouble opening the PDF?
-                          <a href="https://wa.me/918851137555" style="color:#c1432e;">Message us on WhatsApp</a>
-                          or just reply to this email — we'll sort it out quickly.
+                          Just reply to this email — we'll sort it out quickly.
                         </td>
                       </tr>
                     </table>

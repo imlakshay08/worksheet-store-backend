@@ -27,7 +27,15 @@
               <%= product.active? ? "Active" : "Inactive" %>
             </span>
           </td>
-          <td class="px-5 py-3 text-[#6b5f4f]"><%= product.worksheet_pdf.attached? ? "✓" : "—" %></td>
+          <td class="px-5 py-3 text-[#6b5f4f]">
+            <% if product.worksheet_pdf.attached? %>
+              <%= link_to "View PDF", rails_blob_path(product.worksheet_pdf, disposition: "inline"),
+                    target: "_blank", rel: "noopener",
+                    class: "text-[#A8362B] hover:text-[#8f2c22]" %>
+            <% else %>
+              —
+            <% end %>
+          </td>
           <td class="px-5 py-3 text-right whitespace-nowrap">
             <%= link_to "Edit", admin_edit_product_path(product),
                   class: "text-[#A8362B] hover:text-[#8f2c22] mr-3" %>

@@ -56,6 +56,9 @@
     <% if product.worksheet_pdf.attached? %>
       <p class="text-xs text-[#9C8C72] mt-1">
         Current file: <%= product.worksheet_pdf.filename %><%= " · #{product.page_count} pages detected" if product.page_count.present? %>
+        · <%= link_to "View PDF", rails_blob_path(product.worksheet_pdf, disposition: "inline"),
+                target: "_blank", rel: "noopener",
+                class: "text-[#A8362B] hover:text-[#8f2c22] underline" %>
       </p>
     <% end %>
   </div>
@@ -65,7 +68,9 @@
     <%= form.file_field :preview_image, accept: "image/*", class: "block text-sm text-[#6b5f4f]" %>
     <% if product.preview_image.attached? %>
       <div class="mt-2">
-        <%= image_tag url_for(product.preview_image), class: "h-28 rounded border border-[#E7DFC9]" %>
+        <%= link_to rails_blob_path(product.preview_image, disposition: "inline"), target: "_blank", rel: "noopener" do %>
+          <%= image_tag rails_blob_path(product.preview_image, disposition: "inline"), class: "h-28 rounded border border-[#E7DFC9]" %>
+        <% end %>
       </div>
     <% end %>
     <p class="text-xs text-[#9C8C72] mt-1">A JPG/PNG of the first page. This is public — buyers see it before paying, so pick a page you're happy to show.</p>

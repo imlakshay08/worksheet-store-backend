@@ -109,11 +109,22 @@ class Order < ApplicationRecord
   def download_url
     Rails.application.routes.url_helpers.download_order_url(
       id: download_token,
-      host: ENV.fetch("APP_HOST", "localhost:3000")
+      host: download_link_host,
+      protocol: Rails.env.production? ? "https" : "http"
     )
   end
 
   private
+
+  # Public host for download links. Prefer an explicit APP_HOST, then the domain
+  # Railway injects automatically, and only fall back to localhost in local dev —
+  # so a missing/forgotten env var can NEVER ship a dead "localhost" link to a
+  # real customer (which shows as "this site can't be reached").
+  def download_link_host
+    ENV["APP_HOST"].presence ||
+      ENV["RAILWAY_PUBLIC_DOMAIN"].presence ||
+      "localhost:3000"
+  end
 
   def first_name
     name.to_s.strip.split(/\s+/).first

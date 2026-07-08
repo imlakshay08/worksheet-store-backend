@@ -96,7 +96,7 @@ class Order < ApplicationRecord
       {
         from: "French Worksheet Hub <worksheets@frenchworksheethub.com>",
         to: email,
-        reply_to: "nidhityagi2291@gmail.com",
+        reply_to: "frenchworksheethub@gmail.com",
         subject: "Your worksheet is ready: #{product.title}",
         html: download_email_html,
         text: download_email_text

@@ -1,10 +1,20 @@
 class Admin::OrdersController < Admin::BaseController
+  PER_PAGE = 10
+
   def index
-    @orders = Order.includes(:product).order(created_at: :desc)
-    @orders = @orders.where(status: params[:status]) if params[:status].present?
+    scope = Order.includes(:product).order(created_at: :desc)
+    scope = scope.where(status: params[:status]) if params[:status].present?
     if params[:email].present?
-      @orders = @orders.where("orders.email ILIKE :q OR orders.name ILIKE :q", q: "%#{params[:email]}%")
+      scope = scope.where("orders.email ILIKE :q OR orders.name ILIKE :q", q: "%#{params[:email]}%")
     end
+
+    @total_count = scope.count
+    @total_pages = [(@total_count.to_f / PER_PAGE).ceil, 1].max
+    @page = params[:page].to_i
+    @page = 1 if @page < 1
+    @page = @total_pages if @page > @total_pages
+    @per_page = PER_PAGE
+    @orders = scope.limit(PER_PAGE).offset((@page - 1) * PER_PAGE)
   end
 
   def show

@@ -70,3 +70,28 @@
     </tbody>
   </table>
 </div>
+
+<% if @total_count > 0 %>
+  <div class="flex items-center justify-between mt-4 text-sm text-[#6b5f4f]">
+    <span>
+      Showing <%= (@page - 1) * @per_page + 1 %>–<%= [@page * @per_page, @total_count].min %> of <%= @total_count %> orders
+    </span>
+    <% if @total_pages > 1 %>
+      <div class="flex items-center gap-1">
+        <% if @page > 1 %>
+          <%= link_to "‹ Prev", admin_orders_path(email: params[:email].presence, status: params[:status].presence, page: @page - 1),
+                class: "px-3 py-1.5 rounded-md border border-[#E7DFC9] hover:bg-[#FAF6EC] text-[#211A14]" %>
+        <% else %>
+          <span class="px-3 py-1.5 rounded-md border border-[#EFE7D2] text-[#c9bfa6]">‹ Prev</span>
+        <% end %>
+        <span class="px-3 py-1.5">Page <%= @page %> of <%= @total_pages %></span>
+        <% if @page < @total_pages %>
+          <%= link_to "Next ›", admin_orders_path(email: params[:email].presence, status: params[:status].presence, page: @page + 1),
+                class: "px-3 py-1.5 rounded-md border border-[#E7DFC9] hover:bg-[#FAF6EC] text-[#211A14]" %>
+        <% else %>
+          <span class="px-3 py-1.5 rounded-md border border-[#EFE7D2] text-[#c9bfa6]">Next ›</span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

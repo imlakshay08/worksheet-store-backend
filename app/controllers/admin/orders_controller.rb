@@ -2,7 +2,7 @@ class Admin::OrdersController < Admin::BaseController
   PER_PAGE = 10
 
   def index
-    scope = Order.includes(:product).order(created_at: :desc)
+    scope = Order.includes(:product, order_items: :product).order(created_at: :desc)
     scope = scope.where(status: params[:status]) if params[:status].present?
     if params[:email].present?
       scope = scope.where("orders.email ILIKE :q OR orders.name ILIKE :q", q: "%#{params[:email]}%")
@@ -18,7 +18,7 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def show
-    @order = Order.includes(:product).find(params[:id])
+    @order = Order.includes(:product, order_items: :product).find(params[:id])
   end
 
   def resend_email

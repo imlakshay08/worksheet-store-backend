@@ -3,10 +3,19 @@ class OrdersController < ApplicationController
   REQUIRED_FIELDS = %i[name email phone].freeze
 
   def create
-    product = Product.find_by(slug: params[:product_slug], active: true)
+    slugs = requested_slugs
+    if slugs.empty?
+      render json: { error: "Your cart is empty." }, status: :unprocessable_entity
+      return
+    end
 
-    if product.nil?
-      render json: { error: "This worksheet isn't available right now." }, status: :not_found
+    # Load the requested worksheets, preserving the cart order. Any slug that
+    # isn't a currently-active product means the cart is stale.
+    by_slug   = Product.where(slug: slugs, active: true).index_by(&:slug)
+    products  = slugs.map { |s| by_slug[s] }.compact
+    if products.size != slugs.size
+      render json: { error: "One or more worksheets in your cart aren't available anymore. Please refresh and try again." },
+             status: :not_found
       return
     end
 
@@ -19,19 +28,23 @@ class OrdersController < ApplicationController
     end
 
     provider = params[:provider] == "paypal" ? "paypal" : "razorpay"
+    currency = provider == "paypal" ? "USD" : "INR"
 
-    # Snapshot the exact amount charged NOW, so editing the product's price
-    # later never rewrites this order's amount.
-    if provider == "paypal"
-      currency = "USD"; amount_cents = product.price_in_cents
-    else
-      currency = "INR"; amount_cents = product.price_in_paise
+    # Snapshot each worksheet's price NOW, in the order's currency, so editing a
+    # product's price later never rewrites this order. The order total is the sum.
+    price_of = ->(p) { provider == "paypal" ? p.price_in_cents : p.price_in_paise }
+
+    if provider == "paypal" && products.any? { |p| p.price_in_cents.blank? }
+      render json: { error: "International checkout isn't available for one of these worksheets yet." },
+             status: :unprocessable_entity
+      return
     end
 
     order = Order.new(details.merge(
-      product: product, status: "pending", payment_provider: provider,
-      currency: currency, amount_cents: amount_cents
+      status: "pending", payment_provider: provider,
+      currency: currency, amount_cents: products.sum { |p| price_of.call(p).to_i }
     ))
+    products.each { |p| order.order_items.build(product: p, unit_amount_cents: price_of.call(p)) }
 
     unless order.save
       render json: { error: order.errors.full_messages.to_sentence }, status: :unprocessable_entity
@@ -39,17 +52,17 @@ class OrdersController < ApplicationController
     end
 
     if provider == "paypal"
-      start_paypal_order(order, product)
+      start_paypal_order(order, products)
     else
-      start_razorpay_order(order, product)
+      start_razorpay_order(order, products)
     end
   end
 
   def show
-    order = Order.find(params[:id])
+    order = Order.includes(order_items: :product).find(params[:id])
     render json: {
       status: order.status,
-      product_title: order.product.title
+      product_title: order_summary_title(order)
     }
   end
 
@@ -88,7 +101,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def start_razorpay_order(order, product)
+  def start_razorpay_order(order, products)
     razorpay_order = Razorpay::Order.create(
       "amount"   => order.amount_cents,
       "currency" => "INR",
@@ -109,23 +122,17 @@ class OrdersController < ApplicationController
       razorpay_order_id: razorpay_order.id,
       razorpay_key_id:   Rails.application.credentials.dig(:razorpay, :key_id),
       amount:            order.amount_cents,
-      product_title:     product.title
+      product_title:     checkout_title(products)
     }, status: :created
   end
 
-  def start_paypal_order(order, product)
-    if order.amount_cents.blank?
-      render json: { error: "International checkout isn't available for this worksheet yet." },
-             status: :unprocessable_entity
-      return
-    end
-
+  def start_paypal_order(order, products)
     paypal_order = PaypalClient.create_order(
       reference:   "order_#{order.id}",
       custom_id:   order.id.to_s,
       amount:      order.expected_amount_decimal_string,
       currency:    "USD",
-      description: product.title
+      description: checkout_title(products)
     )
 
     order.update!(paypal_order_id: paypal_order["id"])
@@ -138,6 +145,39 @@ class OrdersController < ApplicationController
     Rails.logger.error("PayPal order creation failed for order #{order.id}: #{e.message}")
     render json: { error: "We couldn't start the PayPal checkout. Please try again in a moment." },
            status: :bad_gateway
+  end
+
+  # The worksheet slugs the buyer is checking out. Accepts the new cart format
+  # (items: [{slug: "..."}] or ["slug", ...]) and the legacy single product_slug,
+  # so the current storefront keeps working until the cart UI ships. De-duped:
+  # a worksheet is a digital file you either own or don't — no quantities.
+  def requested_slugs
+    raw =
+      if params[:items].present?
+        Array(params[:items]).map { |i| i.respond_to?(:[]) ? i[:slug] : i }
+      elsif params[:product_slug].present?
+        [params[:product_slug]]
+      else
+        []
+      end
+
+    raw.map { |s| s.to_s.strip }.reject(&:blank?).uniq
+  end
+
+  # Human label for a checkout spanning one or more worksheets. Kept short for
+  # PayPal's description field (which has a length cap).
+  def checkout_title(products)
+    return products.first.title if products.size == 1
+
+    "#{products.size} French worksheets"
+  end
+
+  # Title shown by the lightweight status endpoint.
+  def order_summary_title(order)
+    items = order.order_items.to_a
+    return order.product&.title if items.empty?
+
+    checkout_title(items.map(&:product))
   end
 
   # Shared fulfilment for a completed PayPal capture. Idempotent: safe to call

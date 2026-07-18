@@ -55,7 +55,7 @@
             <%= link_to (order.name.presence || order.email.presence || "—"), admin_order_path(order),
                   class: "text-[#A8362B] hover:text-[#8f2c22]" %>
           </td>
-          <td class="px-5 py-3"><%= order.product&.title %></td>
+          <td class="px-5 py-3"><%= order.worksheets_summary %></td>
           <td class="px-5 py-3"><%= order.display_amount %></td>
           <td class="px-5 py-3">
             <span class="inline-flex px-2 py-0.5 rounded-md text-xs font-medium border

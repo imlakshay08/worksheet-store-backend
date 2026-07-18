@@ -51,7 +51,7 @@
     <div class="px-5 py-3 border-b border-[#A8362B] text-sm font-medium text-[#211A14]">Order</div>
     <div class="divide-y divide-[#EFE7D2]">
       <% [
-           ["Product",             @order.product&.title],
+           ["Worksheets",          @order.worksheet_titles.join(", ")],
            ["Amount",              @order.display_amount],
            ["Status",              @order.status],
            ["Payment method",      @order.payment_provider&.capitalize],
@@ -60,8 +60,6 @@
            ["PayPal order ID",     @order.paypal_order_id],
            ["PayPal capture ID",   @order.paypal_capture_id],
            ["Download email sent", @order.download_email_sent_at&.strftime("%d %b %Y, %H:%M")],
-           ["Download count",      "#{@order.download_count} of #{Order::DOWNLOAD_LIMIT}"],
-           ["Link expires",        @order.download_token_expires_at&.strftime("%d %b %Y, %H:%M")],
            ["Created",             @order.created_at.strftime("%d %b %Y, %H:%M")],
            ["Updated",             @order.updated_at.strftime("%d %b %Y, %H:%M")]
          ].each do |label, value| %>
@@ -74,46 +72,53 @@
   </div>
 </div>
 
-<% if @order.download_token.present? %>
+<% downloadable_items = @order.order_items.select { |item| item.download_token.present? } %>
+<% if downloadable_items.any? %>
   <div class="mt-6 max-w-4xl bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden">
     <div class="px-5 py-3 border-b border-[#A8362B] text-sm font-medium text-[#211A14]">
-      Download link <span class="text-[#9C8C72] font-normal">— exactly what the customer receives</span>
+      Download links <span class="text-[#9C8C72] font-normal">— exactly what the customer receives</span>
     </div>
-    <div class="px-5 py-4 space-y-3">
-      <a href="<%= @order.download_url %>" target="_blank" rel="noopener" id="dl-link"
-         class="block text-sm text-[#A8362B] hover:text-[#8f2c22] break-all"><%= @order.download_url %></a>
-      <div class="flex flex-wrap items-center gap-4">
-        <button type="button" id="dl-copy"
-                class="bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-3 py-1.5 text-xs font-medium cursor-pointer transition-colors">Copy link</button>
-        <a href="<%= @order.download_url %>" target="_blank" rel="noopener"
-           class="text-xs text-[#6b5f4f] hover:text-[#211A14]">Open to test →</a>
-        <span class="text-xs <%= @order.download_available? ? "text-[#2F5233]" : "text-[#7a1f17]" %>">
-          <%= @order.download_available? ? "Active" : "Inactive (revoked / expired / limit reached)" %>
-          · <%= @order.download_count %>/<%= Order::DOWNLOAD_LIMIT %> downloads used
-        </span>
-      </div>
+    <div class="divide-y divide-[#EFE7D2]">
+      <% downloadable_items.each do |item| %>
+        <div class="px-5 py-4 space-y-3">
+          <div class="text-sm font-medium text-[#211A14]"><%= item.product&.title %></div>
+          <a href="<%= item.download_url %>" target="_blank" rel="noopener"
+             class="dl-link block text-sm text-[#A8362B] hover:text-[#8f2c22] break-all"><%= item.download_url %></a>
+          <div class="flex flex-wrap items-center gap-4">
+            <button type="button"
+                    class="dl-copy bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-3 py-1.5 text-xs font-medium cursor-pointer transition-colors">Copy link</button>
+            <a href="<%= item.download_url %>" target="_blank" rel="noopener"
+               class="text-xs text-[#6b5f4f] hover:text-[#211A14]">Open to test →</a>
+            <span class="text-xs <%= item.download_available? ? "text-[#2F5233]" : "text-[#7a1f17]" %>">
+              <%= item.download_available? ? "Active" : "Inactive (revoked / expired / limit reached)" %>
+              · <%= item.download_count %>/<%= Order::DOWNLOAD_LIMIT %> downloads used
+            </span>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 
   <script>
     (function () {
-      var btn = document.getElementById("dl-copy");
-      var link = document.getElementById("dl-link");
-      if (!btn || !link) return;
-      btn.addEventListener("click", function () {
-        var url = link.getAttribute("href");
-        var done = function () {
-          btn.textContent = "Copied ✓";
-          setTimeout(function () { btn.textContent = "Copy link"; }, 1500);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(url).then(done).catch(done);
-        } else {
-          var ta = document.createElement("textarea");
-          ta.value = url; document.body.appendChild(ta); ta.select();
-          try { document.execCommand("copy"); } catch (e) {}
-          document.body.removeChild(ta); done();
-        }
+      document.querySelectorAll(".dl-copy").forEach(function (btn) {
+        var link = btn.closest(".space-y-3").querySelector(".dl-link");
+        if (!link) return;
+        btn.addEventListener("click", function () {
+          var url = link.getAttribute("href");
+          var done = function () {
+            btn.textContent = "Copied ✓";
+            setTimeout(function () { btn.textContent = "Copy link"; }, 1500);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done).catch(done);
+          } else {
+            var ta = document.createElement("textarea");
+            ta.value = url; document.body.appendChild(ta); ta.select();
+            try { document.execCommand("copy"); } catch (e) {}
+            document.body.removeChild(ta); done();
+          }
+        });
       });
     })();
   </script>

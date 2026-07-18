@@ -11,6 +11,6 @@ class Admin::DashboardController < Admin::BaseController
     @total_products  = Product.count
     @active_products = Product.where(active: true).count
 
-    @recent_orders = Order.includes(:product).order(created_at: :desc).limit(8)
+    @recent_orders = Order.includes(:product, order_items: :product).order(created_at: :desc).limit(8)
   end
 end

@@ -1,5 +1,11 @@
 class Order < ApplicationRecord
-  belongs_to :product
+  include DownloadLinkHost
+
+  # product_id is nullable: legacy/single-item orders keep a product; multi-item
+  # cart orders don't have one single product — their worksheets live in
+  # order_items. New code should read order_items, not #product.
+  belongs_to :product, optional: true
+  has_many :order_items, dependent: :destroy
 
   DOWNLOAD_LIMIT     = 5
   DOWNLOAD_VALID_FOR = 30.days
@@ -33,6 +39,22 @@ class Order < ApplicationRecord
     payment_provider == "paypal"
   end
 
+  # ---- Display helpers (admin) -------------------------------------------
+
+  # Titles of the worksheets on this order. Falls back to the legacy single
+  # product for any pre-migration order without items (shouldn't happen post
+  # backfill, but keeps the admin robust).
+  def worksheet_titles
+    titles = order_items.map { |item| item.product&.title }.compact
+    titles.presence || [product&.title].compact
+  end
+
+  # Short label for order lists: the title if there's one worksheet, else a count.
+  def worksheets_summary
+    titles = worksheet_titles
+    titles.size <= 1 ? (titles.first || "—") : "#{titles.size} worksheets"
+  end
+
   # ---- Money -------------------------------------------------------------
   # `amount_cents` + `currency` are SNAPSHOTTED at checkout: the exact amount
   # the customer actually paid, frozen forever. Never recompute from the
@@ -62,87 +84,68 @@ class Order < ApplicationRecord
     [address_line, city, state, postal_code, country].compact_blank.join(", ")
   end
 
-  # Whether this order's download link is currently usable.
-  def download_available?
-    status == "paid" &&
-      download_token.present? &&
-      (download_token_expires_at.nil? || download_token_expires_at.future?) &&
-      download_count.to_i < DOWNLOAD_LIMIT
-  end
-
-  # Mark a paid order as refunded. Because download_available? requires
-  # status == "paid", this immediately revokes the customer's download link.
+  # Mark a paid order as refunded. Because item download_available? requires the
+  # order status == "paid", this immediately revokes every download link.
   def mark_refunded!
     update!(status: "refunded")
   end
 
-  # Generate a fresh, expiring download token if one isn't already present.
-  def ensure_download_token!
-    return if download_token.present?
-
-    update!(
-      download_token: SecureRandom.urlsafe_base64(32),
-      download_token_expires_at: DOWNLOAD_VALID_FOR.from_now,
-      download_count: 0
-    )
-  end
-
   # Sends the worksheet download email via Resend and records that it was sent.
+  # Generates a token per worksheet, then lists them all in one email.
   # Raises if delivery fails, so callers (webhook / admin) can react.
   def deliver_download_email!
-    ensure_download_token!
+    items = order_items.includes(:product).to_a
+    items.each(&:ensure_download_token!)
 
     Resend::Emails.send(
       {
         from: "French Worksheet Hub <worksheets@frenchworksheethub.com>",
         to: email,
         reply_to: "frenchworksheethub@gmail.com",
-        subject: "Your worksheet is ready: #{product.title}",
-        html: download_email_html,
-        text: download_email_text
+        subject: email_subject(items),
+        html: download_email_html(items),
+        text: download_email_text(items)
       }
     )
 
     update!(download_email_sent_at: Time.current)
   end
 
-  def download_url
-    Rails.application.routes.url_helpers.download_order_url(
-      id: download_token,
-      host: download_link_host,
-      protocol: Rails.env.production? ? "https" : "http"
-    )
-  end
-
   private
 
-  # Public host for download links. Prefer an explicit APP_HOST, then the domain
-  # Railway injects automatically, and only fall back to localhost in local dev —
-  # so a missing/forgotten env var can NEVER ship a dead "localhost" link to a
-  # real customer (which shows as "this site can't be reached").
-  def download_link_host
-    ENV["APP_HOST"].presence ||
-      ENV["RAILWAY_PUBLIC_DOMAIN"].presence ||
-      "localhost:3000"
+  def email_subject(items)
+    if items.size == 1
+      "Your worksheet is ready: #{items.first.product.title}"
+    else
+      "Your #{items.size} worksheets are ready"
+    end
   end
 
   def first_name
     name.to_s.strip.split(/\s+/).first
   end
 
-  def download_email_text
+  def download_email_text(items)
     greeting = first_name.present? ? "Bonjour #{first_name}," : "Bonjour,"
+    intro    = items.size == 1 ? "Your worksheet is ready:" : "Your #{items.size} worksheets are ready:"
+
+    blocks = items.map do |item|
+      <<~ITEM.strip
+        #{item.product.title}
+        #{item.download_url}
+      ITEM
+    end.join("\n\n")
+
     <<~TEXT
       #{greeting}
 
-      Thank you for your purchase! Your worksheet is ready:
+      Thank you for your purchase! #{intro}
 
-      #{product.title}
+      #{blocks}
 
-      Download it here (link valid for 30 days):
-      #{download_url}
+      Each link is valid for 30 days. Please save your PDFs after downloading.
 
-      Need help? Didn't get everything, or having trouble opening the PDF?
+      Need help? Didn't get everything, or having trouble opening a PDF?
       Just reply to this email and we'll sort it out.
 
       Merci,
@@ -152,11 +155,12 @@ class Order < ApplicationRecord
     TEXT
   end
 
-  def download_email_html
-    esc       = ->(value) { ERB::Util.html_escape(value.to_s) }
-    greeting  = first_name.present? ? "Bonjour #{esc.call(first_name)}," : "Bonjour,"
-    url       = esc.call(download_url)
-    title     = esc.call(product.title)
+  def download_email_html(items)
+    esc      = ->(value) { ERB::Util.html_escape(value.to_s) }
+    greeting = first_name.present? ? "Bonjour #{esc.call(first_name)}," : "Bonjour,"
+    heading  = items.size == 1 ? "Merci! Your worksheet is ready." : "Merci! Your worksheets are ready."
+    intro    = items.size == 1 ? "Your printable PDF — complete with practice exercises and a full answer key — is ready to download below." : "Your printable PDFs — each complete with practice exercises and a full answer key — are ready to download below."
+    item_blocks = items.map { |item| download_email_item_block(item, esc) }.join
 
     <<~HTML
       <!DOCTYPE html>
@@ -201,38 +205,18 @@ class Order < ApplicationRecord
                 <tr>
                   <td style="padding:20px 36px 8px 36px;">
                     <p style="margin:0 0 14px 0; font-family:Arial,Helvetica,sans-serif; font-size:16px; color:#1f2a3c;">#{greeting}</p>
-                    <h1 style="margin:0 0 10px 0; font-family:Georgia,'Times New Roman',serif; font-size:24px; line-height:1.25; color:#1f2a3c;">Merci! Your worksheet is ready.</h1>
-                    <p style="margin:0 0 22px 0; font-family:Arial,Helvetica,sans-serif; font-size:15px; line-height:1.6; color:#5b6478;">Thank you for your purchase. Your printable PDF — complete with practice exercises and a full answer key — is ready to download below.</p>
+                    <h1 style="margin:0 0 10px 0; font-family:Georgia,'Times New Roman',serif; font-size:24px; line-height:1.25; color:#1f2a3c;">#{heading}</h1>
+                    <p style="margin:0 0 22px 0; font-family:Arial,Helvetica,sans-serif; font-size:15px; line-height:1.6; color:#5b6478;">Thank you for your purchase. #{intro}</p>
                   </td>
                 </tr>
 
-                <!-- product card -->
-                <tr>
-                  <td style="padding:0 36px;">
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf6ee; border:1px solid #ece4d3; border-radius:12px;">
-                      <tr>
-                        <td style="padding:18px 22px;">
-                          <div style="font-family:Arial,Helvetica,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#5b6478;">Your worksheet</div>
-                          <div style="font-family:Georgia,'Times New Roman',serif; font-size:18px; font-weight:bold; color:#1f2a3c; margin-top:4px;">#{title}</div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
+                <!-- one card + download button per worksheet -->
+                #{item_blocks}
 
-                <!-- CTA button -->
+                <!-- validity note -->
                 <tr>
-                  <td align="center" style="padding:28px 36px 10px 36px;">
-                    <a href="#{url}" style="display:inline-block; background-color:#c1432e; color:#ffffff; text-decoration:none; font-family:Arial,Helvetica,sans-serif; font-size:16px; font-weight:bold; padding:15px 38px; border-radius:999px;">Download your worksheet</a>
-                  </td>
-                </tr>
-
-                <!-- fallback link + validity -->
-                <tr>
-                  <td style="padding:6px 36px 28px 36px;">
-                    <p style="margin:0 0 6px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#5b6478;">Button not working? Copy and paste this link into your browser:</p>
-                    <p style="margin:0 0 16px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; word-break:break-all;"><a href="#{url}" style="color:#c1432e;">#{url}</a></p>
-                    <p style="margin:0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#5b6478;">🔒 This link is valid for 30 days and can be used a few times — please save your PDF after downloading.</p>
+                  <td style="padding:2px 36px 28px 36px;">
+                    <p style="margin:0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#5b6478;">🔒 Each link is valid for 30 days and can be used a few times — please save your PDFs after downloading.</p>
                   </td>
                 </tr>
 
@@ -263,13 +247,42 @@ class Order < ApplicationRecord
 
               </table>
 
-              <p style="margin:18px 0 0 0; font-family:Arial,Helvetica,sans-serif; font-size:11px; color:#8b8472;">You received this email because you purchased a worksheet from French Worksheet Hub.</p>
+              <p style="margin:18px 0 0 0; font-family:Arial,Helvetica,sans-serif; font-size:11px; color:#8b8472;">You received this email because you purchased worksheets from French Worksheet Hub.</p>
 
             </td>
           </tr>
         </table>
       </body>
       </html>
+    HTML
+  end
+
+  # One worksheet's card + download button + fallback link, as email table rows.
+  def download_email_item_block(item, esc)
+    url   = esc.call(item.download_url)
+    title = esc.call(item.product.title)
+
+    <<~HTML
+      <tr>
+        <td style="padding:0 36px 6px 36px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf6ee; border:1px solid #ece4d3; border-radius:12px;">
+            <tr>
+              <td style="padding:18px 22px;">
+                <div style="font-family:Arial,Helvetica,sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#5b6478;">Your worksheet</div>
+                <div style="font-family:Georgia,'Times New Roman',serif; font-size:18px; font-weight:bold; color:#1f2a3c; margin-top:4px;">#{title}</div>
+                <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:14px;">
+                  <tr>
+                    <td style="border-radius:999px; background-color:#c1432e;">
+                      <a href="#{url}" style="display:inline-block; color:#ffffff; text-decoration:none; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:bold; padding:12px 30px; border-radius:999px;">Download PDF</a>
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin:12px 0 0 0; font-family:Arial,Helvetica,sans-serif; font-size:11px; color:#8b8472; word-break:break-all;">Button not working? Copy this link: <a href="#{url}" style="color:#c1432e;">#{url}</a></p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
     HTML
   end
 end

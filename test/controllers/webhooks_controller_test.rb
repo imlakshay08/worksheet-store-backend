@@ -5,9 +5,10 @@ class WebhooksControllerTest < ActionDispatch::IntegrationTest
     @secret  = Rails.application.credentials.dig(:razorpay, :webhook_secret)
     @product = Product.create!(title: "Test", price_in_paise: 7900,
                                slug: "test-#{SecureRandom.hex(4)}", active: true)
-    @order = Order.create!(email: "buyer@example.com", product: @product,
+    @order = Order.create!(email: "buyer@example.com",
                            status: "pending", razorpay_order_id: "order_TEST123",
                            payment_provider: "razorpay", currency: "INR", amount_cents: 7900)
+    @item = @order.order_items.create!(product: @product, unit_amount_cents: 7900)
   end
 
   def signed_post(payload)
@@ -48,13 +49,13 @@ class WebhooksControllerTest < ActionDispatch::IntegrationTest
     @order.reload
     assert_equal "paid", @order.status
     assert_equal "pay_TEST", @order.razorpay_payment_id
-    assert @order.download_token.present?
+    assert @item.reload.download_token.present?, "each worksheet gets its own download token"
     assert @order.download_email_sent_at.present?
   end
 
   test "marks the order refunded and revokes the download on a refund event" do
     Resend::Emails.stub(:send, { id: "email_1" }) { signed_post(captured_payload) }
-    assert @order.reload.download_available?, "should be downloadable after payment"
+    assert @item.reload.download_available?, "should be downloadable after payment"
 
     refund_payload = {
       event: "refund.created",
@@ -65,6 +66,6 @@ class WebhooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :ok
     @order.reload
     assert_equal "refunded", @order.status
-    assert_not @order.download_available?, "download link must be revoked after refund"
+    assert_not @item.reload.download_available?, "download link must be revoked after refund"
   end
 end

@@ -37,7 +37,7 @@
             <% end %>
             <div class="text-xs text-[#9C8C72]"><%= order.email %></div>
           </td>
-          <td class="px-5 py-3"><%= order.product&.title %></td>
+          <td class="px-5 py-3"><%= order.worksheets_summary %></td>
           <td class="px-5 py-3"><%= order.display_amount %></td>
           <td class="px-5 py-3 text-[#6b5f4f]"><%= [order.city, order.country].compact_blank.join(", ").presence || "—" %></td>
           <td class="px-5 py-3">

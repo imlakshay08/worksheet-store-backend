@@ -5,12 +5,14 @@ class Admin::DashboardController < Admin::BaseController
     @inr_revenue_paise = Order.paid.where(currency: "INR").sum(:amount_cents)
     @usd_revenue_cents = Order.paid.where(currency: "USD").sum(:amount_cents)
 
-    @orders_today     = Order.where("orders.created_at >= ?", Time.current.beginning_of_day).count
-    @orders_this_week = Order.where("orders.created_at >= ?", Time.current.beginning_of_week).count
+    # Counts + recent list reflect real sales only (paid); pending/abandoned
+    # checkouts are viewable via the Orders page filter.
+    @orders_today     = Order.paid.where("orders.created_at >= ?", Time.current.beginning_of_day).count
+    @orders_this_week = Order.paid.where("orders.created_at >= ?", Time.current.beginning_of_week).count
 
     @total_products  = Product.count
     @active_products = Product.where(active: true).count
 
-    @recent_orders = Order.includes(:product, order_items: :product).order(created_at: :desc).limit(8)
+    @recent_orders = Order.paid.includes(:product, order_items: :product).order(created_at: :desc).limit(8)
   end
 end

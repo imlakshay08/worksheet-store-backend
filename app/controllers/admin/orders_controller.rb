@@ -3,7 +3,8 @@ class Admin::OrdersController < Admin::BaseController
 
   def index
     scope = Order.includes(:product, order_items: :product).order(created_at: :desc)
-    scope = scope.where(status: params[:status]) if params[:status].present?
+    # Default to paid orders; the dropdown lets the admin switch to pending.
+    scope = scope.where(status: params[:status].presence || "paid")
     if params[:email].present?
       scope = scope.where("orders.email ILIKE :q OR orders.name ILIKE :q", q: "%#{params[:email]}%")
     end

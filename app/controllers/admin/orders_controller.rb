@@ -2,11 +2,20 @@ class Admin::OrdersController < Admin::BaseController
   PER_PAGE = 10
 
   def index
+    @products = Product.order(:title)
+
     scope = Order.includes(:product, order_items: :product).order(created_at: :desc)
     # Default to paid orders; the dropdown lets the admin switch to pending.
     scope = scope.where(status: params[:status].presence || "paid")
     if params[:email].present?
       scope = scope.where("orders.email ILIKE :q OR orders.name ILIKE :q", q: "%#{params[:email]}%")
+    end
+    # Filter by worksheet — matches whether the order is single-product
+    # (orders.product_id) or multi-item (an order_items row for that product).
+    if params[:product_id].present?
+      pid = params[:product_id].to_i
+      item_order_ids = OrderItem.where(product_id: pid).select(:order_id)
+      scope = scope.where("orders.product_id = ? OR orders.id IN (?)", pid, item_order_ids)
     end
 
     @total_count = scope.count

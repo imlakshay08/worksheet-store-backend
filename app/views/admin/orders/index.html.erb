@@ -5,6 +5,11 @@
   <div class="flex flex-wrap gap-3 mb-6">
     <%= f.text_field :email, value: params[:email], placeholder: "Search by email or name",
           class: "w-64 bg-white/60 rounded-sm border border-[#d8c9a3] px-3 py-2 text-sm text-[#211A14] focus:outline-none focus:border-[#A8362B] focus:ring-2 focus:ring-[#A8362B]/20 transition-colors" %>
+    <%= f.select :product_id,
+          options_for_select([["All worksheets", ""]] + @products.map { |p| [p.title, p.id] }, params[:product_id]),
+          {},
+          class: "max-w-xs bg-white/60 rounded-sm border border-[#d8c9a3] px-3 py-2 text-sm text-[#211A14] focus:outline-none focus:border-[#A8362B] focus:ring-2 focus:ring-[#A8362B]/20 transition-colors",
+          onchange: "this.form.submit()" %>
     <%= f.select :status,
           options_for_select([["Paid", "paid"], ["Pending", "pending"]], params[:status]),
           {},

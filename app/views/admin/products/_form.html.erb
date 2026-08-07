@@ -1,8 +1,9 @@
 <% label_class = "block text-[11px] tracking-[0.15em] font-semibold uppercase text-[#8a7d63] mb-1.5" %>
 <% input_class = "w-full bg-white/60 rounded-sm border border-[#d8c9a3] px-3 py-2.5 text-sm text-[#211A14] focus:outline-none focus:border-[#A8362B] focus:ring-2 focus:ring-[#A8362B]/20 transition-colors" %>
+<% dz_class = "upload-dz mt-1 border-2 border-dashed border-[#d8c9a3] rounded-md px-4 py-6 cursor-pointer hover:border-[#A8362B] hover:bg-[#FAF6EC] transition-colors" %>
 
 <%= form_with model: [:admin, product], local: true,
-      html: { class: "relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-6 pl-7 max-w-2xl space-y-5" } do |form| %>
+      html: { id: "product-form", class: "relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-6 pl-7 max-w-2xl space-y-5" } do |form| %>
   <span class="absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]"></span>
 
   <% if product.errors.any? %>
@@ -45,23 +46,52 @@
     <%= form.label :active, "Active (visible for sale)?", class: "text-sm font-medium text-[#211A14]" %>
   </div>
 
+  <!-- ===== Worksheet PDF ===== -->
   <div>
-    <%= form.label :worksheet_pdf, "Worksheet PDF", class: label_class %>
-    <%= form.file_field :worksheet_pdf, accept: "application/pdf", class: "block text-sm text-[#6b5f4f]" %>
-    <p class="text-xs text-[#9C8C72] mt-1">🪄 Upload straight from Canva — large files are compressed &amp; optimized automatically, so downloads stay fast. Just choose the file and Save.</p>
+    <label class="<%= label_class %>">Worksheet PDF</label>
+    <div id="pdf-dz" class="<%= dz_class %>" role="button" tabindex="0" aria-label="Upload worksheet PDF">
+      <%= form.file_field :worksheet_pdf, accept: "application/pdf", id: "product_worksheet_pdf", style: "display:none" %>
+      <div class="dz-idle text-center">
+        <div class="text-3xl">📄</div>
+        <p class="text-sm text-[#211A14] mt-1"><strong>Tap to choose</strong> or drag a PDF here</p>
+        <p class="text-xs text-[#9C8C72] mt-1">🪄 Straight from Canva is fine — we compress &amp; optimize it automatically.</p>
+      </div>
+      <div class="dz-picked items-center gap-3 text-left" style="display:none">
+        <canvas class="dz-thumb shrink-0 w-16 rounded border border-[#E7DFC9] bg-white" width="120" height="160"></canvas>
+        <div class="min-w-0">
+          <p class="dz-name text-sm font-medium text-[#211A14] truncate"></p>
+          <p class="dz-meta text-xs text-[#9C8C72] mt-0.5"></p>
+          <button type="button" class="dz-change text-xs text-[#A8362B] hover:text-[#8f2c22] underline mt-1">Change file</button>
+        </div>
+      </div>
+    </div>
     <% if product.worksheet_pdf.attached? %>
       <p class="text-xs text-[#9C8C72] mt-1">
-        Current file: <%= product.worksheet_pdf.filename %><%= " · #{product.page_count} pages detected" if product.page_count.present? %>
-        · <%= link_to "View PDF", rails_blob_path(product.worksheet_pdf, disposition: "inline"),
-                target: "_blank", rel: "noopener",
-                class: "text-[#A8362B] hover:text-[#8f2c22] underline" %>
+        Current: <%= product.worksheet_pdf.filename %><%= " · #{product.page_count} pages" if product.page_count.present? %> ·
+        <%= link_to "View", rails_blob_path(product.worksheet_pdf, disposition: "inline"), target: "_blank", rel: "noopener", class: "text-[#A8362B] underline" %>
       </p>
     <% end %>
   </div>
 
+  <!-- ===== Preview image ===== -->
   <div>
-    <%= form.label :preview_image, "Preview image (page 1 — shown to buyers as “What’s inside”)", class: label_class %>
-    <%= form.file_field :preview_image, accept: "image/*", class: "block text-sm text-[#6b5f4f]" %>
+    <label class="<%= label_class %>">Preview image (page 1 — shown to buyers before they pay)</label>
+    <div id="img-dz" class="<%= dz_class %>" role="button" tabindex="0" aria-label="Upload preview image">
+      <%= form.file_field :preview_image, accept: "image/*", id: "product_preview_image", style: "display:none" %>
+      <div class="dz-idle text-center">
+        <div class="text-3xl">🖼️</div>
+        <p class="text-sm text-[#211A14] mt-1"><strong>Tap to choose</strong> or drag an image here</p>
+        <p class="text-xs text-[#9C8C72] mt-1">A JPG/PNG of page 1 — auto-resized &amp; optimized for you.</p>
+      </div>
+      <div class="dz-picked items-center gap-3 text-left" style="display:none">
+        <img class="dz-thumb shrink-0 h-16 rounded border border-[#E7DFC9]" alt="">
+        <div class="min-w-0">
+          <p class="dz-name text-sm font-medium text-[#211A14] truncate"></p>
+          <p class="dz-meta text-xs text-[#9C8C72] mt-0.5"></p>
+          <button type="button" class="dz-change text-xs text-[#A8362B] hover:text-[#8f2c22] underline mt-1">Change image</button>
+        </div>
+      </div>
+    </div>
     <% if product.preview_image.attached? %>
       <div class="mt-2">
         <%= link_to rails_blob_path(product.preview_image, disposition: "inline"), target: "_blank", rel: "noopener" do %>
@@ -69,7 +99,6 @@
         <% end %>
       </div>
     <% end %>
-    <p class="text-xs text-[#9C8C72] mt-1">A JPG/PNG of the first page — buyers see this before paying, so pick a page you're happy to show. It's automatically resized &amp; optimized for you.</p>
   </div>
 
   <div>
@@ -78,28 +107,166 @@
   </div>
 <% end %>
 
+<!-- ===== Upload progress overlay ===== -->
+<div id="upload-overlay" class="fixed inset-0 z-50 items-center justify-center px-6" style="display:none; background:rgba(58,20,24,.7)">
+  <div class="bg-[#FFFEFB] rounded-lg p-6 w-full max-w-sm text-center shadow-xl">
+    <p id="upload-stage" class="font-medium text-[#211A14]">Uploading…</p>
+    <div class="mt-3 h-2 rounded-full bg-[#EFE7D2] overflow-hidden">
+      <div id="upload-bar" class="h-full bg-[#A8362B] transition-all" style="width:0%"></div>
+    </div>
+    <p id="upload-pct" class="text-xs text-[#9C8C72] mt-2">0%</p>
+    <p class="text-[11px] text-[#9C8C72] mt-3">Please keep this page open until it finishes.</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script>
-  /* Reject oversized files in the browser BEFORE upload, so a huge file can
-     never stall or crash the server. (The server also enforces these limits.) */
   (function () {
-    var LIMITS = {
-      product_worksheet_pdf: { mb: 45, label: "PDF" },
-      product_preview_image: { mb: 25, label: "image" }
-    };
-    Object.keys(LIMITS).forEach(function (id) {
-      var input = document.getElementById(id);
-      if (!input) return;
-      input.addEventListener("change", function () {
-        var f = input.files && input.files[0];
-        var max = LIMITS[id].mb * 1024 * 1024;
-        if (f && f.size > max) {
-          alert("That " + LIMITS[id].label + " is " + (f.size / 1048576).toFixed(0) +
-                " MB, which is unusually large. Please use a smaller export " +
-                "(in Canva: Download → PDF Standard).\n\nEverything up to " + LIMITS[id].mb +
-                " MB is compressed and optimized automatically after upload — you don't need to do anything.");
-          input.value = "";
+    var form = document.getElementById("product-form");
+    if (!form) return;
+
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+    }
+
+    function fmtMB(bytes) {
+      var mb = bytes / 1048576;
+      return (mb >= 10 ? mb.toFixed(0) : mb.toFixed(1)) + " MB";
+    }
+
+    function setupDropzone(dzId, maxMB, onFile) {
+      var dz = document.getElementById(dzId);
+      if (!dz) return;
+      var input  = dz.querySelector("input[type=file]");
+      var idle   = dz.querySelector(".dz-idle");
+      var picked = dz.querySelector(".dz-picked");
+      var nameEl = dz.querySelector(".dz-name");
+      var metaEl = dz.querySelector(".dz-meta");
+      var thumb  = dz.querySelector(".dz-thumb");
+      var change = dz.querySelector(".dz-change");
+
+      function pick() { input.click(); }
+      dz.addEventListener("click", function (e) { if (e.target !== change) pick(); });
+      dz.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); }
+      });
+      if (change) change.addEventListener("click", function (e) { e.stopPropagation(); pick(); });
+
+      ["dragenter", "dragover"].forEach(function (ev) {
+        dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.add("bg-[#FAF6EC]", "border-[#A8362B]"); });
+      });
+      ["dragleave", "drop"].forEach(function (ev) {
+        dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.remove("bg-[#FAF6EC]"); });
+      });
+      dz.addEventListener("drop", function (e) {
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+          input.files = e.dataTransfer.files;
+          input.dispatchEvent(new Event("change"));
         }
       });
+
+      input.addEventListener("change", function () {
+        var f = input.files && input.files[0];
+        if (!f) return;
+        if (f.size > maxMB * 1048576) {
+          alert("That file is " + fmtMB(f.size) + ", which is unusually large.\n\n" +
+                "Please use a smaller export (in Canva: Download → PDF Standard). " +
+                "Anything up to " + maxMB + " MB is optimized automatically — you don't need to do anything.");
+          input.value = "";
+          return;
+        }
+        idle.style.display = "none";
+        picked.style.display = "flex";
+        nameEl.textContent = f.name;
+        metaEl.textContent = fmtMB(f.size);
+        if (onFile) onFile(f, thumb, metaEl);
+      });
+    }
+
+    // PDF: instant page count + page-1 thumbnail (client-side, no upload).
+    setupDropzone("pdf-dz", 45, function (f, canvas, metaEl) {
+      if (!window.pdfjsLib || !canvas) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        pdfjsLib.getDocument({ data: new Uint8Array(reader.result) }).promise.then(function (pdf) {
+          metaEl.textContent = fmtMB(f.size) + " · " + pdf.numPages + (pdf.numPages === 1 ? " page" : " pages");
+          return pdf.getPage(1);
+        }).then(function (page) {
+          var vp = page.getViewport({ scale: 1 });
+          var v2 = page.getViewport({ scale: canvas.width / vp.width });
+          canvas.height = v2.height;
+          return page.render({ canvasContext: canvas.getContext("2d"), viewport: v2 }).promise;
+        }).catch(function () { /* thumbnail is optional */ });
+      };
+      reader.readAsArrayBuffer(f);
+    });
+
+    // Image: instant preview.
+    setupDropzone("img-dz", 25, function (f, img) {
+      if (img) img.src = URL.createObjectURL(f);
+    });
+
+    // ---- Upload with live progress (only when a new file is being sent) ----
+    var overlay = document.getElementById("upload-overlay");
+    var bar   = document.getElementById("upload-bar");
+    var pct   = document.getElementById("upload-pct");
+    var stage = document.getElementById("upload-stage");
+    var uploading = false;
+
+    function hasNewFile() {
+      var a = document.getElementById("product_worksheet_pdf");
+      var b = document.getElementById("product_preview_image");
+      return (a && a.files && a.files.length) || (b && b.files && b.files.length);
+    }
+
+    form.addEventListener("submit", function (e) {
+      // Plain submit if the browser can't do XHR uploads or there's no new file.
+      if (!window.XMLHttpRequest || !window.FormData || !hasNewFile()) return;
+      e.preventDefault();
+      if (uploading) return;
+      uploading = true;
+      overlay.style.display = "flex";
+      stage.textContent = "Uploading…";
+      bar.style.width = "0%";
+      pct.textContent = "0%";
+
+      var xhr = new XMLHttpRequest();
+      xhr.open((form.getAttribute("method") || "post").toUpperCase(), form.getAttribute("action"));
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+      xhr.upload.addEventListener("progress", function (ev) {
+        if (!ev.lengthComputable) return;
+        var p = Math.round(ev.loaded / ev.total * 100);
+        bar.style.width = p + "%";
+        pct.textContent = p + "%";
+        if (p >= 100) { stage.textContent = "Optimizing your file…"; pct.textContent = "Almost done…"; }
+      });
+      xhr.upload.addEventListener("load", function () {
+        stage.textContent = "Optimizing your file…";
+        pct.textContent = "Almost done…";
+      });
+      xhr.addEventListener("load", function () {
+        // Render whatever came back — the products page (with the flash) on
+        // success, or this form (with errors) on a validation problem.
+        try {
+          document.open();
+          document.write(xhr.responseText);
+          document.close();
+          if (xhr.responseURL) history.replaceState(null, "", xhr.responseURL);
+        } catch (err) {
+          window.location.reload();
+        }
+      });
+      xhr.addEventListener("error", function () {
+        uploading = false;
+        overlay.style.display = "none";
+        alert("Upload failed — please check your connection and try again.");
+      });
+      xhr.send(new FormData(form));
+    });
+
+    window.addEventListener("beforeunload", function (e) {
+      if (uploading) { e.preventDefault(); e.returnValue = ""; }
     });
   })();
 </script>

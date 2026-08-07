@@ -20,7 +20,7 @@ class Admin::ProductsController < Admin::BaseController
 
     if @product.save
       maybe_refresh_page_count(@product)
-      redirect_to admin_products_path, notice: "Worksheet added successfully."
+      redirect_to admin_products_path, notice: success_notice("Worksheet added successfully.")
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class Admin::ProductsController < Admin::BaseController
   def update
     if @product.update(product_attributes)
       maybe_refresh_page_count(@product)
-      redirect_to admin_products_path, notice: "Worksheet updated successfully."
+      redirect_to admin_products_path, notice: success_notice("Worksheet updated successfully.")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -65,9 +65,22 @@ class Admin::ProductsController < Admin::BaseController
   # and image-heavy). Everything downstream then stores/serves the smaller file.
   def product_attributes
     attrs = product_params
+    @optimizations = []
     attrs[:worksheet_pdf] = compress_pdf(attrs[:worksheet_pdf])   if attrs[:worksheet_pdf].present?
     attrs[:preview_image] = compress_image(attrs[:preview_image]) if attrs[:preview_image].present?
     attrs
+  end
+
+  # Appends any "X MB → Y MB" savings to the success flash so the admin can see
+  # the optimization actually happened.
+  def success_notice(base)
+    return base if @optimizations.blank?
+    "#{base} Optimized: #{@optimizations.join(', ')}."
+  end
+
+  def human_mb(bytes)
+    mb = bytes / 1_048_576.0
+    format(mb >= 10 ? "%.0f MB" : "%.1f MB", mb)
   end
 
   # Shell out to Ghostscript to shrink the PDF. Returns the compressed file only
@@ -88,6 +101,7 @@ class Admin::ProductsController < Admin::BaseController
 
     if ok && File.exist?(out) && File.size(out).positive? && File.size(out) < File.size(src)
       Rails.logger.info("PDF compressed #{File.size(src)} → #{File.size(out)} bytes")
+      (@optimizations ||= []) << "PDF #{human_mb(File.size(src))} → #{human_mb(File.size(out))}"
       return { io: File.open(out), filename: uploaded.original_filename, content_type: "application/pdf" }
     end
 
@@ -116,6 +130,7 @@ class Admin::ProductsController < Admin::BaseController
 
     if ok && File.exist?(out) && File.size(out).positive? && File.size(out) < File.size(src)
       Rails.logger.info("Image compressed #{File.size(src)} → #{File.size(out)} bytes")
+      (@optimizations ||= []) << "image #{human_mb(File.size(src))} → #{human_mb(File.size(out))}"
       base = File.basename(uploaded.original_filename.to_s, ".*").presence || "preview"
       return { io: File.open(out), filename: "#{base}.jpg", content_type: "image/jpeg" }
     end

@@ -65,7 +65,8 @@ class Admin::ProductsController < Admin::BaseController
   # and image-heavy). Everything downstream then stores/serves the smaller file.
   def product_attributes
     attrs = product_params
-    attrs[:worksheet_pdf] = compress_pdf(attrs[:worksheet_pdf]) if attrs[:worksheet_pdf].present?
+    attrs[:worksheet_pdf] = compress_pdf(attrs[:worksheet_pdf])   if attrs[:worksheet_pdf].present?
+    attrs[:preview_image] = compress_image(attrs[:preview_image]) if attrs[:preview_image].present?
     attrs
   end
 
@@ -94,6 +95,35 @@ class Admin::ProductsController < Admin::BaseController
     uploaded
   rescue => e
     Rails.logger.warn("PDF compression skipped: #{e.message}")
+    uploaded
+  end
+
+  # Shrink/normalize a preview image with ImageMagick: cap the dimensions and
+  # re-encode as a quality-82 JPEG (page-1 previews don't need to be huge).
+  # Same safety contract as compress_pdf — falls back to the original on any
+  # problem, and is skipped on the Windows dev box.
+  def compress_image(uploaded)
+    return uploaded if Gem.win_platform?
+    return uploaded unless uploaded.respond_to?(:tempfile) && uploaded.content_type.to_s.start_with?("image/")
+
+    src = uploaded.tempfile.path
+    out = Rails.root.join("tmp", "img-compress-#{SecureRandom.hex(8)}.jpg").to_s
+
+    ok = system("timeout", "60", "convert", "#{src}[0]",
+                "-background", "white", "-flatten",
+                "-resize", "1600x1600>", "-strip", "-quality", "82", out,
+                out: File::NULL, err: File::NULL)
+
+    if ok && File.exist?(out) && File.size(out).positive? && File.size(out) < File.size(src)
+      Rails.logger.info("Image compressed #{File.size(src)} → #{File.size(out)} bytes")
+      base = File.basename(uploaded.original_filename.to_s, ".*").presence || "preview"
+      return { io: File.open(out), filename: "#{base}.jpg", content_type: "image/jpeg" }
+    end
+
+    File.delete(out) if File.exist?(out)
+    uploaded
+  rescue => e
+    Rails.logger.warn("Image compression skipped: #{e.message}")
     uploaded
   end
 end

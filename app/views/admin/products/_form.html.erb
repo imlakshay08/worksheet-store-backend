@@ -48,6 +48,7 @@
   <div>
     <%= form.label :worksheet_pdf, "Worksheet PDF", class: label_class %>
     <%= form.file_field :worksheet_pdf, accept: "application/pdf", class: "block text-sm text-[#6b5f4f]" %>
+    <p class="text-xs text-[#9C8C72] mt-1">🪄 Upload straight from Canva — large files are compressed &amp; optimized automatically, so downloads stay fast. Just choose the file and Save.</p>
     <% if product.worksheet_pdf.attached? %>
       <p class="text-xs text-[#9C8C72] mt-1">
         Current file: <%= product.worksheet_pdf.filename %><%= " · #{product.page_count} pages detected" if product.page_count.present? %>
@@ -68,7 +69,7 @@
         <% end %>
       </div>
     <% end %>
-    <p class="text-xs text-[#9C8C72] mt-1">A JPG/PNG of the first page. This is public — buyers see it before paying, so pick a page you're happy to show.</p>
+    <p class="text-xs text-[#9C8C72] mt-1">A JPG/PNG of the first page — buyers see this before paying, so pick a page you're happy to show. It's automatically resized &amp; optimized for you.</p>
   </div>
 
   <div>
@@ -82,8 +83,8 @@
      never stall or crash the server. (The server also enforces these limits.) */
   (function () {
     var LIMITS = {
-      product_worksheet_pdf: { mb: 40, label: "PDF" },
-      product_preview_image: { mb: 5,  label: "preview image" }
+      product_worksheet_pdf: { mb: 45, label: "PDF" },
+      product_preview_image: { mb: 25, label: "image" }
     };
     Object.keys(LIMITS).forEach(function (id) {
       var input = document.getElementById(id);
@@ -92,10 +93,10 @@
         var f = input.files && input.files[0];
         var max = LIMITS[id].mb * 1024 * 1024;
         if (f && f.size > max) {
-          alert("That " + LIMITS[id].label + " is " + (f.size / 1048576).toFixed(1) +
-                " MB — too large (max " + LIMITS[id].mb + " MB).\n\n" +
-                "Tip: in Canva use Download → PDF Standard (not Print), or run the file " +
-                "through a free PDF compressor first. We also compress PDFs automatically after upload.");
+          alert("That " + LIMITS[id].label + " is " + (f.size / 1048576).toFixed(0) +
+                " MB, which is unusually large. Please use a smaller export " +
+                "(in Canva: Download → PDF Standard).\n\nEverything up to " + LIMITS[id].mb +
+                " MB is compressed and optimized automatically after upload — you don't need to do anything.");
           input.value = "";
         }
       });

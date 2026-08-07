@@ -31,11 +31,6 @@
   </div>
 
   <div>
-    <%= form.label :slug, "Slug (used in the buy link, e.g. french-articles-worksheet)", class: label_class %>
-    <%= form.text_field :slug, class: input_class %>
-  </div>
-
-  <div>
     <%= form.label :price_in_rupees, "Price in ₹ (just type the rupee amount, e.g. 79)", class: label_class %>
     <%= form.number_field :price_in_rupees, step: 0.01, min: 0, class: input_class %>
   </div>
@@ -81,3 +76,29 @@
           class: "bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.1em] cursor-pointer transition-colors" %>
   </div>
 <% end %>
+
+<script>
+  /* Reject oversized files in the browser BEFORE upload, so a huge file can
+     never stall or crash the server. (The server also enforces these limits.) */
+  (function () {
+    var LIMITS = {
+      product_worksheet_pdf: { mb: 40, label: "PDF" },
+      product_preview_image: { mb: 5,  label: "preview image" }
+    };
+    Object.keys(LIMITS).forEach(function (id) {
+      var input = document.getElementById(id);
+      if (!input) return;
+      input.addEventListener("change", function () {
+        var f = input.files && input.files[0];
+        var max = LIMITS[id].mb * 1024 * 1024;
+        if (f && f.size > max) {
+          alert("That " + LIMITS[id].label + " is " + (f.size / 1048576).toFixed(1) +
+                " MB — too large (max " + LIMITS[id].mb + " MB).\n\n" +
+                "Tip: in Canva use Download → PDF Standard (not Print), or run the file " +
+                "through a free PDF compressor first. We also compress PDFs automatically after upload.");
+          input.value = "";
+        }
+      });
+    });
+  })();
+</script>

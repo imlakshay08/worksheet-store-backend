@@ -37,7 +37,7 @@
       <% @orders.each do |order| %>
         <tr class="hover:bg-[#FAF6EC]">
           <td class="px-5 py-3">
-            <%= link_to admin_order_path(order), class: "text-[#A8362B] hover:text-[#8f2c22] font-medium" do %>
+            <%= link_to admin_order_path(order, page: @page, product_id: params[:product_id].presence, status: params[:status].presence, email: params[:email].presence), class: "text-[#A8362B] hover:text-[#8f2c22] font-medium" do %>
               <%= order.name.presence || order.email.presence || "—" %>
             <% end %>
             <div class="text-xs text-[#9C8C72]"><%= order.email %></div>
@@ -84,14 +84,14 @@
     <% if @total_pages > 1 %>
       <div class="flex items-center gap-1">
         <% if @page > 1 %>
-          <%= link_to "‹ Prev", admin_orders_path(email: params[:email].presence, status: params[:status].presence, page: @page - 1),
+          <%= link_to "‹ Prev", admin_orders_path(email: params[:email].presence, status: params[:status].presence, product_id: params[:product_id].presence, page: @page - 1),
                 class: "px-3 py-1.5 rounded-md border border-[#E7DFC9] hover:bg-[#FAF6EC] text-[#211A14]" %>
         <% else %>
           <span class="px-3 py-1.5 rounded-md border border-[#EFE7D2] text-[#c9bfa6]">‹ Prev</span>
         <% end %>
         <span class="px-3 py-1.5">Page <%= @page %> of <%= @total_pages %></span>
         <% if @page < @total_pages %>
-          <%= link_to "Next ›", admin_orders_path(email: params[:email].presence, status: params[:status].presence, page: @page + 1),
+          <%= link_to "Next ›", admin_orders_path(email: params[:email].presence, status: params[:status].presence, product_id: params[:product_id].presence, page: @page + 1),
                 class: "px-3 py-1.5 rounded-md border border-[#E7DFC9] hover:bg-[#FAF6EC] text-[#211A14]" %>
         <% else %>
           <span class="px-3 py-1.5 rounded-md border border-[#EFE7D2] text-[#c9bfa6]">Next ›</span>

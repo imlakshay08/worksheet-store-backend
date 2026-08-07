@@ -1,6 +1,6 @@
 <div class="flex items-end justify-between mb-1">
   <div>
-    <%= link_to "← Back to orders", admin_orders_path, class: "text-sm text-[#A8362B] hover:text-[#8f2c22]" %>
+    <%= link_to "← Back to orders", admin_orders_path(page: params[:page].presence, product_id: params[:product_id].presence, status: params[:status].presence, email: params[:email].presence), class: "text-sm text-[#A8362B] hover:text-[#8f2c22]" %>
     <h1 class="font-display text-2xl font-semibold text-[#211A14] mt-2">Order #<%= @order.id %></h1>
   </div>
 

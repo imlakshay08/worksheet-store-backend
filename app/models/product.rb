@@ -4,8 +4,14 @@ class Product < ApplicationRecord
   has_one_attached :preview_image
   has_many :orders, dependent: :restrict_with_error
 
-  MAX_PDF_BYTES = 20.megabytes
+  MAX_PDF_BYTES = 40.megabytes
   MAX_PREVIEW_BYTES = 5.megabytes
+  # pdf-reader is pure Ruby and can spike memory on very large PDFs — enough to
+  # get the whole process killed on a small instance. Skip the page-count step
+  # above this size so a big upload can never crash the app.
+  PAGE_COUNT_MAX_BYTES = 15.megabytes
+
+  before_validation :ensure_slug
 
   validates :title, presence: true, length: { maximum: 150 }
   validates :slug,  presence: true, length: { maximum: 100 },
@@ -20,6 +26,7 @@ class Product < ApplicationRecord
   # Pure Ruby (pdf-reader) — no system dependencies. Called after a PDF upload.
   def refresh_page_count!
     return unless worksheet_pdf.attached? && has_attribute?(:page_count)
+    return if worksheet_pdf.byte_size > PAGE_COUNT_MAX_BYTES
 
     count = worksheet_pdf.open { |file| PDF::Reader.new(file).page_count }
     update_column(:page_count, count)
@@ -69,8 +76,24 @@ class Product < ApplicationRecord
       errors.add(:worksheet_pdf, "must be a PDF file")
     end
     if worksheet_pdf.byte_size > MAX_PDF_BYTES
-      errors.add(:worksheet_pdf, "must be 20 MB or smaller")
+      errors.add(:worksheet_pdf, "must be 40 MB or smaller")
     end
+  end
+
+  # Auto-generate a URL-safe slug from the title so the admin never has to think
+  # about it. Only fills a blank slug — it never rewrites an existing one, which
+  # would break live buy links.
+  def ensure_slug
+    return if slug.present?
+
+    base = title.to_s.parameterize.presence || "worksheet"
+    candidate = base
+    n = 2
+    while Product.where.not(id: id).exists?(slug: candidate)
+      candidate = "#{base}-#{n}"
+      n += 1
+    end
+    self.slug = candidate
   end
 
   def preview_image_must_be_a_reasonable_image

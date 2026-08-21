@@ -13,6 +13,7 @@
         <th class="text-left font-medium px-5 py-3">Price</th>
         <th class="text-left font-medium px-5 py-3">Active</th>
         <th class="text-left font-medium px-5 py-3">PDF</th>
+        <th class="text-left font-medium px-5 py-3">Size</th>
         <th class="px-5 py-3"></th>
       </tr>
     </thead>
@@ -36,6 +37,14 @@
               —
             <% end %>
           </td>
+          <td class="px-5 py-3">
+            <% pdf_b = product.worksheet_pdf.attached? ? product.worksheet_pdf.byte_size : 0 %>
+            <% img_b = product.preview_image.attached? ? product.preview_image.byte_size : 0 %>
+            <div class="text-[#211A14]"><%= (pdf_b + img_b).positive? ? number_to_human_size(pdf_b + img_b) : "—" %></div>
+            <div class="text-[11px] text-[#9C8C72] whitespace-nowrap">
+              📄 <%= pdf_b.positive? ? number_to_human_size(pdf_b) : "—" %> · 🖼️ <%= img_b.positive? ? number_to_human_size(img_b) : "—" %>
+            </div>
+          </td>
           <td class="px-5 py-3 text-right whitespace-nowrap">
             <%= link_to "Edit", admin_edit_product_path(product),
                   class: "text-[#A8362B] hover:text-[#8f2c22] mr-3" %>
@@ -47,7 +56,7 @@
       <% end %>
 
       <% if @products.empty? %>
-        <tr><td colspan="5" class="px-5 py-6 text-center text-[#9C8C72]">No worksheets yet.</td></tr>
+        <tr><td colspan="6" class="px-5 py-6 text-center text-[#9C8C72]">No worksheets yet.</td></tr>
       <% end %>
     </tbody>
   </table>

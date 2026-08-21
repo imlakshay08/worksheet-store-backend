@@ -25,12 +25,12 @@
     <p class="text-[11px] text-[#9C8C72] mt-1"><%= @active_products %> active</p>
   </div>
 
-  <div class="relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-4 pl-5">
+  <%= link_to admin_products_path, class: "relative block bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-4 pl-5 hover:border-[#A8362B] transition-colors" do %>
     <span class="absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]"></span>
-    <p class="text-xs text-[#6b5f4f]">Storage used</p>
+    <p class="text-xs text-[#6b5f4f]">Storage used <span aria-hidden="true">›</span></p>
     <p class="font-display text-2xl font-semibold text-[#211A14] mt-1"><%= number_to_human_size(@storage_bytes) %></p>
-    <p class="text-[11px] text-[#9C8C72] mt-1"><%= pluralize(@storage_files, "file") %> · of 10 GB free</p>
-  </div>
+    <p class="text-[11px] text-[#9C8C72] mt-1"><%= pluralize(@storage_files, "file") %> · of 10 GB free · per-file sizes →</p>
+  <% end %>
 
   <div class="relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden p-4 pl-5 flex flex-col justify-between">
     <span class="absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]"></span>

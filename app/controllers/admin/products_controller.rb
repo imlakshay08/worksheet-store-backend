@@ -2,7 +2,11 @@ class Admin::ProductsController < Admin::BaseController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all.order(created_at: :desc)
+    # Eager-load the attachments + blobs so the per-product file sizes in the
+    # list don't trigger a query per row.
+    @products = Product.with_attached_worksheet_pdf
+                       .with_attached_preview_image
+                       .order(created_at: :desc)
   end
 
   def show

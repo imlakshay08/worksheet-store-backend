@@ -12,20 +12,74 @@
   <style>
     .font-display { font-family: 'Fraunces', serif; }
     .font-ui { font-family: 'IBM Plex Sans', sans-serif; }
+
+    /* Reflow wide admin tables into stacked, labelled cards on phones. Each <td>
+       shows its data-label on the left and its value on the right. Desktop keeps
+       the normal table. */
+    @media (max-width: 767.98px) {
+      .responsive-table thead { display: none; }
+      .responsive-table,
+      .responsive-table tbody,
+      .responsive-table tr,
+      .responsive-table td { display: block; width: 100%; }
+      .responsive-table tr {
+        border: 1px solid #E7DFC9; border-radius: 10px; margin-bottom: 12px;
+        background: #FFFEFB; overflow: hidden;
+      }
+      .responsive-table td {
+        display: flex; justify-content: space-between; align-items: baseline;
+        gap: 16px; padding: 9px 14px; text-align: right;
+        border-top: 1px solid #F3ECDA;
+      }
+      .responsive-table tr td:first-child { border-top: none; }
+      .responsive-table td::before {
+        content: attr(data-label); font-weight: 600; color: #9C8C72;
+        text-align: left; white-space: nowrap; flex-shrink: 0;
+      }
+      .responsive-table td[data-label=""] { justify-content: flex-end; }
+      .responsive-table td[data-label=""]::before { content: none; }
+    }
   </style>
 </head>
 <body class="font-ui bg-[#FAF6EC] text-[#211A14]">
-  <div class="min-h-screen flex">
-    <aside class="w-44 shrink-0 bg-[#3A1418] text-[#C9B89E] flex flex-col px-4 py-5">
+  <% nav_items = [
+       ["Dashboard", admin_root_path,     "dashboard"],
+       ["Products",  admin_products_path, "products"],
+       ["Orders",    admin_orders_path,   "orders"]
+     ] %>
+
+  <!-- Mobile top bar -->
+  <header class="md:hidden sticky top-0 z-30 flex items-center justify-between bg-[#3A1418] text-[#F6EFDD] px-4 py-3">
+    <span class="font-display text-lg font-semibold">Worksheet Hub</span>
+    <button id="admin-nav-toggle" type="button" aria-label="Menu" aria-expanded="false"
+            class="p-2 -mr-2 rounded hover:bg-white/10">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile menu (collapsible) -->
+  <nav id="admin-mobile-nav" class="md:hidden hidden bg-[#3A1418] text-[#C9B89E] px-3 pt-1 pb-3 space-y-1 border-t border-white/10">
+    <% nav_items.each do |label, path, key| %>
+      <%= link_to label, path,
+            class: "block px-3 py-3 rounded-md text-sm #{controller_name == key ? 'bg-white/10 text-[#F6EFDD]' : 'text-[#C9B89E]'}" %>
+    <% end %>
+    <div class="border-t border-white/10 mt-2 pt-2">
+      <p class="px-3 text-[11px] text-[#9C8C72] mb-1">Signed in as nidhi</p>
+      <%= button_to "Logout", admin_logout_path, method: :delete,
+            class: "w-full text-left px-3 py-3 text-sm text-[#C9B89E] bg-transparent border-0 cursor-pointer" %>
+    </div>
+  </nav>
+
+  <div class="min-h-screen md:flex">
+    <!-- Desktop sidebar -->
+    <aside class="hidden md:flex w-44 shrink-0 bg-[#3A1418] text-[#C9B89E] flex-col px-4 py-5">
       <div class="font-display text-lg font-semibold text-[#F6EFDD] mb-1">Worksheet Hub</div>
       <div class="h-0.5 w-7 bg-[#A8362B] mb-5"></div>
 
       <nav class="flex-1 space-y-1">
-        <% [
-             ["Dashboard", admin_root_path,     "dashboard"],
-             ["Products",  admin_products_path, "products"],
-             ["Orders",    admin_orders_path,   "orders"]
-           ].each do |label, path, key| %>
+        <% nav_items.each do |label, path, key| %>
           <% active = controller_name == key %>
           <%= link_to path,
                 class: "relative flex items-center gap-2 pl-3 pr-2 py-2 rounded-md text-sm transition-colors
@@ -45,7 +99,7 @@
       </div>
     </aside>
 
-    <main class="flex-1 p-8 max-w-6xl flex flex-col">
+    <main class="flex-1 p-4 md:p-8 max-w-6xl flex flex-col">
       <div class="flex-1">
         <% if notice %>
           <div class="mb-4 rounded-md bg-[#E5EEE0] border border-[#2F5233]/25 px-4 py-3 text-sm text-[#2F5233]">
@@ -67,5 +121,17 @@
       </footer>
     </main>
   </div>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("admin-nav-toggle");
+      var menu = document.getElementById("admin-mobile-nav");
+      if (!btn || !menu) return;
+      btn.addEventListener("click", function () {
+        var hidden = menu.classList.toggle("hidden");
+        btn.setAttribute("aria-expanded", hidden ? "false" : "true");
+      });
+    })();
+  </script>
 </body>
 </html>

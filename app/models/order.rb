@@ -143,7 +143,9 @@ class Order < ApplicationRecord
 
       #{blocks}
 
-      Each link is valid for 30 days. Please save your PDFs after downloading.
+      IMPORTANT — please save your PDF now: download each worksheet and keep it
+      on your phone or computer. Each link works for up to #{DOWNLOAD_LIMIT} opens and expires
+      after #{DOWNLOAD_VALID_FOR.in_days.to_i} days — after that it stops working.
 
       Need help? Didn't get everything, or having trouble opening a PDF?
       Just reply to this email and we'll sort it out.
@@ -213,10 +215,16 @@ class Order < ApplicationRecord
                 <!-- one card + download button per worksheet -->
                 #{item_blocks}
 
-                <!-- validity note -->
+                <!-- validity / save-your-PDF note -->
                 <tr>
-                  <td style="padding:2px 36px 28px 36px;">
-                    <p style="margin:0; font-family:Arial,Helvetica,sans-serif; font-size:12px; color:#5b6478;">🔒 Each link is valid for 30 days and can be used a few times — please save your PDFs after downloading.</p>
+                  <td style="padding:2px 36px 26px 36px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#fbf0ec; border:1px solid #e6b8ad; border-radius:12px;">
+                      <tr>
+                        <td style="padding:14px 18px; font-family:Arial,Helvetica,sans-serif; font-size:13px; line-height:1.6; color:#7a1f17;">
+                          <strong style="color:#7a1f17;">⬇️ Please save your PDF now.</strong> Download each worksheet and keep it on your phone or computer. Each link works for up to <strong>#{DOWNLOAD_LIMIT} opens</strong> and expires after <strong>#{DOWNLOAD_VALID_FOR.in_days.to_i} days</strong> — after that it stops working.
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
 

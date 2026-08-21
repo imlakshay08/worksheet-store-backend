@@ -13,6 +13,11 @@ class Admin::DashboardController < Admin::BaseController
     @total_products  = Product.count
     @active_products = Product.where(active: true).count
 
+    # R2 storage used = the total size of every stored file (worksheet PDFs +
+    # preview images). Each Active Storage blob lives in the R2 bucket.
+    @storage_bytes = ActiveStorage::Blob.sum(:byte_size)
+    @storage_files = ActiveStorage::Blob.count
+
     @recent_orders = Order.paid.includes(:product, order_items: :product).order(created_at: :desc).limit(8)
   end
 end

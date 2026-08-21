@@ -4,6 +4,11 @@ class Product < ApplicationRecord
   has_one_attached :preview_image
   has_many :orders, dependent: :restrict_with_error
 
+  # Soft delete: a "removed" product is hidden from the admin list but kept in
+  # the DB so its orders/revenue stay intact. NOT a default_scope on purpose —
+  # order.product must still resolve a removed product for order history.
+  scope :listed, -> { where(removed_at: nil) }
+
   MAX_PDF_BYTES = 40.megabytes
   MAX_PREVIEW_BYTES = 5.megabytes
   # pdf-reader is pure Ruby and can spike memory on very large PDFs — enough to
@@ -75,14 +80,15 @@ class Product < ApplicationRecord
     bytes
   end
 
-  # Free the R2 storage for this worksheet by permanently deleting its files,
-  # WITHOUT touching the product record or its orders — so sales history and
-  # revenue (snapshotted on each order) are fully preserved. The product is set
-  # inactive since it can't be sold without a file.
-  def free_storage!
+  def removed?
+    removed_at.present?
+  end
+
+  # Permanently delete this worksheet's files from R2 to free the storage.
+  # Records are untouched — revenue is snapshotted on orders, independent of it.
+  def purge_files!
     worksheet_pdf.purge if worksheet_pdf.attached?
     preview_image.purge if preview_image.attached?
-    update_columns(active: false, page_count: nil)
   end
 
   private

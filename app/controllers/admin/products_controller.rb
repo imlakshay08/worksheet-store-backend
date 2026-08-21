@@ -1,10 +1,11 @@
 class Admin::ProductsController < Admin::BaseController
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :free_storage]
+  before_action :set_product, only: [:show, :edit, :update, :remove]
 
   def index
-    # Eager-load the attachments + blobs so the per-product file sizes in the
-    # list don't trigger a query per row.
-    @products = Product.with_attached_worksheet_pdf
+    # Only live worksheets (not removed ones), with attachments eager-loaded so
+    # the per-product file sizes in the list don't trigger a query per row.
+    @products = Product.listed
+                       .with_attached_worksheet_pdf
                        .with_attached_preview_image
                        .order(created_at: :desc)
   end
@@ -39,24 +40,26 @@ class Admin::ProductsController < Admin::BaseController
     end
   end
 
-  def destroy
-    if @product.destroy
-      redirect_to admin_products_path, notice: "Worksheet deleted."
-    else
-      redirect_to admin_products_path,
-                  alert: "Can't delete “#{@product.title}” — it has orders, which are kept for your sales records. " \
-                         "To free its cloud storage instead, use “Free storage”."
-    end
-  end
-
-  # Delete only the stored files (PDF + cover) to free R2 space, keeping the
-  # product record + all orders/revenue intact.
-  def free_storage
+  # "Remove" = take the worksheet out of the admin list AND free its cloud
+  # storage, while keeping everything the books depend on:
+  #   • files (PDF + cover) are purged from R2 → storage freed
+  #   • if it has orders, the record is kept but soft-removed (hidden) so its
+  #     revenue/history stay intact
+  #   • if it was never sold, the record is deleted outright (nothing to keep)
+  def remove
+    title = @product.title
     freed = @product.stored_bytes
-    @product.free_storage!
+    @product.purge_files!
+
+    if @product.orders.exists?
+      @product.update_columns(removed_at: Time.current, active: false)
+    else
+      @product.destroy
+    end
+
+    freed_note = freed.positive? ? " and freed #{helpers.number_to_human_size(freed)} of storage" : ""
     redirect_to admin_products_path,
-                notice: "Freed #{helpers.number_to_human_size(freed)} of storage from “#{@product.title}”. " \
-                        "Its sales history and revenue are kept — it's now inactive."
+                notice: "Removed “#{title}”#{freed_note}. Any past orders and their revenue are kept."
   end
 
   private

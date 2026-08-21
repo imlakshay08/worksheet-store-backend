@@ -48,13 +48,8 @@
           <td class="px-5 py-3 text-right whitespace-nowrap">
             <%= link_to "Edit", admin_edit_product_path(product),
                   class: "text-[#A8362B] hover:text-[#8f2c22] mr-3" %>
-            <% if product.worksheet_pdf.attached? || product.preview_image.attached? %>
-              <%= button_to "Free storage", admin_free_storage_product_path(product), method: :post,
-                    form: { class: "inline", data: { turbo_confirm: "Permanently delete the PDF & cover image for “#{product.title}” to free up cloud storage?\n\n✓ Sales history & revenue are KEPT.\n• It becomes inactive (re-upload a file to sell it again).\n• Recent buyers (last 30 days) won't be able to re-download.\n\nThis cannot be undone." } },
-                    class: "text-[#8a6d1f] hover:text-[#6b5518] bg-transparent border-0 p-0 cursor-pointer mr-3" %>
-            <% end %>
-            <%= button_to "Delete", admin_product_path(product), method: :delete,
-                  form: { class: "inline", data: { turbo_confirm: "Delete this worksheet?" } },
+            <%= button_to "Remove", admin_remove_product_path(product), method: :post,
+                  form: { class: "inline", data: { turbo_confirm: "Remove “#{product.title}” from your worksheets?\n\n• It disappears from this list and the shop.\n• Its files are deleted from cloud storage to free up space.\n• Its past orders & revenue are KEPT.\n\nThis cannot be undone — you'd re-add it to sell again." } },
                   class: "text-[#A8362B] hover:text-[#8f2c22] bg-transparent border-0 p-0 cursor-pointer" %>
           </td>
         </tr>

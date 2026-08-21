@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::BaseController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :free_storage]
 
   def index
     # Eager-load the attachments + blobs so the per-product file sizes in the
@@ -43,8 +43,20 @@ class Admin::ProductsController < Admin::BaseController
     if @product.destroy
       redirect_to admin_products_path, notice: "Worksheet deleted."
     else
-      redirect_to admin_products_path, alert: @product.errors.full_messages.to_sentence
+      redirect_to admin_products_path,
+                  alert: "Can't delete “#{@product.title}” — it has orders, which are kept for your sales records. " \
+                         "To free its cloud storage instead, use “Free storage”."
     end
+  end
+
+  # Delete only the stored files (PDF + cover) to free R2 space, keeping the
+  # product record + all orders/revenue intact.
+  def free_storage
+    freed = @product.stored_bytes
+    @product.free_storage!
+    redirect_to admin_products_path,
+                notice: "Freed #{helpers.number_to_human_size(freed)} of storage from “#{@product.title}”. " \
+                        "Its sales history and revenue are kept — it's now inactive."
   end
 
   private

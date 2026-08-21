@@ -9,6 +9,14 @@ class DownloadsController < ApplicationController
       return
     end
 
+    # The worksheet's file may have been removed to free storage after the sale.
+    unless item.product&.worksheet_pdf&.attached?
+      render plain: "This worksheet is no longer available for download. " \
+                    "Please contact us and we'll help you out.",
+             status: :not_found
+      return
+    end
+
     item.increment!(:download_count)
 
     # R2 (production) returns absolute, presigned URLs and ignores this. The

@@ -67,6 +67,24 @@ class Product < ApplicationRecord
     format("%.2f", price_in_cents / 100.0)
   end
 
+  # Total R2 storage this worksheet occupies (PDF + cover image), in bytes.
+  def stored_bytes
+    bytes = 0
+    bytes += worksheet_pdf.byte_size if worksheet_pdf.attached?
+    bytes += preview_image.byte_size if preview_image.attached?
+    bytes
+  end
+
+  # Free the R2 storage for this worksheet by permanently deleting its files,
+  # WITHOUT touching the product record or its orders — so sales history and
+  # revenue (snapshotted on each order) are fully preserved. The product is set
+  # inactive since it can't be sold without a file.
+  def free_storage!
+    worksheet_pdf.purge if worksheet_pdf.attached?
+    preview_image.purge if preview_image.attached?
+    update_columns(active: false, page_count: nil)
+  end
+
   private
 
   def worksheet_pdf_must_be_a_reasonable_pdf

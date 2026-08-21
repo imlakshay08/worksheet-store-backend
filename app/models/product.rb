@@ -2,12 +2,19 @@ class Product < ApplicationRecord
   has_one_attached :worksheet_pdf
   # A public page-1 preview image ("What's inside") shown to buyers before purchase.
   has_one_attached :preview_image
-  has_many :orders, dependent: :restrict_with_error
+  has_many :orders,      dependent: :restrict_with_error
+  has_many :order_items, dependent: :restrict_with_error
 
   # Soft delete: a "removed" product is hidden from the admin list but kept in
   # the DB so its orders/revenue stay intact. NOT a default_scope on purpose —
   # order.product must still resolve a removed product for order history.
   scope :listed, -> { where(removed_at: nil) }
+
+  # Sold via either the legacy single-product order (orders.product_id) OR the
+  # cart (order_items). Either means we must keep the record for its history.
+  def sold?
+    orders.exists? || order_items.exists?
+  end
 
   MAX_PDF_BYTES = 40.megabytes
   MAX_PREVIEW_BYTES = 5.megabytes

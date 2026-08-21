@@ -51,7 +51,7 @@ class Admin::ProductsController < Admin::BaseController
     freed = @product.stored_bytes
     @product.purge_files!
 
-    if @product.orders.exists?
+    if @product.sold?
       @product.update_columns(removed_at: Time.current, active: false)
     else
       @product.destroy

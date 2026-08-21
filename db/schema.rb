@@ -95,6 +95,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_07_18_120000) do
     t.integer "price_in_cents"
     t.string "level"
     t.integer "page_count"
+    t.datetime "removed_at"
+    t.index ["removed_at"], name: "index_products_on_removed_at"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

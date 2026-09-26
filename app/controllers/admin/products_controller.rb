@@ -14,7 +14,9 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def new
-    @product = Product.new
+    # A title can be pre-filled from the Research page, so a promising search
+    # query becomes a draft worksheet in one click.
+    @product = Product.new(title: params[:title].to_s.strip.first(150).presence)
   end
 
   def edit

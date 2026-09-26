@@ -1,0 +1,327 @@
+<% card_class   = "relative bg-[#FFFEFB] border border-[#E7DFC9] rounded-md overflow-hidden" %>
+<% accent_class = "absolute left-0 top-0 bottom-0 w-1 bg-[#A8362B]" %>
+<% label_class  = "block text-[11px] tracking-[0.15em] font-semibold uppercase text-[#8a7d63] mb-1.5" %>
+<% input_class  = "w-full bg-white/60 rounded-sm border border-[#d8c9a3] px-3 py-2.5 text-sm text-[#211A14] focus:outline-none focus:border-[#A8362B] focus:ring-2 focus:ring-[#A8362B]/20 transition-colors" %>
+
+<h1 class="font-display text-2xl font-semibold text-[#211A14] mb-1">Research</h1>
+<div class="h-0.5 w-10 bg-[#A8362B] mb-2"></div>
+<p class="text-sm text-[#6b5f4f] mb-6">
+  What people are searching for, where we rank, and what others charge &mdash; live from Google via SerpApi.
+</p>
+
+<% unless @configured %>
+  <div class="mb-6 rounded-md bg-[#F5E9D0] border border-[#8a6d1f]/40 px-4 py-3 text-sm text-[#8a6d1f]">
+    <strong class="font-semibold">SerpApi isn't set up yet.</strong>
+    Add your key with <code class="font-mono text-xs">bin/rails credentials:edit</code> under
+    <code class="font-mono text-xs">serpapi: api_key:</code>, then reload this page.
+  </div>
+<% end %>
+
+<!-- Demand gap: search demand vs. this store's catalogue and sales -->
+<% verdicts = {
+     proven:          ["Proven",              "bg-[#E5EEE0] text-[#2F5233] border-[#2F5233]/25"],
+     undiscovered:    ["Wanted, not selling", "bg-[#FBF0EC] text-[#7a1f17] border-[#A8362B]/40"],
+     selling_quietly: ["Selling",             "bg-[#F1EADA] text-[#6b5f4f] border-[#9C8C72]/30"],
+     no_signal:       ["No signal yet",       "bg-[#F1EADA] text-[#9C8C72] border-[#9C8C72]/25"]
+   } %>
+
+<div class="<%= card_class %> mb-8">
+  <span class="<%= accent_class %>"></span>
+  <div class="px-5 py-4 pl-6 border-b border-[#A8362B] flex flex-wrap items-start justify-between gap-3">
+    <div>
+      <h2 class="font-display text-lg font-semibold text-[#211A14]">What to make next</h2>
+      <p class="text-sm text-[#6b5f4f] mt-1">
+        What people search for, minus what you already sell &mdash; and whether the ones you
+        do sell are actually wanted.
+      </p>
+      <p class="text-[11px] text-[#9C8C72] mt-1">
+        <%= pluralize(@searches_mined.to_i, "cached search") %> mined &middot;
+        <%= pluralize(@phrases_considered.to_i, "topic") %> found &middot; costs nothing to view
+      </p>
+    </div>
+    <%= button_to "Refresh demand (#{pluralize(@demand_cost, 'search')})",
+          admin_refresh_market_intelligence_path(scope: "demand"), method: :post,
+          class: "shrink-0 inline-flex items-center bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-3 py-1.5 text-xs font-medium transition-colors border-0 cursor-pointer" %>
+  </div>
+
+  <% if @searches_mined.to_i.zero? %>
+    <p class="px-5 py-6 pl-6 text-center text-sm text-[#9C8C72]">
+      Nothing mined yet &mdash; hit <strong>Refresh demand</strong> above and this fills in.
+    </p>
+  <% else %>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-px bg-[#EFE7D2]">
+      <!-- Gaps -->
+      <div class="bg-[#FFFEFB] p-5 pl-6">
+        <h3 class="text-sm font-medium text-[#211A14] mb-1">Demand you don't have a worksheet for</h3>
+        <p class="text-[11px] text-[#9C8C72] mb-3">
+          Highest demand first. <span class="text-[#6b5f4f]">Demand</span> is relative, weighted by
+          Google Trends volume and autocomplete rank &mdash; not a monthly search count.
+        </p>
+
+        <% if @gaps.blank? %>
+          <p class="text-sm text-[#9C8C72]">No uncovered demand in what's cached &mdash; your catalogue covers it all.</p>
+        <% else %>
+          <ul class="divide-y divide-[#EFE7D2] border border-[#E7DFC9] rounded-md overflow-hidden">
+            <% @gaps.each do |gap| %>
+              <li class="px-4 py-3 flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <p class="text-sm text-[#211A14]">
+                    <%= gap.phrase %>
+                    <% if gap.rising %>
+                      <span class="ml-1 inline-flex px-1.5 py-0.5 rounded text-[10px] font-medium border bg-[#E5EEE0] text-[#2F5233] border-[#2F5233]/25">rising</span>
+                    <% end %>
+                    <% if gap.free_intent %>
+                      <span class="ml-1 inline-flex px-1.5 py-0.5 rounded text-[10px] font-medium border bg-[#F5E9D0] text-[#8a6d1f] border-[#8a6d1f]/25">wants free</span>
+                    <% end %>
+                  </p>
+                  <p class="text-[11px] text-[#9C8C72] mt-0.5">
+                    demand <%= gap.score %> &middot; <%= pluralize(gap.mentions, "signal") %><%= " · asked as a question" if gap.from_question %>
+                  </p>
+                </div>
+                <%= link_to "Draft", admin_new_product_path(title: gap.phrase),
+                      class: "shrink-0 text-xs text-[#A8362B] hover:text-[#8f2c22] whitespace-nowrap mt-0.5" %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
+      <!-- Catalogue verdicts -->
+      <div class="bg-[#FFFEFB] p-5 pl-6">
+        <h3 class="text-sm font-medium text-[#211A14] mb-1">What you already sell</h3>
+        <p class="text-[11px] text-[#9C8C72] mb-3">Paid sales joined against search demand.</p>
+
+        <% if @catalogue_rows.blank? %>
+          <p class="text-sm text-[#9C8C72]">No live worksheets yet.</p>
+        <% else %>
+          <table class="w-full text-sm responsive-table">
+            <thead class="text-[#9C8C72]">
+              <tr>
+                <th class="text-left font-medium pb-2">Worksheet</th>
+                <th class="text-left font-medium pb-2">Sold</th>
+                <th class="text-left font-medium pb-2">Verdict</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#EFE7D2]">
+              <% @catalogue_rows.each do |row| %>
+                <% label, badge = verdicts[row.verdict] %>
+                <tr>
+                  <td class="py-2 pr-3" data-label="Worksheet">
+                    <%= link_to truncate(row.product.title.to_s, length: 40), admin_edit_product_path(row.product),
+                          class: "text-[#A8362B] hover:text-[#8f2c22]" %>
+                    <% if row.matched_phrases.any? %>
+                      <span class="block text-[11px] text-[#9C8C72] mt-0.5" title="<%= row.matched_phrases.join(' / ') %>">
+                        matches <%= pluralize(row.matched_phrases.size, "search") %>
+                      </span>
+                    <% end %>
+                  </td>
+                  <td class="py-2 pr-3 text-[#6b5f4f]" data-label="Sold"><%= row.units_sold %></td>
+                  <td class="py-2" data-label="Verdict">
+                    <span class="inline-flex px-2 py-0.5 rounded-md text-xs font-medium border <%= badge %>"><%= label %></span>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <p class="text-[11px] text-[#9C8C72] mt-3">
+            <strong>Wanted, not selling</strong> means people search for it and you have it &mdash;
+            so the problem is the listing, not the product.
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- Topic opportunity finder -->
+<div class="<%= card_class %> p-6 pl-7 mb-8">
+  <span class="<%= accent_class %>"></span>
+  <h2 class="font-display text-lg font-semibold text-[#211A14] mb-1">Worksheet idea finder</h2>
+  <p class="text-sm text-[#6b5f4f] mb-4">
+    Type a rough idea. Google tells you the questions real learners ask around it &mdash;
+    each one is a worksheet you could sell.
+  </p>
+
+  <%= form_with url: admin_market_intelligence_path, method: :get, local: true, class: "sm:flex sm:items-end sm:gap-3" do %>
+    <div class="flex-1">
+      <%= label_tag :topic, "Topic idea", class: label_class %>
+      <%= text_field_tag :topic, @topic, placeholder: "e.g. french verb conjugation", class: input_class %>
+    </div>
+    <button type="submit"
+            class="mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center items-center bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-4 py-2.5 text-sm font-medium transition-colors">
+      Find ideas
+    </button>
+  <% end %>
+  <p class="text-[11px] text-[#9C8C72] mt-2">Each search here uses one SerpApi credit.</p>
+
+  <% if @topic_error.present? %>
+    <div class="mt-4 rounded-sm bg-[#FBF0EC] border border-[#A8362B] px-4 py-3 text-sm text-[#7a1f17]">
+      <%= @topic_error %>
+    </div>
+  <% elsif @topic.present? %>
+    <div class="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div>
+        <h3 class="text-sm font-medium text-[#211A14] mb-2">
+          People also ask <span class="text-[#9C8C72] font-normal">&middot; <%= @topic %></span>
+        </h3>
+        <% if @related_questions.blank? %>
+          <p class="text-sm text-[#9C8C72]">Google returned no questions for this one &mdash; try a broader phrase.</p>
+        <% else %>
+          <ul class="divide-y divide-[#EFE7D2] border border-[#E7DFC9] rounded-md overflow-hidden">
+            <% @related_questions.each do |item| %>
+              <li class="px-4 py-3">
+                <div class="flex items-start justify-between gap-3">
+                  <p class="text-sm text-[#211A14]"><%= item[:question] %></p>
+                  <%= link_to "Draft", admin_new_product_path(title: item[:question]),
+                        class: "shrink-0 text-xs text-[#A8362B] hover:text-[#8f2c22] whitespace-nowrap mt-0.5" %>
+                </div>
+                <% if item[:snippet].present? %>
+                  <p class="text-xs text-[#6b5f4f] mt-1"><%= truncate(item[:snippet], length: 160) %></p>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-medium text-[#211A14] mb-2">Related searches</h3>
+        <% if @related_searches.blank? %>
+          <p class="text-sm text-[#9C8C72]">No related searches returned.</p>
+        <% else %>
+          <div class="flex flex-wrap gap-2">
+            <% @related_searches.each do |query| %>
+              <%= link_to query, admin_market_intelligence_path(topic: query),
+                    class: "inline-flex items-center rounded-full border border-[#d8c9a3] bg-white/60 px-3 py-1 text-xs text-[#6b5f4f] hover:border-[#A8362B] hover:text-[#A8362B] transition-colors" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- Rank snapshot -->
+<div class="<%= card_class %> mb-8">
+  <span class="<%= accent_class %>"></span>
+  <div class="px-5 py-4 pl-6 border-b border-[#A8362B] flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h2 class="text-sm font-medium text-[#211A14]">Where we rank on Google</h2>
+      <p class="text-[11px] text-[#9C8C72] mt-0.5">
+        <%= @our_domain %> &middot; cached &mdash; only Refresh spends a search
+      </p>
+    </div>
+    <%= button_to "Refresh ranks & prices (#{pluralize(@ranks_cost, 'search')})",
+          admin_refresh_market_intelligence_path(scope: "ranks"), method: :post,
+          class: "inline-flex items-center bg-[#A8362B] text-[#F6EFDD] hover:bg-[#8f2c22] rounded-md px-3 py-1.5 text-xs font-medium transition-colors border-0 cursor-pointer" %>
+  </div>
+
+  <table class="w-full text-sm responsive-table">
+    <thead class="text-[#9C8C72]">
+      <tr>
+        <th class="text-left font-medium px-5 py-3">Keyword</th>
+        <th class="text-left font-medium px-5 py-3">Our position</th>
+        <th class="text-left font-medium px-5 py-3">Top results right now</th>
+        <th class="text-left font-medium px-5 py-3">Checked</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-[#EFE7D2]">
+      <% @rankings.each do |ranking| %>
+        <tr class="hover:bg-[#FAF6EC] align-top">
+          <td class="px-5 py-3" data-label="Keyword"><%= ranking.keyword %></td>
+          <td class="px-5 py-3" data-label="Our position">
+            <% if ranking.fetched_at.nil? %>
+              <span class="text-[#9C8C72]">&mdash;</span>
+            <% elsif ranking.position %>
+              <span class="inline-flex px-2 py-0.5 rounded-md text-xs font-medium border bg-[#E5EEE0] text-[#2F5233] border-[#2F5233]/25">
+                #<%= ranking.position %>
+              </span>
+            <% else %>
+              <span class="inline-flex px-2 py-0.5 rounded-md text-xs font-medium border bg-[#F5E9D0] text-[#8a6d1f] border-[#8a6d1f]/25">
+                not in top results
+              </span>
+            <% end %>
+          </td>
+          <td class="px-5 py-3" data-label="Top results">
+            <% if ranking.competitors.blank? %>
+              <span class="text-[#9C8C72]">Not fetched yet &mdash; hit Refresh.</span>
+            <% else %>
+              <ol class="space-y-0.5 text-xs text-[#6b5f4f] text-right md:text-left">
+                <% ranking.competitors.each do |competitor| %>
+                  <li>
+                    <span class="text-[#9C8C72]"><%= competitor[:position] %>.</span>
+                    <%= link_to competitor[:domain], competitor[:link], target: "_blank", rel: "noopener",
+                          class: "#{competitor[:ours] ? 'font-semibold text-[#2F5233]' : 'text-[#6b5f4f]'} hover:text-[#A8362B]" %>
+                  </li>
+                <% end %>
+              </ol>
+            <% end %>
+          </td>
+          <td class="px-5 py-3 text-[#6b5f4f]" data-label="Checked">
+            <% if ranking.fetched_at.nil? %>
+              never
+            <% else %>
+              <%= ranking.fetched_at.strftime("%d %b, %H:%M") %>
+              <% unless ranking.fresh %>
+                <span class="block text-[11px] text-[#8a6d1f]">stale</span>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Competitor pricing -->
+<div class="<%= card_class %>">
+  <span class="<%= accent_class %>"></span>
+  <div class="px-5 py-4 pl-6 border-b border-[#A8362B]">
+    <h2 class="text-sm font-medium text-[#211A14]">What similar worksheets sell for</h2>
+    <p class="text-[11px] text-[#9C8C72] mt-0.5">
+      Google Shopping &middot; <%= @pricing_query %>
+      <% if @pricing_fetched_at %>
+        &middot; checked <%= @pricing_fetched_at.strftime("%d %b, %H:%M") %><%= " (stale)" unless @pricing_fresh %>
+      <% end %>
+    </p>
+  </div>
+
+  <% if @listings.blank? %>
+    <p class="px-5 py-6 pl-6 text-center text-sm text-[#9C8C72]">
+      Nothing cached yet &mdash; hit Refresh above to pull current listings.
+    </p>
+  <% else %>
+    <% if @median_price %>
+      <p class="px-5 pl-6 pt-4 text-sm text-[#6b5f4f]">
+        Median listed price:
+        <span class="font-display text-lg font-semibold text-[#211A14]"><%= number_with_precision(@median_price, precision: 2, strip_insignificant_zeros: true) %></span>
+        <span class="text-[11px] text-[#9C8C72]">as listed &mdash; each seller's own currency, so treat it as a rough signal.</span>
+      </p>
+    <% end %>
+    <table class="w-full text-sm responsive-table">
+      <thead class="text-[#9C8C72]">
+        <tr>
+          <th class="text-left font-medium px-5 py-3">Listing</th>
+          <th class="text-left font-medium px-5 py-3">Price</th>
+          <th class="text-left font-medium px-5 py-3">Seller</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-[#EFE7D2]">
+        <% @listings.each do |listing| %>
+          <tr class="hover:bg-[#FAF6EC]">
+            <td class="px-5 py-3" data-label="Listing">
+              <% if listing.link.present? %>
+                <%= link_to truncate(listing.title.to_s, length: 70), listing.link, target: "_blank", rel: "noopener",
+                      class: "text-[#A8362B] hover:text-[#8f2c22]" %>
+              <% else %>
+                <%= truncate(listing.title.to_s, length: 70) %>
+              <% end %>
+            </td>
+            <td class="px-5 py-3" data-label="Price"><%= listing.price.presence || "—" %></td>
+            <td class="px-5 py-3 text-[#6b5f4f]" data-label="Seller"><%= listing.source.presence || "—" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

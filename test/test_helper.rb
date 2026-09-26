@@ -5,8 +5,13 @@ require "minitest/mock"
 
 module ActiveSupport
   class TestCase
-    # Run tests in parallel with specified workers
-    parallelize(workers: :number_of_processors, with: :threads)
+    # Run serially on purpose. This suite stubs CLASS methods (SerpApiClient,
+    # Razorpay, Resend) and a class is shared mutable state: with threaded
+    # parallelism two tests stub and restore the same method at once and
+    # corrupt it ("undefined method `__minitest_stub__api_key'"). Rails only
+    # turns parallelism on past 50 tests, so this stayed hidden until the suite
+    # grew past that — hence the explicit setting rather than a raised threshold.
+    parallelize(workers: 1)
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all

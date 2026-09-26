@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     post "/orders/:id/resend",   to: "orders#resend_email", as: :resend_email_order
     post "/orders/:id/fulfill",  to: "orders#fulfill",      as: :fulfill_order
 
+    get  "/market_intelligence",         to: "market_intelligence#index",   as: :market_intelligence
+    post "/market_intelligence/refresh", to: "market_intelligence#refresh", as: :refresh_market_intelligence
+
     get    "/products",          to: "products#index",   as: :products
     get    "/products/new",      to: "products#new",     as: :new_product
     get    "/products/:id/edit", to: "products#edit",    as: :edit_product

@@ -31,3 +31,10 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# JetBrains / IDE settings.
+/.idea/
+
+# The storefront is its OWN git repository (deployed to GitHub Pages).
+# It lives here for convenience and must never be committed into the backend repo.
+/french-tuiton-website/

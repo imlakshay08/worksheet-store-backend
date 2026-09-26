@@ -40,10 +40,15 @@ class Admin::MarketIntelligenceController < Admin::BaseController
   #
   # Seeds are deliberately broad: they're what we expand FROM, not what we
   # expect to rank for.
+  # The last two mirror what this store actually sells, so the catalogue side of
+  # the demand gap has something to match against — a seed list that only covers
+  # the market and not your own shelves can never report "Proven".
   DEMAND_SEEDS = [
     "french worksheets",
     "learn french",
-    "french grammar"
+    "french grammar",
+    "french articles",
+    "french vocabulary"
   ].freeze
 
   AUTOCOMPLETE_ENGINE = "google_autocomplete".freeze

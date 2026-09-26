@@ -1,0 +1,1623 @@
+[
+  {
+    "query": "french worksheets",
+    "engine": "google_autocomplete",
+    "payload": {
+      "suggestions": [
+        {
+          "type": "QUERY",
+          "value": "french worksheets for beginners",
+          "relevance": 1250,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+beginners"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for beginners pdf",
+          "relevance": 1100,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+beginners+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for grade 7 pdf",
+          "relevance": 603,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+grade+7+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for kids",
+          "relevance": 602,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+kids"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for grade 1 pdf",
+          "relevance": 601,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+grade+1+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for beginners free",
+          "relevance": 600,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+beginners+free"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets pdf",
+          "relevance": 558,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for grade 5",
+          "relevance": 557,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+grade+5"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets with answers pdf",
+          "relevance": 556,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+with+answers+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for grade 1",
+          "relevance": 555,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+grade+1"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for grade 4",
+          "relevance": 554,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+grade+4"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for grade 2",
+          "relevance": 553,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+grade+2"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets grade 3",
+          "relevance": 552,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+grade+3"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets for beginners with answers",
+          "relevance": 551,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+for+beginners+with+answers"
+        },
+        {
+          "type": "QUERY",
+          "value": "french worksheets grade 6",
+          "relevance": 550,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+worksheets+grade+6"
+        }
+      ]
+    }
+  },
+  {
+    "query": "french worksheets",
+    "engine": "google_trends",
+    "payload": {
+      "related_queries": {
+        "top": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=free+french+worksheets&date=today+12-m",
+            "query": "free french worksheets",
+            "value": "100",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=free+french+worksheets&tz=420",
+            "extracted_value": 100
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+pdf&date=today+12-m",
+            "query": "french worksheets pdf",
+            "value": "96",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+pdf&tz=420",
+            "extracted_value": 96
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+to+english&date=today+12-m",
+            "query": "french to english",
+            "value": "25",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+to+english&tz=420",
+            "extracted_value": 25
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=live+worksheets+french&date=today+12-m",
+            "query": "live worksheets french",
+            "value": "14",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=live+worksheets+french&tz=420",
+            "extracted_value": 14
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=live+worksheets&date=today+12-m",
+            "query": "live worksheets",
+            "value": "14",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=live+worksheets&tz=420",
+            "extracted_value": 14
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+4+french+worksheets&date=today+12-m",
+            "query": "grade 4 french worksheets",
+            "value": "12",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+4+french+worksheets&tz=420",
+            "extracted_value": 12
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+2+french+worksheets&date=today+12-m",
+            "query": "grade 2 french worksheets",
+            "value": "11",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+2+french+worksheets&tz=420",
+            "extracted_value": 11
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+1+french+worksheets&date=today+12-m",
+            "query": "grade 1 french worksheets",
+            "value": "11",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+1+french+worksheets&tz=420",
+            "extracted_value": 11
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+5+french+worksheets&date=today+12-m",
+            "query": "grade 5 french worksheets",
+            "value": "9",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+5+french+worksheets&tz=420",
+            "extracted_value": 9
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+for+beginners&date=today+12-m",
+            "query": "french worksheets for beginners",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+for+beginners&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+for+kids&date=today+12-m",
+            "query": "french worksheets for kids",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+for+kids&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+3+french+worksheets&date=today+12-m",
+            "query": "grade 3 french worksheets",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+3+french+worksheets&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+for+grade+4&date=today+12-m",
+            "query": "french worksheets for grade 4",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+for+grade+4&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+6+french+worksheets&date=today+12-m",
+            "query": "grade 6 french worksheets",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+6+french+worksheets&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+for+grade+1&date=today+12-m",
+            "query": "french worksheets for grade 1",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+for+grade+1&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheet&date=today+12-m",
+            "query": "french worksheet",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheet&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+worksheets&date=today+12-m",
+            "query": "french grammar worksheets",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+worksheets&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+for+beginners+pdf&date=today+12-m",
+            "query": "french worksheets for beginners pdf",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+for+beginners+pdf&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=computer&date=today+12-m",
+            "query": "computer",
+            "value": "2",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=computer&tz=420",
+            "extracted_value": 2
+          }
+        ],
+        "rising": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=computer&date=today+12-m",
+            "query": "computer",
+            "value": "+550%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=computer&tz=420",
+            "extracted_value": 550
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=free+french+worksheets&date=today+12-m",
+            "query": "free french worksheets",
+            "value": "+250%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=free+french+worksheets&tz=420",
+            "extracted_value": 250
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+pdf&date=today+12-m",
+            "query": "french worksheets pdf",
+            "value": "+170%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+pdf&tz=420",
+            "extracted_value": 170
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+to+english&date=today+12-m",
+            "query": "french to english",
+            "value": "+160%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+to+english&tz=420",
+            "extracted_value": 160
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+for+grade+4&date=today+12-m",
+            "query": "french worksheets for grade 4",
+            "value": "+130%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+for+grade+4&tz=420",
+            "extracted_value": 130
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+for+grade+1&date=today+12-m",
+            "query": "french worksheets for grade 1",
+            "value": "+80%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+for+grade+1&tz=420",
+            "extracted_value": 80
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+worksheets+for+beginners+pdf&date=today+12-m",
+            "query": "french worksheets for beginners pdf",
+            "value": "+70%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+worksheets+for+beginners+pdf&tz=420",
+            "extracted_value": 70
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+2+french+worksheets&date=today+12-m",
+            "query": "grade 2 french worksheets",
+            "value": "+70%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+2+french+worksheets&tz=420",
+            "extracted_value": 70
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+5+french+worksheets&date=today+12-m",
+            "query": "grade 5 french worksheets",
+            "value": "+60%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+5+french+worksheets&tz=420",
+            "extracted_value": 60
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=grade+4+french+worksheets&date=today+12-m",
+            "query": "grade 4 french worksheets",
+            "value": "+60%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=grade+4+french+worksheets&tz=420",
+            "extracted_value": 60
+          }
+        ]
+      }
+    }
+  },
+  {
+    "query": "learn french",
+    "engine": "google_autocomplete",
+    "payload": {
+      "suggestions": [
+        {
+          "type": "QUERY",
+          "value": "learn french online",
+          "relevance": 1150,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+online"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french with alexa",
+          "relevance": 750,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+with+alexa"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french language",
+          "relevance": 601,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+language"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french online free",
+          "relevance": 600,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+online+free"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french free",
+          "relevance": 560,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+free"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french by suchita",
+          "relevance": 559,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+by+suchita"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french book",
+          "relevance": 558,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+book"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french in delhi",
+          "relevance": 557,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+in+delhi"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french with clemence",
+          "relevance": 556,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+with+clemence"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french for canada pr",
+          "relevance": 555,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+for+canada+pr"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french in 30 days pdf",
+          "relevance": 554,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+in+30+days+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french near me",
+          "relevance": 553,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+near+me"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french in bangalore",
+          "relevance": 552,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+in+bangalore"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french with harman",
+          "relevance": 551,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+with+harman"
+        },
+        {
+          "type": "QUERY",
+          "value": "learn french in 30 days",
+          "relevance": 550,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=learn+french+in+30+days"
+        }
+      ]
+    }
+  },
+  {
+    "query": "learn french",
+    "engine": "google_trends",
+    "payload": {
+      "related_queries": {
+        "top": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=to+learn+french&date=today+12-m",
+            "query": "to learn french",
+            "value": "100",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=to+learn+french&tz=420",
+            "extracted_value": 100
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+in+french&date=today+12-m",
+            "query": "learn in french",
+            "value": "57",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+in+french&tz=420",
+            "extracted_value": 57
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+learn+french&date=today+12-m",
+            "query": "how to learn french",
+            "value": "49",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+learn+french&tz=420",
+            "extracted_value": 49
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=to+learn+in+french&date=today+12-m",
+            "query": "to learn in french",
+            "value": "42",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=to+learn+in+french&tz=420",
+            "extracted_value": 42
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+language&date=today+12-m",
+            "query": "learn french language",
+            "value": "18",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+language&tz=420",
+            "extracted_value": 18
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+language&date=today+12-m",
+            "query": "french language",
+            "value": "18",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+language&tz=420",
+            "extracted_value": 18
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+free&date=today+12-m",
+            "query": "learn french free",
+            "value": "17",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+free&tz=420",
+            "extracted_value": 17
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=english+to+french&date=today+12-m",
+            "query": "english to french",
+            "value": "14",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=english+to+french&tz=420",
+            "extracted_value": 14
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+online&date=today+12-m",
+            "query": "learn french online",
+            "value": "12",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+online&tz=420",
+            "extracted_value": 12
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+pdf&date=today+12-m",
+            "query": "learn french pdf",
+            "value": "11",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+pdf&tz=420",
+            "extracted_value": 11
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+app&date=today+12-m",
+            "query": "learn french app",
+            "value": "10",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+app&tz=420",
+            "extracted_value": 10
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+spanish&date=today+12-m",
+            "query": "learn spanish",
+            "value": "9",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+spanish&tz=420",
+            "extracted_value": 9
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+for+free&date=today+12-m",
+            "query": "learn french for free",
+            "value": "9",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+for+free&tz=420",
+            "extracted_value": 9
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+learning&date=today+12-m",
+            "query": "french learning",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+learning&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=france&date=today+12-m",
+            "query": "france",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=france&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+youtube&date=today+12-m",
+            "query": "learn french youtube",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+youtube&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=why+learn+french&date=today+12-m",
+            "query": "why learn french",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=why+learn+french&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+learn+french+language&date=today+12-m",
+            "query": "how to learn french language",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+learn+french+language&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=app+to+learn+french&date=today+12-m",
+            "query": "app to learn french",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=app+to+learn+french&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=where+to+learn+french&date=today+12-m",
+            "query": "where to learn french",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=where+to+learn+french&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+long+to+learn+french&date=today+12-m",
+            "query": "how long to learn french",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+long+to+learn+french&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=reddit+learn+french&date=today+12-m",
+            "query": "reddit learn french",
+            "value": "5",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=reddit+learn+french&tz=420",
+            "extracted_value": 5
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+in+france&date=today+12-m",
+            "query": "learn french in france",
+            "value": "5",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+in+france&tz=420",
+            "extracted_value": 5
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+book&date=today+12-m",
+            "query": "learn french book",
+            "value": "5",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+book&tz=420",
+            "extracted_value": 5
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+near+me&date=today+12-m",
+            "query": "learn french near me",
+            "value": "5",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+near+me&tz=420",
+            "extracted_value": 5
+          }
+        ],
+        "rising": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+learn+calligraphy&date=today+12-m",
+            "query": "how to learn calligraphy",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+learn+calligraphy&tz=420",
+            "extracted_value": 28900
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=lidl+near+me&date=today+12-m",
+            "query": "lidl near me",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=lidl+near+me&tz=420",
+            "extracted_value": 18200
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+toast+near+me&date=today+12-m",
+            "query": "french toast near me",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+toast+near+me&tz=420",
+            "extracted_value": 8400
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=best+way+to+learn+javascript&date=today+12-m",
+            "query": "best way to learn javascript",
+            "value": "+4,700%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=best+way+to+learn+javascript&tz=420",
+            "extracted_value": 4700
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+learn+guitar+online&date=today+12-m",
+            "query": "how to learn guitar online",
+            "value": "+4,550%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+learn+guitar+online&tz=420",
+            "extracted_value": 4550
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+make+french+omelette&date=today+12-m",
+            "query": "how to make french omelette",
+            "value": "+1,600%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+make+french+omelette&tz=420",
+            "extracted_value": 1600
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+python+for+beginners&date=today+12-m",
+            "query": "learn python for beginners",
+            "value": "+1,450%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+python+for+beginners&tz=420",
+            "extracted_value": 1450
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+make+french+press+coffee&date=today+12-m",
+            "query": "how to make french press coffee",
+            "value": "+750%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+make+french+press+coffee&tz=420",
+            "extracted_value": 750
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=wikipedia&date=today+12-m",
+            "query": "wikipedia",
+            "value": "+600%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=wikipedia&tz=420",
+            "extracted_value": 600
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+learn+spanish+fast&date=today+12-m",
+            "query": "how to learn spanish fast",
+            "value": "+350%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+learn+spanish+fast&tz=420",
+            "extracted_value": 350
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+use+a+french+press&date=today+12-m",
+            "query": "how to use a french press",
+            "value": "+300%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+use+a+french+press&tz=420",
+            "extracted_value": 300
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+make+french+toast&date=today+12-m",
+            "query": "how to make french toast",
+            "value": "+300%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+make+french+toast&tz=420",
+            "extracted_value": 300
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+near+me&date=today+12-m",
+            "query": "learn french near me",
+            "value": "+200%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+near+me&tz=420",
+            "extracted_value": 200
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+programming&date=today+12-m",
+            "query": "learn programming",
+            "value": "+180%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+programming&tz=420",
+            "extracted_value": 180
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+pdf&date=today+12-m",
+            "query": "learn french pdf",
+            "value": "+180%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+pdf&tz=420",
+            "extracted_value": 180
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+youtube&date=today+12-m",
+            "query": "learn french youtube",
+            "value": "+90%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+youtube&tz=420",
+            "extracted_value": 90
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+for+free&date=today+12-m",
+            "query": "learn french for free",
+            "value": "+50%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+for+free&tz=420",
+            "extracted_value": 50
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=app+to+learn+french&date=today+12-m",
+            "query": "app to learn french",
+            "value": "+50%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=app+to+learn+french&tz=420",
+            "extracted_value": 50
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+app&date=today+12-m",
+            "query": "learn french app",
+            "value": "+50%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+app&tz=420",
+            "extracted_value": 50
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+for+beginners&date=today+12-m",
+            "query": "learn french for beginners",
+            "value": "+50%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+for+beginners&tz=420",
+            "extracted_value": 50
+          }
+        ]
+      }
+    }
+  },
+  {
+    "query": "french grammar",
+    "engine": "google_autocomplete",
+    "payload": {
+      "suggestions": [
+        {
+          "type": "QUERY",
+          "value": "french grammar book",
+          "relevance": 1251,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+book"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar book pdf",
+          "relevance": 1250,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+book+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar for beginners",
+          "relevance": 1100,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+for+beginners"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar check",
+          "relevance": 800,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+check"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar exercises",
+          "relevance": 601,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+exercises"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar book for beginners",
+          "relevance": 600,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+book+for+beginners"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar practice",
+          "relevance": 558,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+practice"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar exercises with answers pdf",
+          "relevance": 557,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+exercises+with+answers+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar worksheets",
+          "relevance": 556,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+worksheets"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar book for beginners pdf",
+          "relevance": 555,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+book+for+beginners+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar drills",
+          "relevance": 554,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+drills"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar course",
+          "relevance": 553,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+course"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar tenses",
+          "relevance": 552,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+tenses"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar in english",
+          "relevance": 551,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+in+english"
+        },
+        {
+          "type": "QUERY",
+          "value": "french grammar rules for beginners pdf",
+          "relevance": 550,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+grammar+rules+for+beginners+pdf"
+        }
+      ]
+    }
+  },
+  {
+    "query": "french grammar",
+    "engine": "google_trends",
+    "payload": {
+      "related_queries": {
+        "top": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+pdf&date=today+12-m",
+            "query": "french grammar pdf",
+            "value": "100",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+pdf&tz=420",
+            "extracted_value": 100
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+book&date=today+12-m",
+            "query": "french grammar book",
+            "value": "28",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+book&tz=420",
+            "extracted_value": 28
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=check+french+grammar&date=today+12-m",
+            "query": "check french grammar",
+            "value": "23",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=check+french+grammar&tz=420",
+            "extracted_value": 23
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+test&date=today+12-m",
+            "query": "french grammar test",
+            "value": "15",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+test&tz=420",
+            "extracted_value": 15
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+rules&date=today+12-m",
+            "query": "french grammar rules",
+            "value": "15",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+rules&tz=420",
+            "extracted_value": 15
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+practice&date=today+12-m",
+            "query": "french grammar practice",
+            "value": "15",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+practice&tz=420",
+            "extracted_value": 15
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+exercises&date=today+12-m",
+            "query": "french grammar exercises",
+            "value": "14",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+exercises&tz=420",
+            "extracted_value": 14
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+checker&date=today+12-m",
+            "query": "french grammar checker",
+            "value": "14",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+checker&tz=420",
+            "extracted_value": 14
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=complete+french+grammar&date=today+12-m",
+            "query": "complete french grammar",
+            "value": "12",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=complete+french+grammar&tz=420",
+            "extracted_value": 12
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+grammar&date=today+12-m",
+            "query": "learn french grammar",
+            "value": "12",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+grammar&tz=420",
+            "extracted_value": 12
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+books&date=today+12-m",
+            "query": "french grammar books",
+            "value": "11",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+books&tz=420",
+            "extracted_value": 11
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=texas+french+grammar&date=today+12-m",
+            "query": "texas french grammar",
+            "value": "10",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=texas+french+grammar&tz=420",
+            "extracted_value": 10
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+games&date=today+12-m",
+            "query": "french grammar games",
+            "value": "9",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+games&tz=420",
+            "extracted_value": 9
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+for+beginners&date=today+12-m",
+            "query": "french grammar for beginners",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+for+beginners&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+book+pdf&date=today+12-m",
+            "query": "french grammar book pdf",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+book+pdf&tz=420",
+            "extracted_value": 8
+          }
+        ],
+        "rising": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=texas+french+grammar&date=today+12-m",
+            "query": "texas french grammar",
+            "value": "+140%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=texas+french+grammar&tz=420",
+            "extracted_value": 140
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+pdf&date=today+12-m",
+            "query": "french grammar pdf",
+            "value": "+90%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+pdf&tz=420",
+            "extracted_value": 90
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar+games&date=today+12-m",
+            "query": "french grammar games",
+            "value": "+80%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar+games&tz=420",
+            "extracted_value": 80
+          }
+        ]
+      }
+    }
+  },
+  {
+    "query": "french articles",
+    "engine": "google_autocomplete",
+    "payload": {
+      "suggestions": [
+        {
+          "type": "QUERY",
+          "value": "french articles to read",
+          "relevance": 1250,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+to+read"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles exercises",
+          "relevance": 601,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+exercises"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles for beginners",
+          "relevance": 600,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+for+beginners"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles worksheet",
+          "relevance": 561,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+worksheet"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles news",
+          "relevance": 560,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+news"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles exercises pdf with answers",
+          "relevance": 559,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+exercises+pdf+with+answers"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles to read pdf",
+          "relevance": 558,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+to+read+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles to read for beginners",
+          "relevance": 557,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+to+read+for+beginners"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles pdf",
+          "relevance": 556,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles partitifs",
+          "relevance": 555,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+partitifs"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles on environment",
+          "relevance": 554,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+on+environment"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles chart",
+          "relevance": 553,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+chart"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles exercises with answers",
+          "relevance": 552,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+exercises+with+answers"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles newspaper",
+          "relevance": 551,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+newspaper"
+        },
+        {
+          "type": "QUERY",
+          "value": "french articles quiz",
+          "relevance": 550,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+articles+quiz"
+        }
+      ]
+    }
+  },
+  {
+    "query": "french articles",
+    "engine": "google_trends",
+    "payload": {
+      "related_queries": {
+        "top": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=articles+in+french&date=today+12-m",
+            "query": "articles in french",
+            "value": "100",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=articles+in+french&tz=420",
+            "extracted_value": 100
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=news+articles&date=today+12-m",
+            "query": "news articles",
+            "value": "27",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=news+articles&tz=420",
+            "extracted_value": 27
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+news+articles&date=today+12-m",
+            "query": "french news articles",
+            "value": "27",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+news+articles&tz=420",
+            "extracted_value": 27
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+news&date=today+12-m",
+            "query": "french news",
+            "value": "27",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+news&tz=420",
+            "extracted_value": 27
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=news+in+french&date=today+12-m",
+            "query": "news in french",
+            "value": "13",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=news+in+french&tz=420",
+            "extracted_value": 13
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+article&date=today+12-m",
+            "query": "french article",
+            "value": "13",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+article&tz=420",
+            "extracted_value": 13
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=articles+of+confederation&date=today+12-m",
+            "query": "articles of confederation",
+            "value": "13",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=articles+of+confederation&tz=420",
+            "extracted_value": 13
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=news+articles+in+french&date=today+12-m",
+            "query": "news articles in french",
+            "value": "13",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=news+articles+in+french&tz=420",
+            "extracted_value": 13
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=the+articles+of+confederation&date=today+12-m",
+            "query": "the articles of confederation",
+            "value": "12",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=the+articles+of+confederation&tz=420",
+            "extracted_value": 12
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=constitution&date=today+12-m",
+            "query": "constitution",
+            "value": "11",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=constitution&tz=420",
+            "extracted_value": 11
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=articles+in+english&date=today+12-m",
+            "query": "articles in english",
+            "value": "10",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=articles+in+english&tz=420",
+            "extracted_value": 10
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=english+to+french&date=today+12-m",
+            "query": "english to french",
+            "value": "10",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=english+to+french&tz=420",
+            "extracted_value": 10
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+revolution&date=today+12-m",
+            "query": "french revolution",
+            "value": "9",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+revolution&tz=420",
+            "extracted_value": 9
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+indian+war&date=today+12-m",
+            "query": "french indian war",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+indian+war&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=what+was+the+articles+of+confederation&date=today+12-m",
+            "query": "what was the articles of confederation",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=what+was+the+articles+of+confederation&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+and+indian+war&date=today+12-m",
+            "query": "french and indian war",
+            "value": "8",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+and+indian+war&tz=420",
+            "extracted_value": 8
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=the+french+and+indian+war&date=today+12-m",
+            "query": "the french and indian war",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=the+french+and+indian+war&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=definite+articles+french&date=today+12-m",
+            "query": "definite articles french",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=definite+articles+french&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=definite+articles&date=today+12-m",
+            "query": "definite articles",
+            "value": "7",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=definite+articles&tz=420",
+            "extracted_value": 7
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=indefinite+articles+french&date=today+12-m",
+            "query": "indefinite articles french",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=indefinite+articles+french&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=indefinite+articles&date=today+12-m",
+            "query": "indefinite articles",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=indefinite+articles&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=what+were+the+articles+of+confederation&date=today+12-m",
+            "query": "what were the articles of confederation",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=what+were+the+articles+of+confederation&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=declaration+of+independence&date=today+12-m",
+            "query": "declaration of independence",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=declaration+of+independence&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=what+is+the+articles+of+confederation&date=today+12-m",
+            "query": "what is the articles of confederation",
+            "value": "6",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=what+is+the+articles+of+confederation&tz=420",
+            "extracted_value": 6
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=what+was+the+french+and+indian+war&date=today+12-m",
+            "query": "what was the french and indian war",
+            "value": "5",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=what+was+the+french+and+indian+war&tz=420",
+            "extracted_value": 5
+          }
+        ],
+        "rising": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=walmart+near+me&date=today+12-m",
+            "query": "walmart near me",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=walmart+near+me&tz=420",
+            "extracted_value": 46200
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+toast+near+me&date=today+12-m",
+            "query": "french toast near me",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+toast+near+me&tz=420",
+            "extracted_value": 28900
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+make+french+press+coffee&date=today+12-m",
+            "query": "how to make french press coffee",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+make+french+press+coffee&tz=420",
+            "extracted_value": 27250
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=baguette+french&date=today+12-m",
+            "query": "baguette french",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=baguette+french&tz=420",
+            "extracted_value": 13200
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+and+german+articles+present+latent+suspicion&date=today+12-m",
+            "query": "french and german articles present latent suspicion",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+and+german+articles+present+latent+suspicion&tz=420",
+            "extracted_value": 5350
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=news+articles&date=today+12-m",
+            "query": "news articles",
+            "value": "+100%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=news+articles&tz=420",
+            "extracted_value": 100
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+news+articles&date=today+12-m",
+            "query": "french news articles",
+            "value": "+90%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+news+articles&tz=420",
+            "extracted_value": 90
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+news&date=today+12-m",
+            "query": "french news",
+            "value": "+90%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+news&tz=420",
+            "extracted_value": 90
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=news+in+french&date=today+12-m",
+            "query": "news in french",
+            "value": "+80%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=news+in+french&tz=420",
+            "extracted_value": 80
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=news+articles+in+french&date=today+12-m",
+            "query": "news articles in french",
+            "value": "+80%",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=news+articles+in+french&tz=420",
+            "extracted_value": 80
+          }
+        ]
+      }
+    }
+  },
+  {
+    "query": "french vocabulary",
+    "engine": "google_autocomplete",
+    "payload": {
+      "suggestions": [
+        {
+          "type": "QUERY",
+          "value": "french vocabulary pdf",
+          "relevance": 1250,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary book",
+          "relevance": 601,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+book"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary for beginners",
+          "relevance": 600,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+for+beginners"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary words",
+          "relevance": 561,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+words"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary book pdf",
+          "relevance": 560,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+book+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary with pronunciation",
+          "relevance": 559,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+with+pronunciation"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary flashcards",
+          "relevance": 558,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+flashcards"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary test",
+          "relevance": 557,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+test"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary list",
+          "relevance": 556,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+list"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary with english meaning",
+          "relevance": 555,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+with+english+meaning"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary with pronunciation pdf",
+          "relevance": 554,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+with+pronunciation+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary tree",
+          "relevance": 553,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+tree"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary b1",
+          "relevance": 552,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+b1"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary list pdf",
+          "relevance": 551,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+list+pdf"
+        },
+        {
+          "type": "QUERY",
+          "value": "french vocabulary games",
+          "relevance": 550,
+          "serpapi_link": "https://serpapi.com/search.json?engine=google_autocomplete&gl=in&hl=en&q=french+vocabulary+games"
+        }
+      ]
+    }
+  },
+  {
+    "query": "french vocabulary",
+    "engine": "google_trends",
+    "payload": {
+      "related_queries": {
+        "top": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=vocabulary+in+french&date=today+12-m",
+            "query": "vocabulary in french",
+            "value": "100",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=vocabulary+in+french&tz=420",
+            "extracted_value": 100
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=english+vocabulary&date=today+12-m",
+            "query": "english vocabulary",
+            "value": "46",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=english+vocabulary&tz=420",
+            "extracted_value": 46
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+vocabulary+pdf&date=today+12-m",
+            "query": "french vocabulary pdf",
+            "value": "37",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+vocabulary+pdf&tz=420",
+            "extracted_value": 37
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+vocabulary+list&date=today+12-m",
+            "query": "french vocabulary list",
+            "value": "28",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+vocabulary+list&tz=420",
+            "extracted_value": 28
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+words&date=today+12-m",
+            "query": "french words",
+            "value": "23",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+words&tz=420",
+            "extracted_value": 23
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+vocabulary+words&date=today+12-m",
+            "query": "french vocabulary words",
+            "value": "22",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+vocabulary+words&tz=420",
+            "extracted_value": 22
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=vocabulary+words&date=today+12-m",
+            "query": "vocabulary words",
+            "value": "22",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=vocabulary+words&tz=420",
+            "extracted_value": 22
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+to+english&date=today+12-m",
+            "query": "french to english",
+            "value": "22",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+to+english&tz=420",
+            "extracted_value": 22
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+learning&date=today+12-m",
+            "query": "french learning",
+            "value": "16",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+learning&tz=420",
+            "extracted_value": 16
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french+vocabulary&date=today+12-m",
+            "query": "learn french vocabulary",
+            "value": "14",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french+vocabulary&tz=420",
+            "extracted_value": 14
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=learn+french&date=today+12-m",
+            "query": "learn french",
+            "value": "13",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=learn+french&tz=420",
+            "extracted_value": 13
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=word+vocabulary&date=today+12-m",
+            "query": "word vocabulary",
+            "value": "13",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=word+vocabulary&tz=420",
+            "extracted_value": 13
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+grammar&date=today+12-m",
+            "query": "french grammar",
+            "value": "12",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+grammar&tz=420",
+            "extracted_value": 12
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+food+vocabulary&date=today+12-m",
+            "query": "french food vocabulary",
+            "value": "11",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+food+vocabulary&tz=420",
+            "extracted_value": 11
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+vocabulary+test&date=today+12-m",
+            "query": "french vocabulary test",
+            "value": "9",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+vocabulary+test&tz=420",
+            "extracted_value": 9
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=spanish+vocabulary&date=today+12-m",
+            "query": "spanish vocabulary",
+            "value": "9",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=spanish+vocabulary&tz=420",
+            "extracted_value": 9
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=ai+news+today&date=today+12-m",
+            "query": "ai news today",
+            "value": "1",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=ai+news+today&tz=420",
+            "extracted_value": 1
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+toast+near+me&date=today+12-m",
+            "query": "french toast near me",
+            "value": "<1",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+toast+near+me&tz=420",
+            "extracted_value": 0
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+use+a+french+press&date=today+12-m",
+            "query": "how to use a french press",
+            "value": "<1",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+use+a+french+press&tz=420",
+            "extracted_value": 0
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+make+french+toast&date=today+12-m",
+            "query": "how to make french toast",
+            "value": "<1",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+make+french+toast&tz=420",
+            "extracted_value": 0
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+make+french+omelette&date=today+12-m",
+            "query": "how to make french omelette",
+            "value": "<1",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+make+french+omelette&tz=420",
+            "extracted_value": 0
+          }
+        ],
+        "rising": [
+          {
+            "link": "https://trends.google.com/trends/explore?q=ai+news+today&date=today+12-m",
+            "query": "ai news today",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=ai+news+today&tz=420",
+            "extracted_value": 39250
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=french+toast+near+me&date=today+12-m",
+            "query": "french toast near me",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=french+toast+near+me&tz=420",
+            "extracted_value": 18900
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+use+a+french+press&date=today+12-m",
+            "query": "how to use a french press",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+use+a+french+press&tz=420",
+            "extracted_value": 16600
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+make+french+toast&date=today+12-m",
+            "query": "how to make french toast",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+make+french+toast&tz=420",
+            "extracted_value": 14550
+          },
+          {
+            "link": "https://trends.google.com/trends/explore?q=how+to+make+french+omelette&date=today+12-m",
+            "query": "how to make french omelette",
+            "value": "Breakout",
+            "serpapi_link": "https://serpapi.com/search.json?data_type=RELATED_QUERIES&date=today+12-m&engine=google_trends&hl=en&q=how+to+make+french+omelette&tz=420",
+            "extracted_value": 12250
+          }
+        ]
+      }
+    }
+  }
+]

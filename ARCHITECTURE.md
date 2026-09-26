@@ -99,7 +99,8 @@ worksheet_store/
 │   ├── storage.yml                          # R2 service definition
 │   └── initializers/{cors,rack_attack,filter_parameter_logging,razorpay,resend}.rb
 ├── db/{schema.rb, migrate/*}
-├── test/                                    # Minitest, 53 tests
+├── db/seeds.rb                               # demo catalogue/sales + captured SerpApi data
+├── test/                                    # Minitest, 59 tests
 ├── french-tuiton-website/                   # the STOREFRONT (SEPARATE git repo → GitHub Pages)
 │   ├── index/shop/about/contact.html + terms/privacy/refund/shipping.html
 │   ├── style.css, script.js, CNAME, favicons
@@ -379,6 +380,11 @@ reflows wide tables into stacked, labelled cards below 768 px.
   Username is the constant `"nidhi"`; the password comes from
   `credentials.admin.password`, compared with `ActiveSupport::SecurityUtils.secure_compare`
   (constant-time). `reset_session` on login. Blank credential ⇒ always fails.
+- **Demo fallback (local only).** If the credentials carry no admin password —
+  someone cloned the repo without the master key — `Admin::SessionsController`
+  falls back to `DEMO_PASSWORD` in development and test **only**, so the app and its
+  test suite are runnable by a reviewer. Outside those environments a missing
+  credential still fails closed, and a real credential always wins. Pinned by tests.
 - **Not** `has_secure_password`/bcrypt — a deliberate choice for a single-admin tool.
   The password lives in `credentials.yml.enc` (encrypted; master key is a Railway env
   var), never plaintext in the repo.
@@ -715,7 +721,7 @@ backend first when they change together.
 
 Minitest + fixtures, threaded parallelisation; rack-attack disabled in tests.
 `test/test_helper.rb` provides a `sign_in_admin` helper and `minitest/mock` for stubbing
-Resend/Razorpay/SerpApi. 53 tests, deliberately concentrated where a bug costs money or
+Resend/Razorpay/SerpApi. 59 tests, deliberately concentrated where a bug costs money or
 leaks a paid file:
 
 **The suite runs serially on purpose** (`parallelize(workers: 1)`). It stubs *class*

@@ -24,8 +24,10 @@ class ActionDispatch::IntegrationTest
   # Logs in as the admin using the password stored in credentials.
   def sign_in_admin
     post admin_login_path, params: {
-      username: "nidhi",
-      password: Rails.application.credentials.dig(:admin, :password)
+      username: Admin::SessionsController::ADMIN_USERNAME,
+      # Same source of truth as the controller, so the suite also runs for
+      # someone who cloned the repo without the encrypted credentials.
+      password: Admin::SessionsController.expected_password
     }
   end
 end

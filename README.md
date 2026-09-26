@@ -12,7 +12,7 @@ market-intelligence page** that tells the owner which worksheet to build next.
 ![Payments](https://img.shields.io/badge/Payments-Razorpay_%2B_PayPal-003087?logo=paypal&logoColor=white)
 ![Storage](https://img.shields.io/badge/Storage-Cloudflare_R2-F38020?logo=cloudflare&logoColor=white)
 ![Search data](https://img.shields.io/badge/Search_data-SerpApi-3B82F6)
-![Tests](https://img.shields.io/badge/Minitest-53_tests-brightgreen)
+![Tests](https://img.shields.io/badge/Minitest-59_tests-brightgreen)
 
 > 🌐 **Live:** the storefront at `frenchworksheethub.com` (a separate static app on
 > GitHub Pages) consumes this API. This repository is the **backend + admin**.
@@ -71,7 +71,7 @@ important design choice (see below).
 | Media pipeline | Ghostscript (PDF compression), ImageMagick (preview images), `pdf-reader` (page counts) |
 | Abuse protection | **Rack::Attack** (layered throttles + body-size blocklist) |
 | Hosting / CI | Railway (multi-stage Docker), migrations run on deploy |
-| Testing | Minitest, 53 tests on the money-critical paths (+ the isolated research feature) |
+| Testing | Minitest, 59 tests on the money-critical paths (+ the isolated research feature) |
 
 ---
 
@@ -300,34 +300,47 @@ bin/rails test
 
 ---
 
-## Local development
+## Run it yourself (no API keys needed)
+
+The repo ships with demo data — a sample catalogue, sample paid sales, and **real
+SerpApi responses captured from the live store** — so the whole Market Intelligence
+feature runs offline, with no SerpApi key and none of the encrypted credentials.
 
 ```bash
 git clone <this-repo>
 cd worksheet_store
 bundle install
 
-# Rails encrypted credentials are required (Razorpay/PayPal/R2/Resend/admin keys).
-# Provide your own master key + credentials to run against real services:
-#   EDITOR="code --wait" bin/rails credentials:edit
-
-bin/rails db:prepare      # create + migrate
+bin/rails db:setup        # create, migrate, seed the demo data
 bin/rails server
-bin/rails test
+bin/rails test            # 59 tests, no network calls
 ```
 
-Admin panel: `/admin/login` (single-user session auth; `/` redirects there).
-Active Storage uses local disk in development and R2 in production, so no cloud
-credentials are needed just to click around.
+Then open **`/admin/login`** and sign in as **`nidhi`** / **`worksheet-demo`**.
+Go to **Research** in the sidebar: the demand gap is already populated from the
+bundled snapshots, and the catalogue shows all four verdicts.
 
-To try the Research page, add a [free SerpApi key](https://serpapi.com/) to credentials:
+That demo password only exists when there are no encrypted credentials, and only in
+development and test — a real deploy with a missing credential still fails closed.
+
+**To run against live services** (payments, R2, email, live SerpApi) you need your own
+master key and credentials:
+
+```bash
+EDITOR="notepad" bin/rails credentials:edit    # or: EDITOR="code --wait"
+```
 
 ```yaml
 serpapi:
-  api_key: your_key_here
+  api_key: your_serpapi_key_here
 ```
 
-Without it the page still renders and says so — the feature is inert, never broken.
+With a key configured, the two Refresh buttons fetch live data; without one, the page
+says so and keeps working from the bundled snapshots.
+
+Active Storage uses local disk in development and R2 in production, so no cloud
+credentials are needed just to click around. `db/seeds.rb` refuses to run in
+production, so demo rows can never mix with the live store's real catalogue and orders.
 
 ---
 

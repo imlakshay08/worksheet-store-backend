@@ -219,8 +219,19 @@ class DemandGapAnalyzer
     (words & NICHE_ANCHORS).any? && (words & OFF_TOPIC).empty?
   end
 
+  # Short words are noise — EXCEPT when they carry a digit. "grade 3" and
+  # "grade 4" are different worksheets, and this store's whole catalogue is
+  # organised by CEFR level, so "a1" and "b2" are among the most meaningful
+  # tokens there are. Dropping them merged every grade into one topic.
   def significant_words(phrase)
-    phrase.split(/[\s-]+/).reject { |word| word.length < 3 || STOPWORDS.include?(word) }
+    phrase.split(/[\s-]+/).reject { |word| STOPWORDS.include?(word) || !meaningful?(word) }
+  end
+
+  # Short words are noise — EXCEPT when they carry a digit. Used on BOTH sides
+  # of the comparison, so a search for "french grammar a1" and a product called
+  # "A1 Grammar practice pack" recognise each other.
+  def meaningful?(word)
+    word.length >= 3 || word.match?(/\d/)
   end
 
   # The best-matching live worksheet for a phrase, or nil if the catalogue
@@ -249,7 +260,7 @@ class DemandGapAnalyzer
     @product_words ||= {}
     @product_words[product.id] ||= begin
       text = [product.title, product.level, product.description.to_s[0, 1000]].compact.join(" ")
-      normalise(text).split(/[\s-]+/).reject { |word| word.length < 3 }.to_set
+      normalise(text).split(/[\s-]+/).select { |word| meaningful?(word) }.to_set
     end
   end
 

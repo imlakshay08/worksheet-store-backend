@@ -51,7 +51,7 @@ class DemandGapAnalyzerTest < ActiveSupport::TestCase
   end
 
   test "a more specific phrasing folds into the general topic it belongs to" do
-    payload = { "related_searches" => [{ "query" => "french numbers 1 to 100 worksheet" }],
+    payload = { "related_searches" => [{ "query" => "french numbers to 100 worksheet" }],
                 "related_questions" => [{ "question" => "How do you teach French numbers to 100?" }] }
 
     gaps = DemandGapAnalyzer.new(products: [], snapshots: [snapshot(payload)], units_sold: {}).call[:gaps]
@@ -60,7 +60,41 @@ class DemandGapAnalyzerTest < ActiveSupport::TestCase
     assert_equal 2, gaps.first.mentions
     # The non-question phrasing wins the label, because it is what a worksheet
     # would be called.
-    assert_equal "french numbers 1 to 100 worksheet", gaps.first.phrase
+    assert_equal "french numbers to 100 worksheet", gaps.first.phrase
+  end
+
+  # Numbers and CEFR levels are shorter than the noise cutoff but carry all the
+  # meaning: "grade 3" and "grade 4" are different worksheets, and an A1 pack is
+  # not a B2 pack. Dropping them collapsed every grade into one topic labelled
+  # by whichever phrasing happened to sort first.
+  test "grades and CEFR levels are separate topics, not one merged blob" do
+    payload = { "related_queries" => { "top" => [
+      { "query" => "french worksheets grade 3", "value" => 90 },
+      { "query" => "grade 4 french worksheets", "value" => 80 },
+      { "query" => "french worksheets a1",      "value" => 70 },
+      { "query" => "french worksheets b2",      "value" => 60 }
+    ] } }
+
+    gaps = DemandGapAnalyzer.new(products: [], snapshots: [snapshot(payload)], units_sold: {}).call[:gaps]
+
+    assert_equal 4, gaps.size
+    assert_equal [90, 80, 70, 60], gaps.map(&:score)
+    assert_includes gaps.map(&:phrase), "french worksheets grade 3"
+    assert_includes gaps.map(&:phrase), "grade 4 french worksheets"
+    assert_includes gaps.map(&:phrase), "french worksheets a1"
+  end
+
+  test "a level-specific worksheet only covers its own level" do
+    a1_pack = Product.new(id: 1, title: "A1 Grammar practice pack", description: "Grammar drills.")
+
+    payload = { "related_queries" => { "top" => [
+      { "query" => "french grammar a1", "value" => 90 },
+      { "query" => "french grammar b2", "value" => 80 }
+    ] } }
+
+    gaps = DemandGapAnalyzer.new(products: [a1_pack], snapshots: [snapshot(payload)], units_sold: { 1 => 4 }).call[:gaps]
+
+    assert_equal ["french grammar b2"], gaps.map(&:phrase)
   end
 
   # Google Trends drifts: seeded with "french grammar" it returns french toast

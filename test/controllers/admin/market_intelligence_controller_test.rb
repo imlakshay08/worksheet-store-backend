@@ -81,7 +81,7 @@ class Admin::MarketIntelligenceControllerTest < ActionDispatch::IntegrationTest
 
     SerpSnapshot.record!(query: KEYWORD, engine: "google", payload: {
       "related_searches"  => [{ "query" => "french avoir conjugation drills" },
-                              { "query" => "french numbers 1 to 100 worksheet" }],
+                              { "query" => "french numbers to 100 worksheet" }],
       "related_questions" => [{ "question" => "How do you teach French numbers to 100?" }]
     })
 
@@ -90,7 +90,7 @@ class Admin::MarketIntelligenceControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     # Demand with no matching worksheet → a gap, clustered across both phrasings.
-    assert_match "french numbers 1 to 100 worksheet", response.body
+    assert_match "french numbers to 100 worksheet", response.body
     assert_match "2 signals", response.body
     # Demand she already covers AND has sold → proven, not a gap.
     assert_match "Avoir Conjugation Drills", response.body

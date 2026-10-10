@@ -307,8 +307,8 @@ SerpApi responses captured from the live store** — so the whole Market Intelli
 feature runs offline, with no SerpApi key and none of the encrypted credentials.
 
 ```bash
-git clone <this-repo>
-cd worksheet_store
+git clone https://github.com/imlakshay08/worksheet-store-backend.git
+cd worksheet-store-backend
 bundle install
 
 bin/rails db:setup        # create, migrate, seed the demo data
@@ -341,6 +341,16 @@ says so and keeps working from the bundled snapshots.
 Active Storage uses local disk in development and R2 in production, so no cloud
 credentials are needed just to click around. `db/seeds.rb` refuses to run in
 production, so demo rows can never mix with the live store's real catalogue and orders.
+
+---
+
+## Contributing
+
+Contributions are welcome. Look for issues labelled `good first issue` and read
+[CONTRIBUTING.md](CONTRIBUTING.md) first. It explains the offline setup and which
+parts of the code are maintainer-only.
+Found a security problem? Please follow [SECURITY.md](SECURITY.md) instead of opening
+a public issue.
 
 ---
 
